@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0f13">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Blokk 1 — Håndstand</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;overscroll-behavior:none}
+body{
+  background:#0d0f13;color:#e8eaed;
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+button{font-family:inherit}
+
+/* ---------- liste ---------- */
+#list{padding-bottom:130px}
+header{position:sticky;top:0;z-index:20;background:#0d0f13;border-bottom:1px solid #232833;padding:env(safe-area-inset-top) 0 0}
+.wk{padding:10px 16px 8px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.wk b{font-size:15px;color:#ffb454;letter-spacing:.02em}
+.wk span{font-size:12px;color:#8b929e}
+nav{display:flex;gap:6px;padding:0 12px 10px}
+nav button{flex:1;padding:12px 4px;border:1px solid #232833;border-radius:10px;background:#141821;color:#8b929e;font:600 15px/1 inherit}
+nav button.on{background:#ffb454;border-color:#ffb454;color:#0d0f13}
+.banner{margin:12px;padding:12px 14px;border-radius:12px;background:#1b1508;border:1px solid #3d2f10;font-size:14px;line-height:1.45}
+.banner b{color:#ffb454;display:block;margin-bottom:3px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+main{padding:0 12px}
+section{margin-bottom:14px;background:#141821;border:1px solid #232833;border-radius:14px;overflow:hidden}
+h2{margin:0;padding:13px 15px;font-size:15px;font-weight:700;background:#1a1f29;border-bottom:1px solid #232833;display:flex;justify-content:space-between;align-items:center;gap:8px}
+h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space:nowrap}
+.ex{display:flex;align-items:flex-start;gap:12px;padding:14px 15px;border-bottom:1px solid #1c212b;cursor:pointer}
+.ex:last-child{border-bottom:none}
+.bx{flex:none;width:26px;height:26px;margin-top:1px;border-radius:7px;border:2px solid #39414f;display:grid;place-items:center;font-size:15px;color:transparent;transition:.12s}
+.ex.done .bx{background:#3ddc84;border-color:#3ddc84;color:#0d0f13}
+.ex.done .nm{color:#5d646f;text-decoration:line-through}
+.tx{flex:1;min-width:0}
+.nm{font-size:15.5px;font-weight:600;line-height:1.35}
+.ds{font-size:13.5px;color:#98a0ad;margin-top:3px;line-height:1.45}
+.tg{flex:none;align-self:center;padding:6px 10px;border-radius:8px;background:#232a36;color:#9aa3b0;font:600 12px/1 inherit;white-space:nowrap}
+.meas{padding:14px 15px;display:flex;flex-direction:column;gap:12px}
+.meas label{font-size:14px;color:#c3cad6;display:flex;flex-direction:column;gap:6px}
+.meas input{padding:13px 14px;border-radius:10px;border:1px solid #333c4b;background:#0d0f13;color:#e8eaed;font:600 17px/1 inherit}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#11151dee;backdrop-filter:blur(10px);border-top:1px solid #232833;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px}
+.bar button{flex:1;padding:15px 8px;border-radius:11px;border:none;font:700 15px/1 inherit;background:#3ddc84;color:#0d0f13}
+.bar button.sec{background:#232a36;color:#c3cad6;flex:0 0 76px;font-weight:600}
+.bar button.amber{background:#ffb454}
+
+/* ---------- runner ---------- */
+#run{display:none;position:fixed;inset:0;z-index:40;background:#0d0f13;flex-direction:column;padding:env(safe-area-inset-top) 16px calc(12px + env(safe-area-inset-bottom))}
+#run.on{display:flex}
+.rtop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0 4px;font-size:12px;color:#8b929e;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.rtop button{background:none;border:none;color:#8b929e;font:700 13px/1 inherit;padding:8px 2px}
+.rblock{font-size:12.5px;color:#ffb454;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-top:6px}
+.rname{font-size:29px;font-weight:800;line-height:1.15;margin:6px 0 8px}
+.rdesc{font-size:15px;color:#98a0ad;line-height:1.5}
+.rmid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:0}
+.rphase{font-size:14px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#3ddc84}
+.rphase.rest{color:#60a5fa}
+.rnum{font-size:clamp(76px,26vw,132px);font-weight:800;line-height:.95;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.rnum.warn{color:#ffb454}
+.rset{font-size:15px;color:#8b929e;font-weight:600}
+.rnext{font-size:13.5px;color:#6b7280;text-align:center;padding:8px 0 4px;min-height:22px}
+.rprog{height:5px;border-radius:3px;background:#1c212b;overflow:hidden;margin:8px 0 12px}
+.rprog i{display:block;height:100%;background:#3ddc84;width:0;transition:width .3s}
+.rctl{display:flex;gap:8px}
+.rctl button{flex:1;padding:17px 6px;border-radius:12px;border:1px solid #2a323f;background:#1a1f29;color:#e8eaed;font:700 15px/1 inherit}
+.rctl button.main{background:#3ddc84;border-color:#3ddc84;color:#0d0f13;flex:1.5}
+.rctl button.main.paused{background:#ffb454;border-color:#ffb454}
+#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(14px);background:#3ddc84;color:#0d0f13;padding:12px 20px;border-radius:11px;font:700 14px/1 inherit;opacity:0;transition:.22s;pointer-events:none;z-index:60;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div id="list">
+  <header>
+    <div class="wk"><b id="wkLabel">—</b><span id="dateLabel">—</span></div>
+    <nav>
+      <button data-d="man">Mandag</button>
+      <button data-d="ons">Onsdag</button>
+      <button data-d="tor">Torsdag</button>
+    </nav>
+  </header>
+  <div class="banner" id="banner"></div>
+  <main id="main"></main>
+  <div class="bar">
+    <button class="sec" id="reset">Nullstill</button>
+    <button class="sec" id="copy">Logg</button>
+    <button id="start">▶ Start økt</button>
+  </div>
+</div>
+
+<div id="run">
+  <div class="rtop">
+    <span id="rCount">—</span>
+    <button id="rQuit">Avslutt ✕</button>
+  </div>
+  <div>
+    <div class="rblock" id="rBlock">—</div>
+    <div class="rname" id="rName">—</div>
+    <div class="rdesc" id="rDesc"></div>
+  </div>
+  <div class="rmid">
+    <div class="rphase" id="rPhase">ARBEID</div>
+    <div class="rnum" id="rNum">0</div>
+    <div class="rset" id="rSet"></div>
+  </div>
+  <div class="rnext" id="rNext"></div>
+  <div class="rprog"><i id="rBar"></i></div>
+  <div class="rctl">
+    <button id="rPrev">◀ Forrige</button>
+    <button class="main" id="rPause">Pause</button>
+    <button id="rNextBtn">Neste ▶</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+"use strict";
+
+/* ================= blokk 1: 2026-09-07 → 2026-10-19 ================= */
+const BLOCK_START = new Date(2026, 8, 7);
+const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+
+function weekNo() {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  return Math.min(Math.max(Math.floor((t - BLOCK_START) / 6048e5) + 1, 1), 6);
+}
+/* bailen ligger alltid ett steg foran oppsparket */
+function ladder(w) {
+  if (w <= 2) return { bail: "Vegg, frontsplitt, vekt ut. Mot slutten av uke 2: prøv 60–80 cm", kick: "Vegg 30–40 cm bak deg" };
+  if (w <= 4) return { bail: "60–80 cm. Mot slutten av uke 4: åpent gulv", kick: "Vegg 60–80 cm bak deg" };
+  return { bail: "Åpent gulv, fra fritt oppspark", kick: "Åpent gulv" };
+}
+
+/* øvelse: [navn, beskrivelse, tid]
+   tid = sekunder  ELLER  [serier, arbeid, hvile] */
+const S = {
+  man: {
+    title: "Form og linje",
+    note: "Kommer etter tre harde dager. <strong>Skal ikke være hard.</strong> Bygger linjen og avlaster korsryggen.",
+    blocks: [
+      ["Oppvarming", [
+        ["Håndleddssirkler + belastet strekk", "Frem og tilbake, rolig", 180],
+        ["Kosteskaft dislocates", "2 × 10", 100],
+        ["Band pull-aparts", "2 × 15", 100],
+        ["Scapula push-ups", "2 × 10", 100]
+      ]],
+      ["1 · Bekkenkontroll og midtlinje", [
+        ["Bakover-tilt mot vegg", "3 × 10 — produser tilten bevisst", 150],
+        ["Dead bug", "3 × 8 per side, sakte", 210],
+        ["Hollow hold", "Korsryggen presset i gulvet", [4, 30, 30]],
+        ["Hollow rock", "3 × 15 — kun når hollow hold er stabil", 180]
+      ]],
+      ["2 · Bryst-mot-vegg håndstand", [
+        ["Bryst-mot-vegg hold", "Ribbein ned, sete strammet, bakover-tilt. Ryker linjen — bryt", [5, 30, 45]]
+      ]],
+      ["3 · Crow → headstand", [
+        ["Crow → headstand", "3 reps. Strekk helt ut på toppen, hold 5–10 sek. Vekten i hendene, ikke i issen", [4, 30, 45]]
+      ]],
+      ["4 · Sete og bakside", [
+        ["Glute bridge", "3 × 12", 150],
+        ["Bird dog", "3 × 8 per side", 180],
+        ["Sideplanke", "Vekselvis side", [6, 20, 15]]
+      ]],
+      ["5 · Straddle vedlikehold", [
+        ["Passiv straddle", "Slipp ned, la tyngdekraften jobbe", [2, 90, 25]],
+        ["Sommerfugl", "", [2, 60, 20]]
+      ]],
+      ["Nedkjøling", [
+        ["Svanen", "", [2, 60, 20]]
+      ]]
+    ]
+  },
+  ons: {
+    title: "Styrke",
+    note: "Økta som har manglet. <strong>Denne vikes aldri.</strong>",
+    blocks: [
+      ["Oppvarming", [
+        ["Håndledd", "Sirkler og strekk", 120],
+        ["Band pull-aparts", "2 × 15", 100],
+        ["Scapula push-ups", "2 × 10", 100],
+        ["Lette push-ups", "1 × 8", 60]
+      ]],
+      ["A · Dips på fast stativ", [
+        ["Dips — 3–5 reps", "3 sek senking, full lockout. Klarer du under 3: kjør negativer 3 × 5 sek i stedet", [4, 40, 120]]
+      ]],
+      ["B · Strikt pull-up", [
+        ["Strikt pull-up — 2 reps", "Submaksimalt. Aldri til failure — 12 rene reps slår to sett til utmattelse", [6, 25, 90]]
+      ]],
+      ["C · HSPU — reduser deficit", [
+        ["HSPU — 3 reps", "Når 4 × 5 går rent: fjern 1 cm. Noter cm i loggen", [4, 35, 90]]
+      ]],
+      ["D · Ring support hold", [
+        ["Ring support", "Strake armer, ringene vridd ut, skuldrene ned. Forutsetningen for ring dip", [5, 30, 60]]
+      ]],
+      ["E · Kjerne og kompresjon", [
+        ["Hollow hold", "", [3, 25, 30]],
+        ["Tuck compression", "På blokker eller paralletter", [3, 15, 30]]
+      ]]
+    ]
+  },
+  tor: {
+    title: "Ferdighet",
+    note: "Blokkens viktigste økt. Lav systembelastning — <strong>OL om kvelden skal ikke lide.</strong>",
+    blocks: [
+      ["Oppvarming", [
+        ["Håndledd", "Sirkler og strekk", 180],
+        ["Scapula push-ups", "2 × 10", 100],
+        ["Hollow hold", "", [2, 20, 25]]
+      ]],
+      ["1 · Bail", [
+        ["Cartwheel bail", "__BAIL__", [6, 30, 30]]
+      ]],
+      ["2 · FRITT OPPSPARK", [
+        ["Fritt oppspark", "__KICK__ · ~6 forsøk per runde. Spark til vertikal — hver gang. Forbudt å stoppe ved 45°", [5, 180, 60]]
+      ]],
+      ["3 · Balanse", [
+        ["Tåløft fra vegg", "5 reps, hold 3–5 sek. Korrigér med fingrene, ikke hoftene", [5, 45, 35]],
+        ["Lean-away hold", "Len kroppen bort fra veggen og hold balansen", [5, 20, 30]]
+      ]],
+      ["4 · Lett kompresjon", [
+        ["Tuck compression", "", [3, 10, 25]],
+        ["Frog stand", "Lav intensitet — skuldrene skal være friske til kvelden", [3, 15, 25]]
+      ]],
+      ["Nedkjøling", [
+        ["Svanen", "", [2, 60, 20]]
+      ]]
+    ],
+    meas: [
+      ["hold", "Beste frittstående hold (sek)"],
+      ["opp", "Oppspark til vertikal — av 10 forsøk"],
+      ["hspu", "HSPU-deficit (cm)"]
+    ]
+  }
+};
+
+const DAYNAME = { man: "Mandag", ons: "Onsdag", tor: "Torsdag" };
+const DAYMAP = ["man", "ons", "ons", "tor", "tor", "man", "man"]; // man..søn
+let day = DAYMAP[(new Date().getDay() + 6) % 7];
+
+const key = () => "okt:" + iso(new Date()) + ":" + day;
+const load = () => { try { return JSON.parse(localStorage.getItem(key())) || {}; } catch (e) { return {}; } };
+const save = s => { try { localStorage.setItem(key(), JSON.stringify(s)); } catch (e) {} };
+const mmss = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+
+/* ---------- bygg stegliste for runner ---------- */
+function buildSteps() {
+  const L = ladder(weekNo()), out = [];
+  let i = 0;
+  for (const [bt, list] of S[day].blocks) {
+    for (const [nm, ds, t] of list) {
+      const id = "e" + (i++);
+      const d = (ds || "").replace("__BAIL__", L.bail).replace("__KICK__", L.kick);
+      if (Array.isArray(t)) {
+        const [sets, w, r] = t;
+        for (let s = 1; s <= sets; s++) {
+          out.push({ id, bt, nm, ds: d, sec: w, work: true, set: s, sets });
+          if (s < sets) out.push({ id, bt, nm, ds: d, sec: r, work: false, set: s, sets });
+        }
+      } else {
+        out.push({ id, bt, nm, ds: d, sec: t, work: true });
+      }
+    }
+  }
+  return out;
+}
+function totalSec() { return buildSteps().reduce((a, s) => a + s.sec, 0); }
+
+/* ---------- liste ---------- */
+function render() {
+  const w = weekNo(), L = ladder(w), s = S[day], st = load();
+  document.getElementById("wkLabel").textContent = "UKE " + w + " AV 6 · " + s.title.toUpperCase();
+  document.getElementById("dateLabel").textContent =
+    new Date().toLocaleDateString("no-NO", { weekday: "long", day: "numeric", month: "short" }) + " · " + mmss(totalSec());
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.d === day));
+
+  document.getElementById("banner").innerHTML = day === "tor"
+    ? "<b>Uke " + w + " — avstand</b>Bail: " + L.bail + "<br>Oppspark: " + L.kick
+      + "<br><br><strong style='color:#ffb454'>Flytt aldri oppsparket til ny avstand før bailen sitter der.</strong>"
+    : "<b>Uke " + w + " av 6</b>" + s.note;
+
+  let h = "", i = 0;
+  for (const [bt, list] of s.blocks) {
+    let bs = 0;
+    for (const [, , t] of list) bs += Array.isArray(t) ? t[0] * t[1] + (t[0] - 1) * t[2] : t;
+    h += "<section><h2>" + bt + "<em>" + mmss(bs) + "</em></h2>";
+    for (const [nm, ds, t] of list) {
+      const id = "e" + (i++);
+      const d = (ds || "").replace("__BAIL__", L.bail).replace("__KICK__", L.kick);
+      const tag = Array.isArray(t) ? t[0] + " × " + t[1] + "s" : mmss(t);
+      h += '<div class="ex' + (st[id] ? " done" : "") + '" data-id="' + id + '">'
+        + '<div class="bx">✓</div><div class="tx"><div class="nm">' + nm + "</div>"
+        + (d ? '<div class="ds">' + d + "</div>" : "") + "</div>"
+        + '<span class="tg">' + tag + "</span></div>";
+    }
+    h += "</section>";
+  }
+  if (s.meas) {
+    h += "<section><h2>Måling<em>hver torsdag</em></h2><div class='meas'>";
+    for (const [k, lab] of s.meas)
+      h += "<label>" + lab + "<input inputmode='decimal' data-m='" + k + "' value=\""
+        + String(st["m_" + k] || "").replace(/"/g, "&quot;") + "\"></label>";
+    h += "</div></section>";
+  }
+  document.getElementById("main").innerHTML = h;
+}
+
+/* ---------- lyd ---------- */
+let AC = null;
+function unlockAudio() {
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    if (AC.state === "suspended") AC.resume();
+    const o = AC.createOscillator(), g = AC.createGain();
+    g.gain.value = 0.0001; o.connect(g); g.connect(AC.destination);
+    o.start(); o.stop(AC.currentTime + 0.01);
+  } catch (e) {}
+}
+function beep(freq, ms, vol) {
+  if (!AC) return;
+  try {
+    const t = AC.currentTime, o = AC.createOscillator(), g = AC.createGain();
+    o.type = "sine"; o.frequency.value = freq;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol == null ? 0.35 : vol, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + ms / 1000);
+    o.connect(g); g.connect(AC.destination);
+    o.start(t); o.stop(t + ms / 1000 + 0.02);
+  } catch (e) {}
+}
+const buzz = p => { if (navigator.vibrate) try { navigator.vibrate(p); } catch (e) {} };
+const cue = () => { beep(950, 110, .28); buzz(35); };                                  // 3-2-1
+const toWork = () => { beep(1250, 150); setTimeout(() => beep(1250, 260), 180); buzz([90, 60, 160]); };
+const toRest = () => { beep(560, 420); buzz(220); };
+const endAll = () => { [0, 200, 400].forEach((d, i) => setTimeout(() => beep(700 + i * 250, 300), d)); buzz([120, 80, 120, 80, 260]); };
+
+/* ---------- runner ---------- */
+let steps = [], idx = 0, endsAt = 0, left = 0, paused = true, loop = null, lastCue = -1, wake = null;
+
+async function keepAwake(on) {
+  try {
+    if (on && "wakeLock" in navigator) wake = await navigator.wakeLock.request("screen");
+    else if (wake) { wake.release(); wake = null; }
+  } catch (e) {}
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && !paused && document.getElementById("run").classList.contains("on")) keepAwake(true);
+});
+
+function startRun() {
+  steps = buildSteps();
+  if (!steps.length) return;
+  idx = 0; paused = false;
+  unlockAudio();
+  const pb = document.getElementById("rPause");
+  pb.textContent = "Pause"; pb.classList.remove("paused");
+  document.getElementById("run").classList.add("on");
+  keepAwake(true);
+  enter();
+  loop = setInterval(tick, 200);
+}
+function stopRun() {
+  clearInterval(loop); loop = null; paused = true;
+  keepAwake(false);
+  document.getElementById("run").classList.remove("on");
+  render();
+}
+function enter() {
+  const s = steps[idx];
+  left = s.sec; endsAt = Date.now() + s.sec * 1000; lastCue = -1;
+  if (s.work) toWork(); else toRest();
+  paint();
+}
+function tick() {
+  if (paused) return;
+  left = Math.max(0, (endsAt - Date.now()) / 1000);
+  const w = Math.ceil(left);
+  if (w <= 3 && w >= 1 && w !== lastCue) { lastCue = w; cue(); }
+  if (left <= 0) return next(true);
+  paint();
+}
+function next(auto) {
+  if (idx >= steps.length - 1) {
+    const st = load(); steps.forEach(s => st[s.id] = true); save(st);
+    endAll(); stopRun(); toast("Økt fullført — trykk Logg");
+    return;
+  }
+  const done = steps[idx];
+  if (!steps.slice(idx + 1).some(s => s.id === done.id)) { const st = load(); st[done.id] = true; save(st); }
+  idx++; enter();
+}
+function prev() { if (idx > 0) { idx--; enter(); } }
+
+function paint() {
+  const s = steps[idx], w = Math.ceil(left);
+  document.getElementById("rCount").textContent = "steg " + (idx + 1) + " / " + steps.length;
+  document.getElementById("rBlock").textContent = s.bt;
+  document.getElementById("rName").textContent = s.nm;
+  document.getElementById("rDesc").textContent = s.work ? (s.ds || "") : "";
+  const ph = document.getElementById("rPhase");
+  ph.textContent = s.work ? "ARBEID" : "HVILE";
+  ph.className = "rphase" + (s.work ? "" : " rest");
+  const n = document.getElementById("rNum");
+  n.textContent = w >= 60 ? mmss(w) : w;
+  n.className = "rnum" + (w <= 3 ? " warn" : "");
+  document.getElementById("rSet").textContent = s.sets ? "serie " + s.set + " av " + s.sets : "";
+  const nx = steps[idx + 1];
+  document.getElementById("rNext").textContent = nx ? "Neste: " + (nx.work ? nx.nm : "hvile " + nx.sec + " sek") : "Siste steg";
+  document.getElementById("rBar").style.width = (100 * (1 - left / s.sec)) + "%";
+}
+
+document.getElementById("start").onclick = startRun;
+document.getElementById("rQuit").onclick = () => { if (confirm("Avslutte økta?")) stopRun(); };
+document.getElementById("rPrev").onclick = prev;
+document.getElementById("rNextBtn").onclick = () => next(false);
+document.getElementById("rPause").onclick = e => {
+  paused = !paused;
+  if (paused) left = Math.max(0, (endsAt - Date.now()) / 1000);
+  else endsAt = Date.now() + left * 1000;
+  e.target.textContent = paused ? "Fortsett" : "Pause";
+  e.target.classList.toggle("paused", paused);
+  keepAwake(!paused);
+};
+
+/* ---------- liste-interaksjon ---------- */
+document.addEventListener("click", e => {
+  const nav = e.target.closest("nav button");
+  if (nav) { day = nav.dataset.d; render(); return; }
+  const ex = e.target.closest(".ex");
+  if (ex) {
+    const st = load(); st[ex.dataset.id] = !st[ex.dataset.id]; save(st);
+    ex.classList.toggle("done", !!st[ex.dataset.id]);
+    if (st[ex.dataset.id]) buzz(12);
+  }
+});
+document.addEventListener("input", e => {
+  if (e.target.dataset.m) { const st = load(); st["m_" + e.target.dataset.m] = e.target.value; save(st); }
+});
+
+function toast(m) {
+  const t = document.getElementById("toast");
+  t.textContent = m; t.classList.add("on");
+  setTimeout(() => t.classList.remove("on"), 2400);
+}
+
+document.getElementById("copy").onclick = async () => {
+  const st = load(), s = S[day], w = weekNo();
+  let done = 0, tot = 0, lines = [], i = 0;
+  for (const [bt, list] of s.blocks) {
+    const hit = [];
+    for (const [nm] of list) { const id = "e" + (i++); tot++; if (st[id]) { done++; hit.push(nm); } }
+    if (hit.length) lines.push("- " + bt + ": " + hit.join(" · "));
+  }
+  let txt = "/okt\n\n## " + iso(new Date()) + " — " + DAYNAME[day] + ", " + s.title + " (uke " + w + "/6)\n"
+    + lines.join("\n") + "\n- Gjennomført: " + done + " av " + tot + " øvelser\n";
+  if (s.meas) {
+    const m = s.meas.map(([k, lab]) => st["m_" + k] ? "  - " + lab + ": " + st["m_" + k] : null).filter(Boolean);
+    if (m.length) txt += "- Måling:\n" + m.join("\n") + "\n";
+  }
+  txt += "- RPE: \n- Form: \n- Notat: ";
+  try { await navigator.clipboard.writeText(txt); toast("Kopiert — lim inn til Claude"); }
+  catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = txt; ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); toast("Kopiert — lim inn til Claude"); } catch (e2) { toast("Kunne ikke kopiere"); }
+    ta.remove();
+  }
+};
+document.getElementById("reset").onclick = () => { if (confirm("Nullstille avkryssingen for i dag?")) { save({}); render(); } };
+
+render();
+</script>
+</body>
+</html>
