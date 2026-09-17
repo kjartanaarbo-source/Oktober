@@ -41,6 +41,16 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 .nm{font-size:15.5px;font-weight:600;line-height:1.35}
 .ds{font-size:13.5px;color:#98a0ad;margin-top:3px;line-height:1.45}
 .tg{flex:none;align-self:center;padding:6px 10px;border-radius:8px;background:#232a36;color:#9aa3b0;font:600 12px/1 inherit;white-space:nowrap}
+.inf{flex:none;align-self:center;width:34px;height:34px;border-radius:50%;border:1px solid #333c4b;background:#1a1f29;color:#9aa3b0;font:700 15px/1 inherit}
+.infbox{display:none;padding:0 15px 16px;font-size:14.5px;line-height:1.62;color:#b3bbc8;white-space:pre-line;border-bottom:1px solid #1c212b;background:#11151d}
+.infbox.on{display:block}
+.infbtn{margin-top:10px;padding:9px 14px;border-radius:9px;border:1px solid #333c4b;background:#1a1f29;color:#9aa3b0;font:700 13px/1 inherit}
+#info{display:none;position:fixed;inset:0;z-index:55;background:#0d0f13;padding:env(safe-area-inset-top) 0 0;flex-direction:column}
+#info.on{display:flex}
+#info h3{margin:0;padding:18px 18px 4px;font-size:21px;font-weight:800;line-height:1.2}
+#info .sub{padding:0 18px 12px;font-size:13px;color:#ffb454;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+#info .body{flex:1;overflow-y:auto;padding:0 18px 20px;font-size:15.5px;line-height:1.68;color:#c3cad6;white-space:pre-line;-webkit-overflow-scrolling:touch}
+#info .cls{margin:0 18px calc(16px + env(safe-area-inset-bottom));padding:16px;border-radius:12px;border:none;background:#232a36;color:#e8eaed;font:700 15px/1 inherit;flex:none}
 .meas{padding:14px 15px;display:flex;flex-direction:column;gap:12px}
 .meas label{font-size:14px;color:#c3cad6;display:flex;flex-direction:column;gap:6px}
 .meas input{padding:13px 14px;border-radius:10px;border:1px solid #333c4b;background:#0d0f13;color:#e8eaed;font:600 17px/1 inherit}
@@ -60,6 +70,8 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 .rmid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:0}
 .rphase{font-size:14px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#3ddc84}
 .rphase.rest{color:#60a5fa}
+.rphase.ready{color:#ffb454}
+.rnum.idle{color:#4b5563}
 .rnum{font-size:clamp(76px,26vw,132px);font-weight:800;line-height:.95;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
 .rnum.warn{color:#ffb454}
 .rset{font-size:15px;color:#8b929e;font-weight:600}
@@ -103,6 +115,7 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
     <div class="rblock" id="rBlock">—</div>
     <div class="rname" id="rName">—</div>
     <div class="rdesc" id="rDesc"></div>
+    <button class="infbtn" id="rInfo">ⓘ&nbsp; Teknikk</button>
   </div>
   <div class="rmid">
     <div class="rphase" id="rPhase">ARBEID</div>
@@ -118,12 +131,20 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
   </div>
 </div>
 
+<div id="info">
+  <h3 id="iTitle">—</h3>
+  <div class="sub">Teknikk</div>
+  <div class="body" id="iBody"></div>
+  <button class="cls" id="iClose">Lukk</button>
+</div>
+
 <div id="toast"></div>
 
 <script>
 "use strict";
 
 /* ================= blokk 1: 2026-09-07 → 2026-10-19 ================= */
+const VERSION = "v6";           // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
 const BLOCK_START = new Date(2026, 8, 7);
 const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
@@ -146,34 +167,34 @@ const S = {
     note: "Kommer etter tre harde dager. <strong>Skal ikke være hard.</strong> Bygger linjen og avlaster korsryggen.",
     blocks: [
       ["Oppvarming", [
-        ["Håndleddssirkler + belastet strekk", "Frem og tilbake, rolig", 180],
-        ["Kosteskaft dislocates", "2 × 10", 100],
+        ["Wrist circles + loaded wrist stretch", "Frem og tilbake, rolig", 180],
+        ["Broomstick shoulder dislocates", "2 × 10", 100],
         ["Band pull-aparts", "2 × 15", 100],
         ["Scapula push-ups", "2 × 10", 100]
       ]],
       ["1 · Bekkenkontroll og midtlinje", [
-        ["Bakover-tilt mot vegg", "3 × 10 — produser tilten bevisst", 150],
+        ["Posterior pelvic tilt, wall", "3 × 10 — produser tilten bevisst", 150],
         ["Dead bug", "3 × 8 per side, sakte", 210],
         ["Hollow hold", "Korsryggen presset i gulvet", [4, 30, 30]],
         ["Hollow rock", "3 × 15 — kun når hollow hold er stabil", 180]
       ]],
-      ["2 · Bryst-mot-vegg håndstand", [
-        ["Bryst-mot-vegg hold", "Ribbein ned, sete strammet, bakover-tilt. Ryker linjen — bryt", [5, 30, 45]]
+      ["2 · Linje mot vegg", [
+        ["Chest-to-wall handstand hold", "Ribbein ned, sete strammet, bakover-tilt. Ryker linjen — bryt", [5, 30, 45]]
       ]],
-      ["3 · Crow → headstand", [
-        ["Crow → headstand", "3 reps. Strekk helt ut på toppen, hold 5–10 sek. Vekten i hendene, ikke i issen", [4, 30, 45]]
+      ["3 · Press mot headstand", [
+        ["Crow to headstand press", "3 reps. Strekk helt ut på toppen, hold 5–10 sek. Vekten i hendene, ikke i issen", [4, 30, 45]]
       ]],
       ["4 · Sete og bakside", [
         ["Glute bridge", "3 × 12", 150],
         ["Bird dog", "3 × 8 per side", 180],
-        ["Sideplanke", "Vekselvis side", [6, 20, 15]]
+        ["Side plank", "Vekselvis side", [6, 20, 15]]
       ]],
       ["5 · Straddle vedlikehold", [
-        ["Passiv straddle", "Slipp ned, la tyngdekraften jobbe", [2, 90, 25]],
-        ["Sommerfugl", "", [2, 60, 20]]
+        ["Passive straddle sit", "Slipp ned, la tyngdekraften jobbe", [2, 90, 25]],
+        ["Butterfly stretch", "", [2, 60, 20]]
       ]],
       ["Nedkjøling", [
-        ["Svanen", "", [2, 60, 20]]
+        ["Swan pose", "", [2, 60, 20]]
       ]]
     ]
   },
@@ -182,26 +203,27 @@ const S = {
     note: "Økta som har manglet. <strong>Denne vikes aldri.</strong>",
     blocks: [
       ["Oppvarming", [
-        ["Håndledd", "Sirkler og strekk", 120],
+        ["Wrist prep", "Sirkler og strekk", 120],
         ["Band pull-aparts", "2 × 15", 100],
         ["Scapula push-ups", "2 × 10", 100],
-        ["Lette push-ups", "1 × 8", 60]
+        ["Light push-ups", "1 × 8", 60]
       ]],
-      ["A · Dips på fast stativ", [
-        ["Dips — 3–5 reps", "3 sek senking, full lockout. Klarer du under 3: kjør negativer 3 × 5 sek i stedet", [4, 40, 120]]
+      ["A · Press på fast stativ", [
+        ["Dips", "3–5 reps · 3 sek senking, full lockout. Klarer du under 3: kjør negatives 3 × 5 sek i stedet", [4, 40, 120]]
       ]],
-      ["B · Strikt pull-up", [
-        ["Strikt pull-up — 2 reps", "Submaksimalt. Aldri til failure — 12 rene reps slår to sett til utmattelse", [6, 25, 90]]
+      ["B · Trekk", [
+        ["Strict pull-up", "2 reps · submaksimalt. Aldri til failure — 12 rene reps slår to sett til utmattelse", [6, 25, 90]]
       ]],
-      ["C · HSPU — reduser deficit", [
-        ["HSPU — 3 reps", "Når 4 × 5 går rent: fjern 1 cm. Noter cm i loggen", [4, 35, 90]]
+      ["C · Reduser HSPU-deficit", [
+        ["Strict HSPU", "3 reps · når 4 × 5 går rent: fjern 1 cm. Noter cm i loggen", [4, 35, 90]],
+        ["Box pike push-up", "8–10 reps. Hoftene høyt, blikket mot gulvet mellom hendene, albuene fremover. Hev boksen når det blir lett", [3, 40, 60], 3]
       ]],
-      ["D · Ring support hold", [
-        ["Ring support", "Strake armer, ringene vridd ut, skuldrene ned. Forutsetningen for ring dip", [5, 30, 60]]
+      ["D · Ringstabilitet", [
+        ["Ring support hold", "Strake armer, ringene vridd ut, skuldrene ned. Forutsetningen for ring dip", [5, 30, 60]]
       ]],
       ["E · Kjerne og kompresjon", [
         ["Hollow hold", "", [3, 25, 30]],
-        ["Tuck compression", "På blokker eller paralletter", [3, 15, 30]]
+        ["Tuck compression hold", "På blokker eller paralletter", [3, 15, 30]]
       ]]
     ]
   },
@@ -210,26 +232,26 @@ const S = {
     note: "Blokkens viktigste økt. Lav systembelastning — <strong>OL om kvelden skal ikke lide.</strong>",
     blocks: [
       ["Oppvarming", [
-        ["Håndledd", "Sirkler og strekk", 180],
+        ["Wrist prep", "Sirkler og strekk", 180],
         ["Scapula push-ups", "2 × 10", 100],
         ["Hollow hold", "", [2, 20, 25]]
       ]],
-      ["1 · Bail", [
+      ["1 · Utgang", [
         ["Cartwheel bail", "__BAIL__", [6, 30, 30]]
       ]],
-      ["2 · FRITT OPPSPARK", [
-        ["Fritt oppspark", "__KICK__ · ~6 forsøk per runde. Spark til vertikal — hver gang. Forbudt å stoppe ved 45°", [5, 180, 60]]
+      ["2 · OPPSPARK", [
+        ["Free kick-up to handstand", "__KICK__ · ~6 forsøk per runde. Spark til vertikal — hver gang. Forbudt å stoppe ved 45°", [5, 180, 60]]
       ]],
       ["3 · Balanse", [
-        ["Tåløft fra vegg", "5 reps, hold 3–5 sek. Korrigér med fingrene, ikke hoftene", [5, 45, 35]],
-        ["Lean-away hold", "Len kroppen bort fra veggen og hold balansen", [5, 20, 30]]
+        ["Toe pulls, chest-to-wall", "5 reps, hold 3–5 sek. Korrigér med fingrene, ikke hoftene", [5, 45, 35]],
+        ["Wall lean-away hold", "Len kroppen bort fra veggen og hold balansen", [5, 20, 30]]
       ]],
       ["4 · Lett kompresjon", [
-        ["Tuck compression", "", [3, 10, 25]],
+        ["Tuck compression hold", "", [3, 10, 25]],
         ["Frog stand", "Lav intensitet — skuldrene skal være friske til kvelden", [3, 15, 25]]
       ]],
       ["Nedkjøling", [
-        ["Svanen", "", [2, 60, 20]]
+        ["Swan pose", "", [2, 60, 20]]
       ]]
     ],
     meas: [
@@ -240,6 +262,99 @@ const S = {
   }
 };
 
+/* ===== Utfyllende teknikkbeskrivelser, slått opp på øvelsesnavn =====
+   Holdes adskilt fra programmet: kan utvides uten å røre øktene. */
+const INFO = {
+
+"Wrist circles + loaded wrist stretch":
+"Start på alle fire med håndflatene i gulvet, fingrene fremover. Rull vekten sakte forover og bakover, så sirkler begge veier.\n\nSnu deretter hendene så fingrene peker mot knærne, og len deg forsiktig bakover. Hold 20–30 sek.\n\nTil slutt: håndbaken i gulvet, fingrene mot knærne, lett press.\n\nSkal kjennes som strekk — aldri som stikk. Du har ni måneder med høyt håndvolum uten plager, så dette er vedlikehold, ikke opptrening.",
+
+"Wrist prep":
+"Kortversjonen før tyngre økter: sirkler begge veier med håndflatene i gulvet, så fingrene mot knærne og lett press bakover, og til slutt håndbaken ned.\n\nTo til tre minutter er nok. Håndleddene dine tåler belastningen — dette handler om å varme opp leddvæske og senevev, ikke om å tøye.",
+
+"Broomstick shoulder dislocates":
+"Bredt grep på kosteskaftet, armene helt strake. Før stanga i en stor bue fra hoftene, over hodet og ned bak ryggen — og samme vei tilbake.\n\nStrake albuer hele veien. Må du bøye, ta bredere grep. Bredden er ikke poenget; den rene bevegelsen er.\n\nRolig tempo, ingen sving.\n\nFormål: åpne og smøre skulderposisjonen du står i når du er opp ned.",
+
+"Band pull-aparts":
+"Strikken i strake armer foran deg i brysthøyde. Trekk fra hverandre til strikken berører brystet, og klem skulderbladene sammen.\n\nSkuldrene ned og bort fra ørene hele veien. Kontrollert tilbake — ikke la strikken dra deg.\n\nFormål: bakre skulder og skulderblad. Motvekt til alt pressarbeidet i programmet, og billig forsikring mot skulderplager.",
+
+"Scapula push-ups":
+"Push-up-posisjon med armene strake og låst. Bare skulderbladene beveger seg.\n\nSenk brystet noen centimeter ved å la skulderbladene klemme sammen, press så fra deg og skyv dem maksimalt fra hverandre.\n\nAlbuene forblir strake hele tiden. Bøyer du dem, er det en push-up og ikke denne øvelsen.\n\nFormål: kontroll over skulderbladet. Det er fundamentet under en stabil håndstand — uten det kollapser skulderen når du står opp ned.",
+
+"Light push-ups":
+"Vanlige push-ups i rolig tempo, godt unna failure. Kroppen rett fra hode til hæl, albuene inn mot 45 grader — ikke rett ut til siden.\n\nFormål her er kun å få blod i skuldre og triceps før tung trening. Dette er ikke et treningssett.",
+
+"Posterior pelvic tilt, wall":
+"Stå med ryggen mot veggen, hælene noen centimeter ut. Press korsryggen inn mot veggen ved å rulle bekkenet bakover.\n\nDet er magemusklene og setet som gjør jobben — ikke pusten, og ikke ved å skyve med beina.\n\nHold 3–5 sekunder, slipp helt, gjenta.\n\nDette er den viktigste øvelsen på mandag. Du har stort ekstensjonsrom i korsryggen, og det betyr at kroppen din finner svai av seg selv når du kommer opp ned. Denne bevegelsen er selve motgiften mot banan-håndstanden — og den avlaster ryggen etter markløft samtidig.",
+
+"Dead bug":
+"Ligg på rygg med armene rett opp og hofter og knær i 90 grader.\n\nPress korsryggen ned i gulvet og hold den der gjennom hele øvelsen. Senk motsatt arm og bein sakte mot gulvet, tilbake til start, bytt side.\n\nSlipper korsryggen taket i gulvet, har du gått for langt — kort ned bevegelsen til du klarer å holde den.\n\nFormål: holde midtlinjen stabil mens armer og bein beveger seg. Det er nøyaktig det håndstanden krever av deg.",
+
+"Hollow hold":
+"Ligg på rygg. Press korsryggen i gulvet, løft skulderbladene og beina fra gulvet, armene strake over hodet.\n\nRibbeina ned, setet strammet. Kroppen skal danne en grunn skål.\n\nKjenner du det i korsryggen, løft beina høyere til svaien forsvinner. Bedre en liten, ren hollow enn en stor med svai.\n\nFormål: hollow er håndstandens form, bare liggende. Klarer du den ikke her, klarer du den ikke opp ned heller.",
+
+"Hollow rock":
+"Samme posisjon som hollow hold. Rugg fram og tilbake som en vippestol, med kroppen helt stiv.\n\nBevegelsen kommer fra vektforskyvning, ikke fra å bøye i hofta. Ryker formen, gå tilbake til statisk hold — det er ikke et nederlag, det er riktig dosering.",
+
+"Chest-to-wall handstand hold":
+"Gå opp med ansiktet inn mot veggen: start i push-up-posisjon med føttene mot listen, og gå oppover veggen mens hendene nærmer seg.\n\nRibbeina ned, setet strammet, bekkenet tiltet bakover. Press gulvet fra deg gjennom skuldrene og strekk deg så lang du kan. Hælene lett mot veggen — ikke hvilende.\n\nVi bruker bryst-mot-vegg og ikke rygg-mot-vegg med vilje: denne posisjonen tvinger fram riktig linje, mens rygg-mot-vegg lar deg henge i svai og føles lettere enn den er.\n\nRyker linjen før tiden er ute: avslutt settet. Dårlige sekunder fester seg like godt som gode.",
+
+"Crow to headstand press":
+"Start i crow: hukende, hendene i gulvet, knærne hvilende på albuene, vekten flyttet fremover, blikket litt frem.\n\nLøft hoftene sakte opp over skuldrene og strekk beina opp til headstand. Ned like kontrollert.\n\nMesteparten av vekten skal ligge i hendene, ikke i issen. Kjennes det i nakken, er vektfordelingen feil — stopp settet.\n\nStrekk helt ut på toppen og hold 5–10 sekunder med bekkenet tiltet og ribbeina nede. Gjør du bare innstigningen og kommer ned igjen, trener du pressmønsteret, men mister linjearbeidet som er hele grunnen til at øvelsen står her.\n\nFormål: linjekontroll og pressmønster. Ikke balansetrening — balansen i headstand overføres ikke til håndstand, fordi basen er en trekant og korrigeringen skjer med kroppen i stedet for fingrene.",
+
+"Glute bridge":
+"Ligg på rygg med knærne bøyd og føttene i gulvet. Press gjennom hælene og løft hoftene til kroppen er rett fra kne til skulder.\n\nKlem setet på toppen. Ikke svai i korsryggen for å komme høyere — det er nettopp det vi trener bort.\n\nFormål: setestyrke. Setet er halve jobben med å holde bekkenet i posisjon, både i håndstand og under markløft.",
+
+"Bird dog":
+"På alle fire. Strekk motsatt arm og bein ut til vannrett, hold 2–3 sekunder, tilbake.\n\nHoftene skal ikke rotere. Tenk at du balanserer et glass vann på korsryggen.\n\nFormål: stabilitet i korsryggen under bevegelse — direkte relevant for deg, gitt ømheten etter markløft.",
+
+"Side plank":
+"På siden, støtt på underarmen med albuen rett under skulderen. Løft hoftene til kroppen er en rett linje sett forfra.\n\nIkke la hofta synke, og ikke la den rotere fremover.\n\nFormål: sidestabilitet i midtpartiet. Det er den som hindrer at du vipper sidelengs når du står frittstående.",
+
+"Passive straddle sit":
+"Sitt med beina ut i straddle, så bredt du kommer uten smerte. La overkroppen synke forover og slipp helt.\n\nIngen bounce, ingen aktiv pressing. Tyngdekraften gjør jobben. Pust rolig og la det gi seg litt for hver utpust.\n\nDu ligger på ca. 110 grader. Det er en reell flaskehals for straddle pressen på sikt — men helt irrelevant for julemålet, som er et håndstandshold. Derfor står den som vedlikehold og ikke som fokus.",
+
+"Butterfly stretch":
+"Sitt med fotsålene mot hverandre og hælene inn mot kroppen. Slipp knærne ned mot gulvet.\n\nIkke press med albuene. La vekten gjøre jobben.\n\nFormål: innside lår og hofteåpning. Støtter straddle-posisjonen.",
+
+"Swan pose":
+"Ligg på magen med hendene under skuldrene, press overkroppen opp mens hoftene blir i gulvet.\n\nDu har mye ekstensjonsrom i korsryggen — gå derfor ikke ut i ytterstilling her. Press heller brystet fremover og oppover enn å presse hoftene ned. Kjenner du klem i korsryggen, har du gått for langt.\n\nFormål: nedkjøling og motbevegelse etter mye hollow-arbeid. Ikke et bevegelighetsmål i seg selv.",
+
+"Dips":
+"Fast stativ. Start med strake armer og skuldrene presset ned, bort fra ørene.\n\nSenk kontrollert på tre sekunder til overarmene er omtrent vannrette. Press opp til full lockout.\n\nLener du overkroppen litt fremover, treffer du brystet mer. Helt oppreist treffer du triceps.\n\nUKE 1 ER EN TEST: hvor mange strenge repetisjoner klarer du med full lockout? Det tallet avgjør resten av blokka. Tre eller flere: kjør sett. Under tre: kjør negatives — hopp opp i toppposisjon og senk på fem sekunder.\n\nFormål: inngangen til ring dip. Du klarer én på ringer, og det som mangler er stabilitet like mye som styrke. Fast stativ først, ringer siden.",
+
+"Strict pull-up":
+"Full heng i bunn med strake armer. Trekk skulderbladene ned først, deretter albuene. Haka over stanga.\n\nIngen kipping, ingen sprett i bunnen.\n\nSubmaksimalt — aldri til failure. Seks sett à to gir tolv rene repetisjoner, og det bygger mer enn to sett kjørt til utmattelse. Du er på 3–5 strenge; veien til 8–10 går gjennom volum, ikke gjennom å kjøre deg tom.\n\nProgresjon gjennom blokka: 6×2 → 6×3 → 5×4.",
+
+"Strict HSPU":
+"Rygg mot vegg, hendene litt bredere enn skulderbredde. Senk kontrollert til hodet berører underlaget, press opp til full lockout.\n\nIngen kipping med hoftene — det er en annen øvelse.\n\nPROGRESJONEN ER ÉN TING: CENTIMETER. Du står på rundt 7 cm (10 kg skive + abmat). Når 4 × 5 går rent, fjerner du én centimeter.\n\nNoter alltid cm i loggen. Det er ett av de tre tallene vi følger gjennom blokka, og det er en renere måling enn reps — den forteller hvor nær full bevegelsesbane du er.",
+
+"Box pike push-up":
+"Føttene på en boks, hoftene høyt, kroppen i en omvendt V. Blikket mot gulvet mellom hendene.\n\nSenk til issen nærmer seg gulvet, press opp. Albuene fremover, ikke ut til siden.\n\nHev boksen når det blir lett — jo mer loddrett kroppen står, jo tyngre blir den.\n\nFormålet er volum, ikke progresjon. Denne ligger under deg på stigen: den belaster rundt halve kroppsvekten, mot HSPUs nær-hele. Men 4 × 3 HSPU gir bare tolv repetisjoner i uka i pressmønsteret, og det er for lite til å bygge fra 3 til 5 reps. Denne fyller hullet på lavere belastning.\n\nInn fra uke 3 — ikke uke 1 og 2, der du fortsatt henter deg inn etter ferien.",
+
+"Ring support hold":
+"Hold deg oppe på ringene med helt strake armer. Vri ringene utover så håndflatene peker fremover. Skuldrene ned og bort fra ørene, kroppen stram.\n\nRister du — det er normalt i starten, og det er nettopp stabiliseringsarbeidet som er poenget.\n\nIkke hopp over denne. Du klarer én ring dip, og det er ikke ren pressestyrke som mangler: du klarer tross alt HSPU med 7 cm deficit. Det som mangler er evnen til å stabilisere et underlag som beveger seg. Dette er forutsetningen for ring dip.",
+
+"Tuck compression hold":
+"Sitt på blokker eller paralletter med hendene ved hoftene. Press ned og løft setet fra underlaget, trekk knærne inn mot brystet.\n\nAktivt — du skal dra knærne inn mot deg, ikke bare henge med beina i luften.\n\nFormål: kompresjonsstyrken som straddle pressen bygger på. Den har du allerede mer av enn du tror — du presser crow til headstand, og det krever reell kompresjon. Derfor står den som vedlikehold her.",
+
+"Cartwheel bail":
+"Velg side på forhånd og bestem deg før du sparker opp.\n\nNår du merker at du passerer vertikalen: vri skulder og hofte mot den valgte siden, la den ene hånda slippe, og sett beina ned i en hjulbevegelse. Se på hendene hele veien.\n\nIkke prøv å komme ned samme vei du kom opp. Det er der folk stivner i luften og lander på ryggen eller vrir håndleddet.\n\nStart der du faktisk er: vegg, beina i frontsplitt, vekten flyttet ut fra veggen. Det er en reell bail, og den behersker du allerede.\n\nBailen skal alltid ligge ett steg foran oppsparket. Du skal ha øvd utgang på en avstand før oppsparket flytter dit — ellers sparker du opp et sted du ikke vet hvordan du kommer ut av, og da trekker du deg, med god grunn.",
+
+"Free kick-up to handstand":
+"Fokuspunkt i gulvet mellom hendene — se dit hele tiden, ikke opp eller bakover.\n\nSparkebeinet strakt, det andre skyver fra. Press gulvet bort gjennom skuldrene og strekk deg lang.\n\nSPARK TIL VERTIKAL. HVER GANG.\n\nDet er forbudt å stoppe bevisst ved 45 grader. Den drillen sto i det gamle programmet ditt, på to økter i uka i månedsvis. Den var fornuftig i starten, men over tid øvde den inn nøyaktig den tilbaketrekningen som stopper deg nå. Den er fjernet, og den skal ikke tilbake.\n\nVeggen bak deg er sikkerhetsnett, ikke mål. Treffer du den, er det helt greit — det er poenget med at den står der.\n\nFem runder à tre minutter, rundt seks forsøk per runde. Rundestrukturen holder tempoet oppe og hindrer at du står og nøler mellom forsøkene.",
+
+"Toe pulls, chest-to-wall":
+"Gå opp i bryst-mot-vegg-håndstand og flytt hendene nærmere veggen enn vanlig. Løft så én fot av gangen fra veggen og hold 3–5 sekunder.\n\nKorrigér med fingrene, ikke med hoftene. Dette er det viktigste i hele balansearbeidet: håndstandsbalanse sitter i underarmene og fingertuppene. Presser du ned med fingrene, stopper du fallet fremover; slipper du trykket, kommer du tilbake fra overbalanse.\n\nBøyer du i hofta for å korrigere, lærer du en vane du må avlære senere.\n\nFormål: finne balansepunktet med veggen som trygghet.",
+
+"Wall lean-away hold":
+"Fra bryst-mot-vegg: len kroppen sakte bort fra veggen til bare tuppene av tærne berører, og hold balansen der.\n\nDette er så nær frittstående du kommer med sikkerhetsnett.\n\nFormål: akkumulere tid i selve balansepunktet. Du holder 3 × 30 sekunder mot vegg uten problem, så skulderutholdenheten er på plass — det du mangler er tid der balansen faktisk utfordres.",
+
+"Frog stand":
+"Huk deg ned, hendene i gulvet, knærne hvilende på albuene. Len vekten fremover til føttene letter fra gulvet, og hold.\n\nBlikket litt fremover, ikke rett ned mellom hendene — da tipper du lett over.\n\nLav intensitet i dag. Skuldrene skal være friske til vektløfting i kveld.\n\nFormål: håndbalanse og kompresjon i en lav, trygg posisjon."
+
+};
+
 const DAYNAME = { man: "Mandag", ons: "Onsdag", tor: "Torsdag" };
 const DAYMAP = ["man", "ons", "ons", "tor", "tor", "man", "man"]; // man..søn
 let day = DAYMAP[(new Date().getDay() + 6) % 7];
@@ -248,13 +363,24 @@ const key = () => "okt:" + iso(new Date()) + ":" + day;
 const load = () => { try { return JSON.parse(localStorage.getItem(key())) || {}; } catch (e) { return {}; } };
 const save = s => { try { localStorage.setItem(key(), JSON.stringify(s)); } catch (e) {} };
 const mmss = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/* teknikkpanel — brukes både fra lista og fra runneren */
+function visInfo(nm) {
+  if (!INFO[nm]) return;
+  document.getElementById("iTitle").textContent = nm;
+  document.getElementById("iBody").textContent = INFO[nm];
+  document.getElementById("iBody").scrollTop = 0;
+  document.getElementById("info").classList.add("on");
+}
 
 /* ---------- bygg stegliste for runner ---------- */
 function buildSteps() {
-  const L = ladder(weekNo()), out = [];
+  const w = weekNo(), L = ladder(w), out = [];
   let i = 0;
   for (const [bt, list] of S[day].blocks) {
-    for (const [nm, ds, t] of list) {
+    for (const [nm, ds, t, minWeek] of list) {
+      if (minWeek && w < minWeek) continue;   // øvelse som først starter senere i blokka
       const id = "e" + (i++);
       const d = (ds || "").replace("__BAIL__", L.bail).replace("__KICK__", L.kick);
       if (Array.isArray(t)) {
@@ -277,7 +403,8 @@ function render() {
   const w = weekNo(), L = ladder(w), s = S[day], st = load();
   document.getElementById("wkLabel").textContent = "UKE " + w + " AV 6 · " + s.title.toUpperCase();
   document.getElementById("dateLabel").textContent =
-    new Date().toLocaleDateString("no-NO", { weekday: "long", day: "numeric", month: "short" }) + " · " + mmss(totalSec());
+    new Date().toLocaleDateString("no-NO", { weekday: "long", day: "numeric", month: "short" })
+    + " · " + mmss(totalSec()) + " · " + VERSION;
   document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.d === day));
 
   document.getElementById("banner").innerHTML = day === "tor"
@@ -287,17 +414,22 @@ function render() {
 
   let h = "", i = 0;
   for (const [bt, list] of s.blocks) {
+    const shown = list.filter(([, , , minWeek]) => !minWeek || w >= minWeek);
     let bs = 0;
-    for (const [, , t] of list) bs += Array.isArray(t) ? t[0] * t[1] + (t[0] - 1) * t[2] : t;
+    for (const [, , t] of shown) bs += Array.isArray(t) ? t[0] * t[1] + (t[0] - 1) * t[2] : t;
     h += "<section><h2>" + bt + "<em>" + mmss(bs) + "</em></h2>";
-    for (const [nm, ds, t] of list) {
+    for (const [nm, ds, t] of shown) {
       const id = "e" + (i++);
       const d = (ds || "").replace("__BAIL__", L.bail).replace("__KICK__", L.kick);
       const tag = Array.isArray(t) ? t[0] + " × " + t[1] + "s" : mmss(t);
+      const inf = INFO[nm];
       h += '<div class="ex' + (st[id] ? " done" : "") + '" data-id="' + id + '">'
         + '<div class="bx">✓</div><div class="tx"><div class="nm">' + nm + "</div>"
         + (d ? '<div class="ds">' + d + "</div>" : "") + "</div>"
-        + '<span class="tg">' + tag + "</span></div>";
+        + '<span class="tg">' + tag + "</span>"
+        + (inf ? '<button class="inf" data-inf="' + id + '">ⓘ</button>' : "")
+        + "</div>"
+        + (inf ? '<div class="infbox" id="inf-' + id + '">' + esc(inf) + "</div>" : "");
     }
     h += "</section>";
   }
@@ -338,20 +470,42 @@ const buzz = p => { if (navigator.vibrate) try { navigator.vibrate(p); } catch (
 const cue = () => { beep(950, 110, .28); buzz(35); };                                  // 3-2-1
 const toWork = () => { beep(1250, 150); setTimeout(() => beep(1250, 260), 180); buzz([90, 60, 160]); };
 const toRest = () => { beep(560, 420); buzz(220); };
+/* øvelse ferdig — fallende treklang, tydelig forskjellig fra arbeid og hvile */
+const toReady = () => { [[880, 0], [660, 190], [440, 380]].forEach(([f, d]) => setTimeout(() => beep(f, 300), d)); buzz([200, 100, 200]); };
 const endAll = () => { [0, 200, 400].forEach((d, i) => setTimeout(() => beep(700 + i * 250, 300), d)); buzz([120, 80, 120, 80, 260]); };
 
 /* ---------- runner ---------- */
 let steps = [], idx = 0, endsAt = 0, left = 0, paused = true, loop = null, lastCue = -1, wake = null;
+/* ready = ny øvelse venter på at han trykker Start. Gir tid til å flytte seg og rigge */
+let ready = false;
 
+/* oppsummering av en hel øvelse, f.eks. "5 × 30 sek · hvile 45 sek" */
+function exSummary(i) {
+  const mine = steps.filter(s => s.id === steps[i].id);
+  const work = mine.filter(s => s.work), rest = mine.filter(s => !s.work);
+  if (work.length === 1) return "varighet " + mmss(work[0].sec);
+  return work.length + " × " + work[0].sec + " sek" + (rest.length ? " · hvile " + rest[0].sec + " sek" : "");
+}
+
+/* Skjermen holdes våken så lenge appen er synlig — også når økta står på pause.
+   Pause betyr at noe avbrøt ham og at han kommer tilbake; da er skjermlås verst.
+   Nettleseren slipper låsen selv når sida skjules, derfor lytter vi på release
+   og ber om den på nytt hver gang sida blir synlig igjen. */
 async function keepAwake(on) {
   try {
-    if (on && "wakeLock" in navigator) wake = await navigator.wakeLock.request("screen");
-    else if (wake) { wake.release(); wake = null; }
-  } catch (e) {}
+    if (on) {
+      if (!wake && document.visibilityState === "visible" && "wakeLock" in navigator) {
+        wake = await navigator.wakeLock.request("screen");
+        wake.addEventListener("release", () => { wake = null; });
+      }
+    } else if (wake) { await wake.release(); wake = null; }
+  } catch (e) { wake = null; }
 }
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible" && !paused && document.getElementById("run").classList.contains("on")) keepAwake(true);
+  if (document.visibilityState === "visible") keepAwake(true);
 });
+/* Enkelte nettlesere krever et brukertrykk før første forespørsel */
+document.addEventListener("click", () => keepAwake(true), { once: true });
 
 function startRun() {
   steps = buildSteps();
@@ -367,18 +521,34 @@ function startRun() {
 }
 function stopRun() {
   clearInterval(loop); loop = null; paused = true;
-  keepAwake(false);
+  /* skjermlåsen beholdes — appen er fortsatt åpen */
   document.getElementById("run").classList.remove("on");
   render();
 }
 function enter() {
+  const s = steps[idx], prev = steps[idx - 1];
+  left = s.sec; lastCue = -1;
+
+  /* Ny øvelse? Da venter vi på at han trykker Start.
+     Innenfor en øvelse går seriene automatisk — han skal ikke måtte ta på
+     telefonen mellom settene. Første steg i økta starter direkte, fordi
+     «Start økt» allerede var trykket. */
+  ready = !!prev && prev.id !== s.id;
+  if (ready) { toReady(); paint(); return; }
+
+  endsAt = Date.now() + s.sec * 1000;
+  if (s.work) toWork(); else toRest();
+  paint();
+}
+function beginStep() {
+  ready = false;
+  endsAt = Date.now() + left * 1000; lastCue = -1;
   const s = steps[idx];
-  left = s.sec; endsAt = Date.now() + s.sec * 1000; lastCue = -1;
   if (s.work) toWork(); else toRest();
   paint();
 }
 function tick() {
-  if (paused) return;
+  if (paused || ready) return;
   left = Math.max(0, (endsAt - Date.now()) / 1000);
   const w = Math.ceil(left);
   if (w <= 3 && w >= 1 && w !== lastCue) { lastCue = w; cue(); }
@@ -402,36 +572,59 @@ function paint() {
   document.getElementById("rCount").textContent = "steg " + (idx + 1) + " / " + steps.length;
   document.getElementById("rBlock").textContent = s.bt;
   document.getElementById("rName").textContent = s.nm;
-  document.getElementById("rDesc").textContent = s.work ? (s.ds || "") : "";
+  document.getElementById("rDesc").textContent = (ready || s.work) ? (s.ds || "") : "";
+
   const ph = document.getElementById("rPhase");
-  ph.textContent = s.work ? "ARBEID" : "HVILE";
-  ph.className = "rphase" + (s.work ? "" : " rest");
   const n = document.getElementById("rNum");
-  n.textContent = w >= 60 ? mmss(w) : w;
-  n.className = "rnum" + (w <= 3 ? " warn" : "");
-  document.getElementById("rSet").textContent = s.sets ? "serie " + s.set + " av " + s.sets : "";
+  const btn = document.getElementById("rPause");
+
+  if (ready) {
+    ph.textContent = "KLAR — RIGG DEG TIL";
+    ph.className = "rphase ready";
+    n.textContent = w >= 60 ? mmss(w) : w;
+    n.className = "rnum idle";
+    document.getElementById("rSet").textContent = exSummary(idx);
+    btn.textContent = "▶ Start øvelsen";
+    btn.classList.remove("paused");
+  } else {
+    ph.textContent = s.work ? "ARBEID" : "HVILE";
+    ph.className = "rphase" + (s.work ? "" : " rest");
+    n.textContent = w >= 60 ? mmss(w) : w;
+    n.className = "rnum" + (w <= 3 ? " warn" : "");
+    document.getElementById("rSet").textContent = s.sets ? "serie " + s.set + " av " + s.sets : "";
+    btn.textContent = paused ? "Fortsett" : "Pause";
+    btn.classList.toggle("paused", paused);
+  }
+
+  document.getElementById("rInfo").style.display = INFO[s.nm] ? "" : "none";
+
   const nx = steps[idx + 1];
   document.getElementById("rNext").textContent = nx ? "Neste: " + (nx.work ? nx.nm : "hvile " + nx.sec + " sek") : "Siste steg";
-  document.getElementById("rBar").style.width = (100 * (1 - left / s.sec)) + "%";
+  document.getElementById("rBar").style.width = (ready ? 0 : 100 * (1 - left / s.sec)) + "%";
 }
+
+document.getElementById("rInfo").onclick = () => visInfo(steps[idx].nm);
+document.getElementById("iClose").onclick = () => document.getElementById("info").classList.remove("on");
 
 document.getElementById("start").onclick = startRun;
 document.getElementById("rQuit").onclick = () => { if (confirm("Avslutte økta?")) stopRun(); };
 document.getElementById("rPrev").onclick = prev;
 document.getElementById("rNextBtn").onclick = () => next(false);
-document.getElementById("rPause").onclick = e => {
+document.getElementById("rPause").onclick = () => {
+  keepAwake(true);                       // aldri slipp låsen på pause
+  if (ready) { beginStep(); return; }
   paused = !paused;
   if (paused) left = Math.max(0, (endsAt - Date.now()) / 1000);
   else endsAt = Date.now() + left * 1000;
-  e.target.textContent = paused ? "Fortsett" : "Pause";
-  e.target.classList.toggle("paused", paused);
-  keepAwake(!paused);
+  paint();
 };
 
 /* ---------- liste-interaksjon ---------- */
 document.addEventListener("click", e => {
   const nav = e.target.closest("nav button");
   if (nav) { day = nav.dataset.d; render(); return; }
+  const ib = e.target.closest("[data-inf]");           // må sjekkes før .ex, ellers krysses øvelsen av
+  if (ib) { document.getElementById("inf-" + ib.dataset.inf).classList.toggle("on"); return; }
   const ex = e.target.closest(".ex");
   if (ex) {
     const st = load(); st[ex.dataset.id] = !st[ex.dataset.id]; save(st);
@@ -476,6 +669,7 @@ document.getElementById("copy").onclick = async () => {
 document.getElementById("reset").onclick = () => { if (confirm("Nullstille avkryssingen for i dag?")) { save({}); render(); } };
 
 render();
+keepAwake(true);        // skjermen holdes våken fra appen åpnes, ikke først når økta starter
 </script>
 </body>
 </html>
