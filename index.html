@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0d0f13">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Blokk 1 — Håndstand</title>
+<title>Testuke — høyre skulder</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;overscroll-behavior:none}
@@ -54,6 +54,8 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 .meas{padding:14px 15px;display:flex;flex-direction:column;gap:12px}
 .meas label{font-size:14px;color:#c3cad6;display:flex;flex-direction:column;gap:6px}
 .meas input{padding:13px 14px;border-radius:10px;border:1px solid #333c4b;background:#0d0f13;color:#e8eaed;font:600 17px/1 inherit}
+.meas input::placeholder{color:#4b5563;font-weight:500}
+.measnote{font-size:13px;line-height:1.5;color:#ffb454;background:#1b1508;border:1px solid #3d2f10;border-radius:10px;padding:10px 12px;margin-bottom:2px}
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#11151dee;backdrop-filter:blur(10px);border-top:1px solid #232833;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px}
 .bar button{flex:1;padding:15px 8px;border-radius:11px;border:none;font:700 15px/1 inherit;background:#3ddc84;color:#0d0f13}
 .bar button.sec{background:#232a36;color:#c3cad6;flex:0 0 76px;font-weight:600}
@@ -143,8 +145,8 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 <script>
 "use strict";
 
-/* ================= blokk 1: 2026-09-07 → 2026-10-19 ================= */
-const VERSION = "v6";           // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
+/* ======= testuke høyre skulder: 2026-10-19 → 2026-10-25 (etter blokk 1, før blokk 2) ======= */
+const VERSION = "v11";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
 const BLOCK_START = new Date(2026, 8, 7);
 const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
@@ -164,7 +166,7 @@ function ladder(w) {
 const S = {
   man: {
     title: "Form og linje",
-    note: "Kommer etter tre harde dager. <strong>Skal ikke være hard.</strong> Bygger linjen og avlaster korsryggen.",
+    note: "Oppsparket først, og <strong>film det fra siden</strong>. Ingen hollow rock. Side plank kun venstre.",
     blocks: [
       ["Oppvarming", [
         ["Wrist circles + loaded wrist stretch", "Frem og tilbake, rolig", 180],
@@ -172,22 +174,24 @@ const S = {
         ["Band pull-aparts", "2 × 15", 100],
         ["Scapula push-ups", "2 × 10", 100]
       ]],
+      ["0 · Oppspark — helt først", [
+        ["Free kick-up to handstand", "1 × 5 forsøk, åpent gulv, uthvilt. FILM fra siden i hoftehøyde: hele kroppen og hendene i bildet", 180]
+      ]],
       ["1 · Bekkenkontroll og midtlinje", [
         ["Posterior pelvic tilt, wall", "3 × 10 — produser tilten bevisst", 150],
         ["Dead bug", "3 × 8 per side, sakte", 210],
-        ["Hollow hold", "Korsryggen presset i gulvet", [4, 30, 30]],
-        ["Hollow rock", "3 × 15 — kun når hollow hold er stabil", 180]
+        ["Hollow hold", "Korsryggen presset i gulvet. Ingen hollow rock denne uka", [4, 20, 30]]
       ]],
       ["2 · Linje mot vegg", [
-        ["Chest-to-wall handstand hold", "Ribbein ned, sete strammet, bakover-tilt. Ryker linjen — bryt", [5, 30, 45]]
+        ["Chest-to-wall handstand hold", "Ribbein ned, sete strammet, bakover-tilt. Vondt i skulderen: stopp øvelsen", [3, 30, 45]]
       ]],
       ["3 · Press mot headstand", [
-        ["Crow to headstand press", "3 reps. Strekk helt ut på toppen, hold 5–10 sek. Vekten i hendene, ikke i issen", [4, 30, 45]]
+        ["Crow to headstand press", "3 reps. Strekk helt ut på toppen, hold 5–10 sek. Vekten i hendene, ikke i issen", [2, 30, 45]]
       ]],
       ["4 · Sete og bakside", [
         ["Glute bridge", "3 × 12", 150],
         ["Bird dog", "3 × 8 per side", 180],
-        ["Side plank", "Vekselvis side", [6, 20, 15]]
+        ["Side plank", "KUN VENSTRE side — høyre skulder hviler", [3, 20, 20]]
       ]],
       ["5 · Straddle vedlikehold", [
         ["Passive straddle sit", "Slipp ned, la tyngdekraften jobbe", [2, 90, 25]],
@@ -196,11 +200,20 @@ const S = {
       ["Nedkjøling", [
         ["Swan pose", "", [2, 60, 20]]
       ]]
+    ],
+    measNote: "Testuka leses på skulderen. Oppsparkene telles: kom ikke opp / stabil balanse / for sterke (bail). Videoen sendes ikke herfra — beskriv hva du ser.",
+    meas: [
+      ["skulder", "Høyre skulder i morges — bedre / likt / verre enn i går", "likt"],
+      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabil / for sterke", "2 / 2 / 1"],
+      ["film", "Filmet? Hva viser videoen?", "ja — bailet før overbalanse på 3"],
+      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"],
+      ["overskudd", "Overskudd ut vs. inn", "mer / likt / mindre"],
+      ["rpe", "RPE (1–10)", "3–4 på en riktig mandag"]
     ]
   },
   ons: {
     title: "Styrke",
-    note: "Økta som har manglet. <strong>Denne vikes aldri.</strong>",
+    note: "<strong>HSPU er ute denne uka.</strong> Ingenting til failure: siste sett skal ha minst 2 reps eller 10 sek igjen.",
     blocks: [
       ["Oppvarming", [
         ["Wrist prep", "Sirkler og strekk", 120],
@@ -209,55 +222,60 @@ const S = {
         ["Light push-ups", "1 × 8", 60]
       ]],
       ["A · Press på fast stativ", [
-        ["Dips", "3–5 reps · 3 sek senking, full lockout. Klarer du under 3: kjør negatives 3 × 5 sek i stedet", [4, 40, 120]]
+        ["Dips", "3 reps · 3 sek senking, full lockout. Siste sett: minst 2 reps igjen", [3, 40, 120]]
       ]],
       ["B · Trekk", [
-        ["Strict pull-up", "2 reps · submaksimalt. Aldri til failure — 12 rene reps slår to sett til utmattelse", [6, 25, 90]]
+        ["Strict pull-up", "2 reps · 1–2 reps igjen i hvert sett", [6, 25, 90]]
       ]],
-      ["C · Reduser HSPU-deficit", [
-        ["Strict HSPU", "3 reps · når 4 × 5 går rent: fjern 1 cm. Noter cm i loggen", [4, 35, 90]],
-        ["Box pike push-up", "8–10 reps. Hoftene høyt, blikket mot gulvet mellom hendene, albuene fremover. Hev boksen når det blir lett", [3, 40, 60], 3]
+      ["C · Pressvolum", [
+        ["Pike push-up", "8 reps, føttene på gulvet. Siste sett: minst 2 reps igjen", [2, 40, 60]]
       ]],
       ["D · Ringstabilitet", [
-        ["Ring support hold", "Strake armer, ringene vridd ut, skuldrene ned. Forutsetningen for ring dip", [5, 30, 60]]
+        ["Ring support hold", "Strake armer, ringene vridd ut, hollow. Siste sett: minst 10 sek igjen", [3, 20, 60]]
       ]],
       ["E · Kjerne og kompresjon", [
         ["Hollow hold", "", [3, 25, 30]],
         ["Tuck compression hold", "På blokker eller paralletter", [3, 15, 30]]
       ]]
+    ],
+    measNote: "Reps per sett, og hvor mange du hadde igjen på siste. Testuka skal vise om skulderen roer seg når ingenting går til failure.",
+    meas: [
+      ["skulder", "Høyre skulder i morges — bedre / likt / verre enn i går", "likt"],
+      ["dips", "Dips — reps per sett + reps igjen på siste", "3/3/3, 2 igjen"],
+      ["pull", "Strict pull-up — reps per sett + reps igjen på siste", "2/2/2/2/2/2, 2 igjen"],
+      ["pike", "Pike push-up — reps per sett + reps igjen på siste", "8/8, 2 igjen"],
+      ["ring", "Ring support hold — sett × sek, sek igjen på siste", "3 × 20, 10 igjen"],
+      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"],
+      ["rpe", "RPE (1–10)", "husk: din skala ligger lavt"]
     ]
   },
   tor: {
     title: "Ferdighet",
-    note: "Blokkens viktigste økt. Lav systembelastning — <strong>OL om kvelden skal ikke lide.</strong>",
+    note: "Kun oppspark og lett kompresjon. <strong>Ingen dedikerte bails, ingen balanseblokk.</strong> OL i kveld.",
     blocks: [
       ["Oppvarming", [
         ["Wrist prep", "Sirkler og strekk", 180],
         ["Scapula push-ups", "2 × 10", 100],
         ["Hollow hold", "", [2, 20, 25]]
       ]],
-      ["1 · Utgang", [
-        ["Cartwheel bail", "__BAIL__", [6, 30, 30]]
+      ["1 · OPPSPARK", [
+        ["Free kick-up to handstand", "10 forsøk per sett, åpent gulv. Tykk matte der du lander i bailen. Bare hele forsøk: til vertikal eller bail", [2, 300, 90]]
       ]],
-      ["2 · OPPSPARK", [
-        ["Free kick-up to handstand", "__KICK__ · ~6 forsøk per runde. Spark til vertikal — hver gang. Forbudt å stoppe ved 45°", [5, 180, 60]]
-      ]],
-      ["3 · Balanse", [
-        ["Toe pulls, chest-to-wall", "5 reps, hold 3–5 sek. Korrigér med fingrene, ikke hoftene", [5, 45, 35]],
-        ["Wall lean-away hold", "Len kroppen bort fra veggen og hold balansen", [5, 20, 30]]
-      ]],
-      ["4 · Lett kompresjon", [
+      ["2 · Lett kompresjon", [
         ["Tuck compression hold", "", [3, 10, 25]],
-        ["Frog stand", "Lav intensitet — skuldrene skal være friske til kvelden", [3, 15, 25]]
+        ["Frog stand", "Hold 5 sek. Lav intensitet — skuldrene skal være friske til kvelden", [3, 15, 25]]
       ]],
       ["Nedkjøling", [
         ["Swan pose", "", [2, 60, 20]]
       ]]
     ],
+    measNote: "Tell per sett à 10: kom ikke opp / stabil balanse / for sterke (bail). Samme oppsett som 2026-10-15, så tallene kan sammenlignes.",
     meas: [
-      ["hold", "Beste frittstående hold (sek)"],
-      ["opp", "Oppspark til vertikal — av 10 forsøk"],
-      ["hspu", "HSPU-deficit (cm)"]
+      ["skulder", "Høyre skulder i morges — bedre / likt / verre enn i går", "likt"],
+      ["s1", "Sett 1 (forsøk 1–10) — kom ikke opp / stabil / for sterke", "5 / 3 / 2"],
+      ["s2", "Sett 2 (forsøk 11–20) — kom ikke opp / stabil / for sterke", "5 / 3 / 2"],
+      ["hold", "Beste frittstående hold (sek)", "1–2"],
+      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"]
     ]
   }
 };
@@ -327,13 +345,16 @@ const INFO = {
 "Full heng i bunn med strake armer. Trekk skulderbladene ned først, deretter albuene. Haka over stanga.\n\nIngen kipping, ingen sprett i bunnen.\n\nSubmaksimalt — aldri til failure. Seks sett à to gir tolv rene repetisjoner, og det bygger mer enn to sett kjørt til utmattelse. Du er på 3–5 strenge; veien til 8–10 går gjennom volum, ikke gjennom å kjøre deg tom.\n\nProgresjon gjennom blokka: 6×2 → 6×3 → 5×4.",
 
 "Strict HSPU":
-"Rygg mot vegg, hendene litt bredere enn skulderbredde. Senk kontrollert til hodet berører underlaget, press opp til full lockout.\n\nIngen kipping med hoftene — det er en annen øvelse.\n\nPROGRESJONEN ER ÉN TING: CENTIMETER. Du står på rundt 7 cm (10 kg skive + abmat). Når 4 × 5 går rent, fjerner du én centimeter.\n\nNoter alltid cm i loggen. Det er ett av de tre tallene vi følger gjennom blokka, og det er en renere måling enn reps — den forteller hvor nær full bevegelsesbane du er.",
+"Rygg mot vegg, hendene litt bredere enn skulderbredde. Senk kontrollert til hodet berører underlaget, press opp til full lockout.\n\nIngen kipping med hoftene — det er en annen øvelse.\n\nPROGRESJONEN ER ÉN TING: CENTIMETER. Du står på 10 cm (10 kg skive + abmat, målt 2026-09-23 — tidligere anslått til 7). Når 4 × 5 går rent, fjerner du én centimeter.\n\nDet forutsetter at du fordeler: 3 rene reps i alle fire sett, ikke 4-4-3-2. Med fall gjennom settene når du aldri 4 × 5, og da står centimeteren stille.\n\nNoter alltid cm i loggen. Det er ett av de tre tallene vi følger gjennom blokka, og det er en renere måling enn reps — den forteller hvor nær full bevegelsesbane du er.",
 
 "Box pike push-up":
 "Føttene på en boks, hoftene høyt, kroppen i en omvendt V. Blikket mot gulvet mellom hendene.\n\nSenk til issen nærmer seg gulvet, press opp. Albuene fremover, ikke ut til siden.\n\nHev boksen når det blir lett — jo mer loddrett kroppen står, jo tyngre blir den.\n\nFormålet er volum, ikke progresjon. Denne ligger under deg på stigen: den belaster rundt halve kroppsvekten, mot HSPUs nær-hele. Men 4 × 3 HSPU gir bare tolv repetisjoner i uka i pressmønsteret, og det er for lite til å bygge fra 3 til 5 reps. Denne fyller hullet på lavere belastning.\n\nInn fra uke 3 — ikke uke 1 og 2, der du fortsatt henter deg inn etter ferien.",
 
+"Pike push-up":
+"Føttene i gulvet, hoftene høyt, kroppen i en omvendt V. Gå med hendene så nær føttene at hoftene står over skuldrene så godt det lar seg gjøre. Blikket mot gulvet mellom hendene.\n\nSenk til issen nærmer seg gulvet foran hendene, press opp. Albuene fremover, ikke ut til siden.\n\nTESTUKA: 2 × 8, og siste sett skal ha minst 2 reps igjen. Ingenting til failure. Gjør den vondt i skulderen: stopp øvelsen for i dag.\n\nFormål: holder pressmønsteret i gang mens Strict HSPU er tatt ut av testuka. Lavere belastning enn HSPU, fordi bare deler av kroppsvekten ligger på armene.",
+
 "Ring support hold":
-"Hold deg oppe på ringene med helt strake armer. Vri ringene utover så håndflatene peker fremover. Skuldrene ned og bort fra ørene, kroppen stram.\n\nRister du — det er normalt i starten, og det er nettopp stabiliseringsarbeidet som er poenget.\n\nIkke hopp over denne. Du klarer én ring dip, og det er ikke ren pressestyrke som mangler: du klarer tross alt HSPU med 7 cm deficit. Det som mangler er evnen til å stabilisere et underlag som beveger seg. Dette er forutsetningen for ring dip.",
+"Hold deg oppe på ringene med helt strake armer. Vri ringene utover så håndflatene peker fremover. Skuldrene ned og bort fra ørene, kroppen stram.\n\nRister du — det er normalt i starten, og det er nettopp stabiliseringsarbeidet som er poenget.\n\nIkke hopp over denne. Du klarer én ring dip, og det er ikke ren pressestyrke som mangler: du klarer tross alt HSPU med 10 cm deficit. Det som mangler er evnen til å stabilisere et underlag som beveger seg. Dette er forutsetningen for ring dip.",
 
 "Tuck compression hold":
 "Sitt på blokker eller paralletter med hendene ved hoftene. Press ned og løft setet fra underlaget, trekk knærne inn mot brystet.\n\nAktivt — du skal dra knærne inn mot deg, ikke bare henge med beina i luften.\n\nFormål: kompresjonsstyrken som straddle pressen bygger på. Den har du allerede mer av enn du tror — du presser crow til headstand, og det krever reell kompresjon. Derfor står den som vedlikehold her.",
@@ -342,13 +363,16 @@ const INFO = {
 "Velg side på forhånd og bestem deg før du sparker opp.\n\nNår du merker at du passerer vertikalen: vri skulder og hofte mot den valgte siden, la den ene hånda slippe, og sett beina ned i en hjulbevegelse. Se på hendene hele veien.\n\nIkke prøv å komme ned samme vei du kom opp. Det er der folk stivner i luften og lander på ryggen eller vrir håndleddet.\n\nStart der du faktisk er: vegg, beina i frontsplitt, vekten flyttet ut fra veggen. Det er en reell bail, og den behersker du allerede.\n\nBailen skal alltid ligge ett steg foran oppsparket. Du skal ha øvd utgang på en avstand før oppsparket flytter dit — ellers sparker du opp et sted du ikke vet hvordan du kommer ut av, og da trekker du deg, med god grunn.",
 
 "Free kick-up to handstand":
-"Fokuspunkt i gulvet mellom hendene — se dit hele tiden, ikke opp eller bakover.\n\nSparkebeinet strakt, det andre skyver fra. Press gulvet bort gjennom skuldrene og strekk deg lang.\n\nSPARK TIL VERTIKAL. HVER GANG.\n\nDet er forbudt å stoppe bevisst ved 45 grader. Den drillen sto i det gamle programmet ditt, på to økter i uka i månedsvis. Den var fornuftig i starten, men over tid øvde den inn nøyaktig den tilbaketrekningen som stopper deg nå. Den er fjernet, og den skal ikke tilbake.\n\nVeggen bak deg er sikkerhetsnett, ikke mål. Treffer du den, er det helt greit — det er poenget med at den står der.\n\nFem runder à tre minutter, rundt seks forsøk per runde. Rundestrukturen holder tempoet oppe og hindrer at du står og nøler mellom forsøkene.",
+"STARTPOSISJON (fra 2026-10-01): hendene i gulvet, og gå med føttene inn til skuldrene står rett over håndleddene. Armene loddrette, hoftene høyt. Skyv gulvet bort — skuldrene opp mot ørene, strake armer.\n\nStarten står stille. Ingen bevegelse bakover før sparket. Beveger du deg bakover, reiser du deg og starter på nytt. Et forsøk med sving teller ikke.\n\nHvorfor: tidligere startet du i hund med skuldrene bak hendene og lente deg bakover for å ta fart. Da må kroppen svinge langt fram over håndleddene — en rotasjon som avhenger av fart. For lite fart, og du kommer ikke opp. For mye, og skuldrene går forbi. Står skuldrene over hendene fra start, er armene allerede i sluttposisjon. Da er det bare hofter og bein som skal opp.\n\nBeina gjør jobben: bakre bein svinger strakt opp, fremre bein sparker fra gulvet. Hoftene løftes OVER skuldrene, ikke fram.\n\nFokuspunkt i gulvet mellom hendene — se dit hele tiden, ikke opp eller bakover.\n\nSPARK TIL VERTIKAL. HVER GANG.\n\nDet er forbudt å stoppe bevisst ved 45 grader. Den drillen sto i det gamle programmet ditt, på to økter i uka i månedsvis. Den var fornuftig i starten, men over tid øvde den inn nøyaktig den tilbaketrekningen som stopper deg nå. Den er fjernet, og den skal ikke tilbake.\n\nTESTUKA (2026-10-19 → 2026-10-25): åpent gulv, samme teknikk som 2026-10-15 — ikke endre noe nå, ellers vet vi ikke hva testuka viser. Mandag 1 × 5 helt først, torsdag 2 × 10. Bare hele forsøk: til vertikal eller bail. Tykk matte der du lander i bailen.\n\nFILM MANDAG fra siden, i hoftehøyde, med hele kroppen og hendene i bildet. Det vi ser etter: står du stille ved balansepunktet, jobber fingrene (håndflata letter litt, neglene bleikner), og starter bailen før kroppen faktisk har passert vertikal.\n\nGjør oppsparket vondt i skulderen: stopp oppsparket for i dag.",
+
+"Handstand hops":
+"Hendene i gulvet, skulderbredde. Gå med føttene inn til skuldrene står rett over håndleddene, armene loddrette.\n\nHopp opp med samlede, bøyde bein (tuck) og løft hoftene opp over skuldrene. Land mykt på føttene. Små hopp — målet er ikke å komme til håndstand.\n\nSkuldrene står stille over hendene hele veien. Det er hoftene som beveger seg, ikke skuldrene.\n\nFormål: lære å løfte hoftene over skuldrene uten å rotere rundt håndleddene. Det er samme mønster som den nye starten på oppsparket, på lav risiko.",
 
 "Toe pulls, chest-to-wall":
 "Gå opp i bryst-mot-vegg-håndstand og flytt hendene nærmere veggen enn vanlig. Løft så én fot av gangen fra veggen og hold 3–5 sekunder.\n\nKorrigér med fingrene, ikke med hoftene. Dette er det viktigste i hele balansearbeidet: håndstandsbalanse sitter i underarmene og fingertuppene. Presser du ned med fingrene, stopper du fallet fremover; slipper du trykket, kommer du tilbake fra overbalanse.\n\nBøyer du i hofta for å korrigere, lærer du en vane du må avlære senere.\n\nFormål: finne balansepunktet med veggen som trygghet.",
 
 "Wall lean-away hold":
-"Fra bryst-mot-vegg: len kroppen sakte bort fra veggen til bare tuppene av tærne berører, og hold balansen der.\n\nDette er så nær frittstående du kommer med sikkerhetsnett.\n\nFormål: akkumulere tid i selve balansepunktet. Du holder 3 × 30 sekunder mot vegg uten problem, så skulderutholdenheten er på plass — det du mangler er tid der balansen faktisk utfordres.",
+"OPPSETT: bryst-mot-vegg med hendene så nær veggen at kroppen står nesten loddrett. Det er avstanden fra hendene til veggen som bestemmer hvor nær balansepunktet du er — ikke en bevegelse du gjør etterpå.\n\nUTFØRELSE: press fingrene ned til tærne nesten ikke har vekt mot veggen. Ingenting skal bevege seg synlig — det som flytter seg, er trykket, fra tærne over i fingrene. Hold der i 5 sekunder. Sitter det, løft tærne én centimeter.\n\nHvorfor ikke «len deg bort»: en stiv kropp kan ikke lene seg bort fra veggen. Med hender og tær i ro kan den bare rotere rundt håndleddene, og da slipper tærne med en gang. Tyngdepunktet flyttes ut bare på tre måter: bøy i hofta (feil — ødelegger linjen), splitt beina (det er toe pulls), eller hendene nærmere veggen (det er oppsettet her).\n\nHofta er låst hele veien. Ribbein ned, sete strammet, bakover-tilt. Kjenner du at du knekker i hofta eller bøyer albuene for å holde deg, er settet over.\n\nRetningen bort fra veggen er overbalanse. Veggen tar deg ikke der — det gjør cartwheel bail.\n\nForskjell fra toe pulls: der flyttes tyngdepunktet med beinet. Her står tyngdepunktet stille, og vekta flyttes over i fingrene.\n\nFormål: akkumulere tid i selve balansepunktet. Du holder 3 × 30 sekunder mot vegg uten problem, så skulderutholdenheten er på plass — det du mangler er tid der balansen faktisk utfordres.",
 
 "Frog stand":
 "Huk deg ned, hendene i gulvet, knærne hvilende på albuene. Len vekten fremover til føttene letter fra gulvet, og hold.\n\nBlikket litt fremover, ikke rett ned mellom hendene — da tipper du lett over.\n\nLav intensitet i dag. Skuldrene skal være friske til vektløfting i kveld.\n\nFormål: håndbalanse og kompresjon i en lav, trygg posisjon."
@@ -401,16 +425,15 @@ function totalSec() { return buildSteps().reduce((a, s) => a + s.sec, 0); }
 /* ---------- liste ---------- */
 function render() {
   const w = weekNo(), L = ladder(w), s = S[day], st = load();
-  document.getElementById("wkLabel").textContent = "UKE " + w + " AV 6 · " + s.title.toUpperCase();
+  document.getElementById("wkLabel").textContent = "TESTUKE · " + s.title.toUpperCase();
   document.getElementById("dateLabel").textContent =
     new Date().toLocaleDateString("no-NO", { weekday: "long", day: "numeric", month: "short" })
     + " · " + mmss(totalSec()) + " · " + VERSION;
   document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.d === day));
 
-  document.getElementById("banner").innerHTML = day === "tor"
-    ? "<b>Uke " + w + " — avstand</b>Bail: " + L.bail + "<br>Oppspark: " + L.kick
-      + "<br><br><strong style='color:#ffb454'>Flytt aldri oppsparket til ny avstand før bailen sitter der.</strong>"
-    : "<b>Uke " + w + " av 6</b>" + s.note;
+  document.getElementById("banner").innerHTML = "<b>Testuke 19.–25. oktober — høyre skulder</b>"
+    + "<strong style='color:#ffb454'>Stopp-regel: gjør en øvelse vondt i skulderen, stopper du den øvelsen i dag.</strong><br><br>"
+    + s.note;
 
   let h = "", i = 0;
   for (const [bt, list] of s.blocks) {
@@ -434,9 +457,11 @@ function render() {
     h += "</section>";
   }
   if (s.meas) {
-    h += "<section><h2>Måling<em>hver torsdag</em></h2><div class='meas'>";
-    for (const [k, lab] of s.meas)
-      h += "<label>" + lab + "<input inputmode='decimal' data-m='" + k + "' value=\""
+    h += "<section><h2>Noter nå<em>før du lukker appen</em></h2><div class='meas'>";
+    if (s.measNote) h += "<div class='measnote'>" + esc(s.measNote) + "</div>";
+    for (const [k, lab, ph] of s.meas)
+      h += "<label>" + lab + "<input data-m='" + k + "' placeholder=\""
+        + String(ph || "").replace(/"/g, "&quot;") + "\" value=\""
         + String(st["m_" + k] || "").replace(/"/g, "&quot;") + "\"></label>";
     h += "</div></section>";
   }
@@ -478,6 +503,9 @@ const endAll = () => { [0, 200, 400].forEach((d, i) => setTimeout(() => beep(700
 let steps = [], idx = 0, endsAt = 0, left = 0, paused = true, loop = null, lastCue = -1, wake = null;
 /* ready = ny øvelse venter på at han trykker Start. Gir tid til å flytte seg og rigge */
 let ready = false;
+/* lead = nedtelling fra Start-trykket til første serie, så han rekker å komme i posisjon */
+const LEAD = 5;
+let lead = false;
 
 /* oppsummering av en hel øvelse, f.eks. "5 × 30 sek · hvile 45 sek" */
 function exSummary(i) {
@@ -527,24 +555,25 @@ function stopRun() {
 }
 function enter() {
   const s = steps[idx], prev = steps[idx - 1];
-  left = s.sec; lastCue = -1;
+  left = s.sec; lastCue = -1; lead = false;
 
   /* Ny øvelse? Da venter vi på at han trykker Start.
      Innenfor en øvelse går seriene automatisk — han skal ikke måtte ta på
-     telefonen mellom settene. Første steg i økta starter direkte, fordi
-     «Start økt» allerede var trykket. */
-  ready = !!prev && prev.id !== s.id;
+     telefonen mellom settene. Første steg i økta går rett til nedtellingen,
+     fordi «Start økt» allerede var trykket. */
+  const fresh = !prev || prev.id !== s.id;
+  ready = fresh && !!prev;
   if (ready) { toReady(); paint(); return; }
+  if (fresh) { beginLead(); return; }
 
   endsAt = Date.now() + s.sec * 1000;
   if (s.work) toWork(); else toRest();
   paint();
 }
-function beginStep() {
-  ready = false;
-  endsAt = Date.now() + left * 1000; lastCue = -1;
-  const s = steps[idx];
-  if (s.work) toWork(); else toRest();
+/* Start trykket: tell ned LEAD sek med 3-2-1, deretter starter første serie */
+function beginLead() {
+  ready = false; lead = true;
+  left = LEAD; endsAt = Date.now() + LEAD * 1000; lastCue = -1;
   paint();
 }
 function tick() {
@@ -552,6 +581,12 @@ function tick() {
   left = Math.max(0, (endsAt - Date.now()) / 1000);
   const w = Math.ceil(left);
   if (w <= 3 && w >= 1 && w !== lastCue) { lastCue = w; cue(); }
+  if (left <= 0 && lead) {
+    const s = steps[idx];
+    lead = false; left = s.sec; endsAt = Date.now() + s.sec * 1000; lastCue = -1;
+    if (s.work) toWork(); else toRest();
+    return paint();
+  }
   if (left <= 0) return next(true);
   paint();
 }
@@ -586,6 +621,14 @@ function paint() {
     document.getElementById("rSet").textContent = exSummary(idx);
     btn.textContent = "▶ Start øvelsen";
     btn.classList.remove("paused");
+  } else if (lead) {
+    ph.textContent = "STARTER OM";
+    ph.className = "rphase ready";
+    n.textContent = w;
+    n.className = "rnum" + (w <= 3 ? " warn" : "");
+    document.getElementById("rSet").textContent = s.sets ? "serie " + s.set + " av " + s.sets : "";
+    btn.textContent = paused ? "Fortsett" : "Pause";
+    btn.classList.toggle("paused", paused);
   } else {
     ph.textContent = s.work ? "ARBEID" : "HVILE";
     ph.className = "rphase" + (s.work ? "" : " rest");
@@ -600,7 +643,7 @@ function paint() {
 
   const nx = steps[idx + 1];
   document.getElementById("rNext").textContent = nx ? "Neste: " + (nx.work ? nx.nm : "hvile " + nx.sec + " sek") : "Siste steg";
-  document.getElementById("rBar").style.width = (ready ? 0 : 100 * (1 - left / s.sec)) + "%";
+  document.getElementById("rBar").style.width = (ready ? 0 : 100 * (1 - left / (lead ? LEAD : s.sec))) + "%";
 }
 
 document.getElementById("rInfo").onclick = () => visInfo(steps[idx].nm);
@@ -612,7 +655,7 @@ document.getElementById("rPrev").onclick = prev;
 document.getElementById("rNextBtn").onclick = () => next(false);
 document.getElementById("rPause").onclick = () => {
   keepAwake(true);                       // aldri slipp låsen på pause
-  if (ready) { beginStep(); return; }
+  if (ready) { beginLead(); return; }
   paused = !paused;
   if (paused) left = Math.max(0, (endsAt - Date.now()) / 1000);
   else endsAt = Date.now() + left * 1000;
@@ -650,13 +693,16 @@ document.getElementById("copy").onclick = async () => {
     for (const [nm] of list) { const id = "e" + (i++); tot++; if (st[id]) { done++; hit.push(nm); } }
     if (hit.length) lines.push("- " + bt + ": " + hit.join(" · "));
   }
-  let txt = "/okt\n\n## " + iso(new Date()) + " — " + DAYNAME[day] + ", " + s.title + " (uke " + w + "/6)\n"
+  let txt = "/okt\n\n## " + iso(new Date()) + " — " + DAYNAME[day] + ", " + s.title + " (testuke høyre skulder)\n"
     + lines.join("\n") + "\n- Gjennomført: " + done + " av " + tot + " øvelser\n";
   if (s.meas) {
-    const m = s.meas.map(([k, lab]) => st["m_" + k] ? "  - " + lab + ": " + st["m_" + k] : null).filter(Boolean);
+    const m = s.meas
+      .filter(([k]) => k !== "rpe")
+      .map(([k, lab]) => st["m_" + k] ? "  - " + lab + ": " + st["m_" + k] : null)
+      .filter(Boolean);
     if (m.length) txt += "- Måling:\n" + m.join("\n") + "\n";
   }
-  txt += "- RPE: \n- Form: \n- Notat: ";
+  txt += "- RPE: " + (st["m_rpe"] || "") + "\n- Form: \n- Notat: ";
   try { await navigator.clipboard.writeText(txt); toast("Kopiert — lim inn til Claude"); }
   catch (e) {
     const ta = document.createElement("textarea");
