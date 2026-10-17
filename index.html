@@ -97,6 +97,7 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
       <button data-d="man">Mandag</button>
       <button data-d="ons">Onsdag</button>
       <button data-d="tor">Torsdag</button>
+      <button data-d="lor">Måling</button>
     </nav>
   </header>
   <div class="banner" id="banner"></div>
@@ -146,7 +147,7 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 "use strict";
 
 /* ======= testuke høyre skulder: 2026-10-19 → 2026-10-25 (etter blokk 1, før blokk 2) ======= */
-const VERSION = "v11";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
+const VERSION = "v12";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
 const BLOCK_START = new Date(2026, 8, 7);
 const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
@@ -277,6 +278,39 @@ const S = {
       ["hold", "Beste frittstående hold (sek)", "1–2"],
       ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"]
     ]
+  },
+  lor: {
+    title: "Straddle og pancake",
+    tag: "MÅLELØRDAG",
+    logTag: "måling, én lørdag i måneden",
+    banner: "<b>Målelørdag — én gang i måneden</b>"
+      + "Kl. 09:00, <strong>før WOD</strong>, med hjelper. Samme oppvarming hver gang, <strong>ingen tøying før målingen</strong>.<br><br>"
+      + "Datoer: 2026-10-17 (baseline) · 2026-11-14 · 2026-12-12.<br><br>"
+      + "3 forsøk per måling, ca. 7 av 10 i strekk, hold 5 sek. Noter alle tre — beste teller. Film fra siden. Skarpt i lysken eller baksiden av låret: stopp.",
+    blocks: [
+      ["Oppvarming — lik hver gang", [
+        ["Row", "Eller bike. Rolig, kun for å bli varm", 300],
+        ["Leg swings", "10 fram–bak og 10 side–side per bein", 120],
+        ["Air squat", "1 × 15, rolig, full dybde", 60],
+        ["Cossack squat", "2 × 5 per side, rolig", 120]
+      ]],
+      ["1 · Straddle", [
+        ["Straddle width test", "Rumpe og rygg inntil vegg. Strake knær, kneskål og tær opp. Hjelperen måler hælavstand, midt hæl til midt hæl", [3, 30, 30]]
+      ]],
+      ["2 · Pancake", [
+        ["Dowel pancake test", "A — nøytral rygg. Mål og noter bredden først, den gjenbrukes hver gang. Kost: bakhode, skulderblad, korsbein. Stopp når én kontakt slipper. Telefon på kosten", [3, 30, 30]],
+        ["Pancake test", "B — vanlig pancake, ryggen får runde. Samme bredde. Telefon flatt på korsbeinet, langsiden langs ryggraden", [3, 30, 30]]
+      ]]
+    ],
+    measNote: "Rå tall, alle tre forsøk. Claude regner om straddle til grader (trochanter–gulv 94 cm). Vinkler: mot gulvet, 90° = loddrett.",
+    meas: [
+      ["tid", "Klokkeslett · før eller etter WOD", "09:00, før WOD"],
+      ["straddle", "Straddle — hælavstand × 3 (cm)", "cm / cm / cm"],
+      ["bredde", "Pancake-bredde — hælavstand (cm)", "cm"],
+      ["pa", "Pancake A, nøytral rygg — kostens vinkel × 3 (°)", "° / ° / °"],
+      ["pb", "Pancake B, vanlig — korsbeinets vinkel × 3 (°)", "° / ° / °"],
+      ["smerte", "Ubehag — hvor?", "ingen"]
+    ]
   }
 };
 
@@ -374,14 +408,36 @@ const INFO = {
 "Wall lean-away hold":
 "OPPSETT: bryst-mot-vegg med hendene så nær veggen at kroppen står nesten loddrett. Det er avstanden fra hendene til veggen som bestemmer hvor nær balansepunktet du er — ikke en bevegelse du gjør etterpå.\n\nUTFØRELSE: press fingrene ned til tærne nesten ikke har vekt mot veggen. Ingenting skal bevege seg synlig — det som flytter seg, er trykket, fra tærne over i fingrene. Hold der i 5 sekunder. Sitter det, løft tærne én centimeter.\n\nHvorfor ikke «len deg bort»: en stiv kropp kan ikke lene seg bort fra veggen. Med hender og tær i ro kan den bare rotere rundt håndleddene, og da slipper tærne med en gang. Tyngdepunktet flyttes ut bare på tre måter: bøy i hofta (feil — ødelegger linjen), splitt beina (det er toe pulls), eller hendene nærmere veggen (det er oppsettet her).\n\nHofta er låst hele veien. Ribbein ned, sete strammet, bakover-tilt. Kjenner du at du knekker i hofta eller bøyer albuene for å holde deg, er settet over.\n\nRetningen bort fra veggen er overbalanse. Veggen tar deg ikke der — det gjør cartwheel bail.\n\nForskjell fra toe pulls: der flyttes tyngdepunktet med beinet. Her står tyngdepunktet stille, og vekta flyttes over i fingrene.\n\nFormål: akkumulere tid i selve balansepunktet. Du holder 3 × 30 sekunder mot vegg uten problem, så skulderutholdenheten er på plass — det du mangler er tid der balansen faktisk utfordres.",
 
+"Row":
+"Romaskin eller bike i 5 minutter, rolig tempo. Du skal bli varm, ikke sliten.\n\nFormål: lik kroppstemperatur hver målelørdag. Bevegelighet varierer med temperaturen, og målingen er bare sammenlignbar hvis oppvarmingen er den samme.",
+
+"Leg swings":
+"Stå sidelengs til en vegg eller rigg og hold deg med én hånd. Sving beinet fram og tilbake 10 ganger, med gradvis større utslag. Snu deg mot veggen og sving beinet 10 ganger fra side til side foran kroppen. Bytt bein.\n\nRolig og kontrollert. Ikke kast beinet ut i ytterstilling.\n\nFormål: dynamisk oppvarming av hofta uten statisk tøying før målingen.",
+
+"Air squat":
+"Føttene i skulderbreddes avstand, full dybde, rolig tempo. 15 reps.\n\nFormål: varme hofter og knær før målingen.",
+
+"Cossack squat":
+"Bred stilling. Sett deg ned på det ene beinet mens det andre står strakt ut til siden med tærne opp. Skift vekten over til den andre siden. 5 per side, 2 runder.\n\nRolig og innenfor komfort. Dette er oppvarming av innsiden av låret, ikke tøying.\n\nFormål: forberede adduktorene på straddle og pancake.",
+
+"Straddle width test":
+"OPPSETT: sitt med rumpe og rygg inntil veggen. Veggen låser bekkenet — lener du deg bakover, blir vinkelen kunstig stor.\n\nStrake knær. Kneskål og tær peker rett opp i taket. Ruller knærne framover eller bakover, endres rotasjonen i hofta, og da måler du noe annet.\n\nUTFØRELSE: skyv hælene ut symmetrisk til ca. 7 av 10 i strekk. Hold 5 sek. Hjelperen måler med målebånd fra midten av den ene hælen til midten av den andre, der hælen treffer gulvet.\n\n3 forsøk. Noter alle tre i cm.\n\nOmregning: vinkel = 2 · asin((hælavstand − 17) / 188). 1 cm ≈ 0,6°. 110° ≈ 171 cm. Claude regner om.",
+
+"Dowel pancake test":
+"Det viktigste pancake-tallet. Måler hvor langt hofta bøyer seg med nøytral rygg — ikke hvor langt brystet kommer ned.\n\nBREDDE: sitt i pancake-bredden du trener i, strake knær, kneskål opp. Mål hælavstanden og noter den. Samme bredde hver måling.\n\nOPPSETT: hold en kost langs ryggen, én hånd bak nakken og én bak korsryggen. Kosten skal berøre bakhodet, mellom skulderbladene og korsbeinet.\n\nUTFØRELSE: bøy deg framover fra hofta. Stopp i det øyeblikket ett av de tre kontaktpunktene slipper — da har ryggen begynt å runde. Hjelperen legger telefonen på kosten og leser av vinkelen mot gulvet. 90° = loddrett, lavere = dypere.\n\n3 forsøk.\n\nTelefon: iPhone — Måleverktøy, Vater. Android — en vinkelmåler-app som viser 0° på et bord.",
+
+"Pancake test":
+"Vanlig pancake, slik du trener den. Ryggen får runde.\n\nSamme bredde som i forrige test.\n\nGå ned til ca. 7 av 10. Hjelperen legger telefonen flatt på korsbeinet — den flate beinplata øverst mellom setemusklene — med langsiden langs ryggraden, og leser av vinkelen mot gulvet.\n\n3 forsøk.\n\nHvorfor: korsbeinet viser hvor mye bekkenet faktisk tipper framover, uansett hvor mye ryggen runder over. Din korsrygg er svært bevegelig og tar ellers bevegelsen. Forskjellen mellom A og B viser hvor mye ryggen bidrar.",
+
 "Frog stand":
 "Huk deg ned, hendene i gulvet, knærne hvilende på albuene. Len vekten fremover til føttene letter fra gulvet, og hold.\n\nBlikket litt fremover, ikke rett ned mellom hendene — da tipper du lett over.\n\nLav intensitet i dag. Skuldrene skal være friske til vektløfting i kveld.\n\nFormål: håndbalanse og kompresjon i en lav, trygg posisjon."
 
 };
 
-const DAYNAME = { man: "Mandag", ons: "Onsdag", tor: "Torsdag" };
+const DAYNAME = { man: "Mandag", ons: "Onsdag", tor: "Torsdag", lor: "Lørdag" };
 const DAYMAP = ["man", "ons", "ons", "tor", "tor", "man", "man"]; // man..søn
-let day = DAYMAP[(new Date().getDay() + 6) % 7];
+const MEASURE_DAYS = ["2026-10-17", "2026-11-14", "2026-12-12"];  // målelørdager — appen åpner på «Måling» disse dagene
+let day = MEASURE_DAYS.includes(iso(new Date())) ? "lor" : DAYMAP[(new Date().getDay() + 6) % 7];
 
 const key = () => "okt:" + iso(new Date()) + ":" + day;
 const load = () => { try { return JSON.parse(localStorage.getItem(key())) || {}; } catch (e) { return {}; } };
@@ -425,13 +481,13 @@ function totalSec() { return buildSteps().reduce((a, s) => a + s.sec, 0); }
 /* ---------- liste ---------- */
 function render() {
   const w = weekNo(), L = ladder(w), s = S[day], st = load();
-  document.getElementById("wkLabel").textContent = "TESTUKE · " + s.title.toUpperCase();
+  document.getElementById("wkLabel").textContent = (s.tag || "TESTUKE") + " · " + s.title.toUpperCase();
   document.getElementById("dateLabel").textContent =
     new Date().toLocaleDateString("no-NO", { weekday: "long", day: "numeric", month: "short" })
     + " · " + mmss(totalSec()) + " · " + VERSION;
   document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.d === day));
 
-  document.getElementById("banner").innerHTML = "<b>Testuke 19.–25. oktober — høyre skulder</b>"
+  document.getElementById("banner").innerHTML = s.banner || "<b>Testuke 19.–25. oktober — høyre skulder</b>"
     + "<strong style='color:#ffb454'>Stopp-regel: gjør en øvelse vondt i skulderen, stopper du den øvelsen i dag.</strong><br><br>"
     + s.note;
 
@@ -693,7 +749,7 @@ document.getElementById("copy").onclick = async () => {
     for (const [nm] of list) { const id = "e" + (i++); tot++; if (st[id]) { done++; hit.push(nm); } }
     if (hit.length) lines.push("- " + bt + ": " + hit.join(" · "));
   }
-  let txt = "/okt\n\n## " + iso(new Date()) + " — " + DAYNAME[day] + ", " + s.title + " (testuke høyre skulder)\n"
+  let txt = "/okt\n\n## " + iso(new Date()) + " — " + DAYNAME[day] + ", " + s.title + " (" + (s.logTag || "testuke høyre skulder") + ")\n"
     + lines.join("\n") + "\n- Gjennomført: " + done + " av " + tot + " øvelser\n";
   if (s.meas) {
     const m = s.meas
