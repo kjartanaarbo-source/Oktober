@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0d0f13">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Testuke — høyre skulder</title>
+<title>Mobilitetsuke</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;overscroll-behavior:none}
@@ -94,9 +94,8 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
   <header>
     <div class="wk"><b id="wkLabel">—</b><span id="dateLabel">—</span></div>
     <nav>
-      <button data-d="man">Mandag</button>
-      <button data-d="ons">Onsdag</button>
-      <button data-d="tor">Torsdag</button>
+      <button data-d="egen">Egenøkt</button>
+      <button data-d="helg">Helg</button>
       <button data-d="lor">Måling</button>
     </nav>
   </header>
@@ -146,8 +145,8 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 <script>
 "use strict";
 
-/* ======= testuke høyre skulder: 2026-10-19 → 2026-10-25 (etter blokk 1, før blokk 2) ======= */
-const VERSION = "v12";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
+/* ======= mobilitetsuke: 2026-10-26 → 2026-11-01 (før blokk 2) ======= */
+const VERSION = "v13";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
 const BLOCK_START = new Date(2026, 8, 7);
 const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
@@ -164,119 +163,64 @@ function ladder(w) {
 
 /* øvelse: [navn, beskrivelse, tid]
    tid = sekunder  ELLER  [serier, arbeid, hvile] */
+const HOFTE_HELG = [
+  ["Elevated hamstring stretch", "Bøyd kne → strakt, brystet mot låret. 5 dynamiske + 30 sek hold. Annenhver side: H, V, H, V", [4, 60, 10]],
+  ["Half split", "Fra bøyd kne, brystet mot fremre lår. 5 dynamiske + 30 sek hold. Annenhver side", [4, 60, 10]],
+  ["Couch stretch", "Bekkenet tippet bakover, setet stramt. Reis deg bare så langt tippen holder. Annenhver side", [4, 60, 10]]
+];
 const S = {
-  man: {
-    title: "Form og linje",
-    note: "Oppsparket først, og <strong>film det fra siden</strong>. Ingen hollow rock. Side plank kun venstre.",
+  egen: {
+    title: "Mobilitet",
+    tag: "MOBILITETSUKE",
+    logTag: "mobilitetsuke",
+    banner: "<b>Mobilitetsuke 26. oktober – 1. november</b>"
+      + "Egenøkt mandag, onsdag og torsdag: 20 min håndstand, resten hofte. Fullt blokk 2-program fra 2026-11-02.<br><br>"
+      + "<strong style='color:#ffb454'>Stopp-regel: kjenning foran og øverst på høyre skulder — stopp den øvelsen i dag.</strong><br><br>"
+      + "Strekk på ca. 7 av 10, i muskelen, aldri i ledd. Prikking eller nervedrag bak kneet: stopp øvelsen.",
     blocks: [
       ["Oppvarming", [
-        ["Wrist circles + loaded wrist stretch", "Frem og tilbake, rolig", 180],
-        ["Broomstick shoulder dislocates", "2 × 10", 100],
-        ["Band pull-aparts", "2 × 15", 100],
-        ["Scapula push-ups", "2 × 10", 100]
+        ["Wrist circles", "Trepunktskontakt: håndrot, puten der fingrene starter, fingertupper. Mest last på puten. 8 sirkler hver vei", 120],
+        ["Thoracic extension over foam roller", "Setet i gulvet, ribbeina ned. 3 reps per plassering, to runder opp ryggen", 120],
+        ["Inchworm", "Krum ryggen FØR føttene går inn. 4 reps per sett. Skuldrene over hendene", [2, 45, 15]],
+        ["Bunny hops", "Hoftene OPP over skuldrene, land mellom hendene. Bortover rommet", [2, 40, 30]]
       ]],
-      ["0 · Oppspark — helt først", [
-        ["Free kick-up to handstand", "1 × 5 forsøk, åpent gulv, uthvilt. FILM fra siden i hoftehøyde: hele kroppen og hendene i bildet", 180]
+      ["1 · Håndstand — 20 min", [
+        ["Free kick-up to handstand", "1 × 5, åpent gulv. Pust ut i sparket. Bare vedlikehold. Stopp ved to dårlige på rad", 180],
+        ["Handstand heel pulls", "Ryggen mot veggen, hendene 15–20 cm fra den (mål!). 3 heel pulls per sett, maks 30 sek på hendene. Stopp ved to dårlige sett på rad", [8, 30, 60]]
       ]],
-      ["1 · Bekkenkontroll og midtlinje", [
-        ["Posterior pelvic tilt, wall", "3 × 10 — produser tilten bevisst", 150],
-        ["Dead bug", "3 × 8 per side, sakte", 210],
-        ["Hollow hold", "Korsryggen presset i gulvet. Ingen hollow rock denne uka", [4, 20, 30]]
-      ]],
-      ["2 · Linje mot vegg", [
-        ["Chest-to-wall handstand hold", "Ribbein ned, sete strammet, bakover-tilt. Vondt i skulderen: stopp øvelsen", [3, 30, 45]]
-      ]],
-      ["3 · Press mot headstand", [
-        ["Crow to headstand press", "3 reps. Strekk helt ut på toppen, hold 5–10 sek. Vekten i hendene, ikke i issen", [2, 30, 45]]
-      ]],
-      ["4 · Sete og bakside", [
-        ["Glute bridge", "3 × 12", 150],
-        ["Bird dog", "3 × 8 per side", 180],
-        ["Side plank", "KUN VENSTRE side — høyre skulder hviler", [3, 20, 20]]
-      ]],
-      ["5 · Straddle vedlikehold", [
-        ["Passive straddle sit", "Slipp ned, la tyngdekraften jobbe", [2, 90, 25]],
-        ["Butterfly stretch", "", [2, 60, 20]]
-      ]],
-      ["Nedkjøling", [
-        ["Swan pose", "", [2, 60, 20]]
-      ]]
+      ["2 · Hofte", [
+        ["Hip hinge with dowel", "8 reps, 3 sek ned. Bakhode, skulderblad, korsbein mot skaftet hele veien", [2, 40, 20]]
+      ].concat(HOFTE_HELG).concat([
+        ["Elevated pancake", "På 5–15 cm forhøyning, bøyde knær. 3 runder contract–relax (press hælene ned 5 sek, slipp, pust ut, gå lenger) + 30 sek hold", [2, 90, 20]],
+        ["Seated straddle leg lifts", "8 reps, begge bein, strake knær. Klarer du ikke begge: ett om gangen. Ikke len deg bakover", [3, 40, 40]]
+      ])]
     ],
-    measNote: "Testuka leses på skulderen. Oppsparkene telles: kom ikke opp / stabil balanse / for sterke (bail). Videoen sendes ikke herfra — beskriv hva du ser.",
+    measNote: "Skriv rått. Heel pulls: per sett, hvor mange av 3 som fikk hælene fra veggen, og beste hold. Kriteriet for når heel pulls sitter, settes etter mandag og onsdag.",
     meas: [
-      ["skulder", "Høyre skulder i morges — bedre / likt / verre enn i går", "likt"],
-      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabil / for sterke", "2 / 2 / 1"],
-      ["film", "Filmet? Hva viser videoen?", "ja — bailet før overbalanse på 3"],
-      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"],
-      ["overskudd", "Overskudd ut vs. inn", "mer / likt / mindre"],
-      ["rpe", "RPE (1–10)", "3–4 på en riktig mandag"]
-    ]
-  },
-  ons: {
-    title: "Styrke",
-    note: "<strong>HSPU er ute denne uka.</strong> Ingenting til failure: siste sett skal ha minst 2 reps eller 10 sek igjen.",
-    blocks: [
-      ["Oppvarming", [
-        ["Wrist prep", "Sirkler og strekk", 120],
-        ["Band pull-aparts", "2 × 15", 100],
-        ["Scapula push-ups", "2 × 10", 100],
-        ["Light push-ups", "1 × 8", 60]
-      ]],
-      ["A · Press på fast stativ", [
-        ["Dips", "3 reps · 3 sek senking, full lockout. Siste sett: minst 2 reps igjen", [3, 40, 120]]
-      ]],
-      ["B · Trekk", [
-        ["Strict pull-up", "2 reps · 1–2 reps igjen i hvert sett", [6, 25, 90]]
-      ]],
-      ["C · Pressvolum", [
-        ["Pike push-up", "8 reps, føttene på gulvet. Siste sett: minst 2 reps igjen", [2, 40, 60]]
-      ]],
-      ["D · Ringstabilitet", [
-        ["Ring support hold", "Strake armer, ringene vridd ut, hollow. Siste sett: minst 10 sek igjen", [3, 20, 60]]
-      ]],
-      ["E · Kjerne og kompresjon", [
-        ["Hollow hold", "", [3, 25, 30]],
-        ["Tuck compression hold", "På blokker eller paralletter", [3, 15, 30]]
-      ]]
-    ],
-    measNote: "Reps per sett, og hvor mange du hadde igjen på siste. Testuka skal vise om skulderen roer seg når ingenting går til failure.",
-    meas: [
-      ["skulder", "Høyre skulder i morges — bedre / likt / verre enn i går", "likt"],
-      ["dips", "Dips — reps per sett + reps igjen på siste", "3/3/3, 2 igjen"],
-      ["pull", "Strict pull-up — reps per sett + reps igjen på siste", "2/2/2/2/2/2, 2 igjen"],
-      ["pike", "Pike push-up — reps per sett + reps igjen på siste", "8/8, 2 igjen"],
-      ["ring", "Ring support hold — sett × sek, sek igjen på siste", "3 × 20, 10 igjen"],
-      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"],
-      ["rpe", "RPE (1–10)", "husk: din skala ligger lavt"]
-    ]
-  },
-  tor: {
-    title: "Ferdighet",
-    note: "Kun oppspark og lett kompresjon. <strong>Ingen dedikerte bails, ingen balanseblokk.</strong> OL i kveld.",
-    blocks: [
-      ["Oppvarming", [
-        ["Wrist prep", "Sirkler og strekk", 180],
-        ["Scapula push-ups", "2 × 10", 100],
-        ["Hollow hold", "", [2, 20, 25]]
-      ]],
-      ["1 · OPPSPARK", [
-        ["Free kick-up to handstand", "10 forsøk per sett, åpent gulv. Tykk matte der du lander i bailen. Bare hele forsøk: til vertikal eller bail", [2, 300, 90]]
-      ]],
-      ["2 · Lett kompresjon", [
-        ["Tuck compression hold", "", [3, 10, 25]],
-        ["Frog stand", "Hold 5 sek. Lav intensitet — skuldrene skal være friske til kvelden", [3, 15, 25]]
-      ]],
-      ["Nedkjøling", [
-        ["Swan pose", "", [2, 60, 20]]
-      ]]
-    ],
-    measNote: "Tell per sett à 10: kom ikke opp / stabil balanse / for sterke (bail). Samme oppsett som 2026-10-15, så tallene kan sammenlignes.",
-    meas: [
-      ["skulder", "Høyre skulder i morges — bedre / likt / verre enn i går", "likt"],
-      ["s1", "Sett 1 (forsøk 1–10) — kom ikke opp / stabil / for sterke", "5 / 3 / 2"],
-      ["s2", "Sett 2 (forsøk 11–20) — kom ikke opp / stabil / for sterke", "5 / 3 / 2"],
-      ["hold", "Beste frittstående hold (sek)", "1–2"],
+      ["skulder", "Høyre skulder i morges — noe foran og øverst? I ro?", "ingenting"],
+      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabilt / for sterk", "2 / 2 / 1"],
+      ["avstand", "Heel pulls — avstand håndrot–vegg (cm)", "18"],
+      ["heel", "Heel pulls — per sett: fikk hælene fra veggen / beste hold", "2/3 3s · 1/3 2s · …"],
+      ["lifts", "Leg lifts — begge bein eller ett? Hvor høyt?", "ett om gangen, 3–5 cm"],
+      ["hofte", "Hofte — hva var strammest? Kjentes ryggen?", "venstre bakside lår"],
       ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"]
+    ]
+  },
+  helg: {
+    title: "Hofte før WOD",
+    tag: "MOBILITETSUKE",
+    logTag: "mobilitetsuke, hofte før WOD",
+    banner: "<b>Lørdag og søndag — 15 min hofte før WOD</b>"
+      + "Samme hofteøvelser som i egenøkta, kortversjon. Pancake bare ett sett.<br><br>"
+      + "Strekk på ca. 7 av 10, i muskelen, aldri i ledd. Prikking eller nervedrag bak kneet: stopp øvelsen.",
+    blocks: [
+      ["Hofte — 15 min", HOFTE_HELG.concat([
+        ["Elevated pancake", "På 5–15 cm forhøyning, bøyde knær. 3 runder contract–relax + 30 sek hold", 90]
+      ])]
+    ],
+    meas: [
+      ["hofte", "Hva var strammest? Kjentes ryggen?", "venstre bakside lår"],
+      ["smerte", "Ubehag — hvor?", "ingen"]
     ]
   },
   lor: {
@@ -396,8 +340,6 @@ const INFO = {
 "Cartwheel bail":
 "Velg side på forhånd og bestem deg før du sparker opp.\n\nNår du merker at du passerer vertikalen: vri skulder og hofte mot den valgte siden, la den ene hånda slippe, og sett beina ned i en hjulbevegelse. Se på hendene hele veien.\n\nIkke prøv å komme ned samme vei du kom opp. Det er der folk stivner i luften og lander på ryggen eller vrir håndleddet.\n\nStart der du faktisk er: vegg, beina i frontsplitt, vekten flyttet ut fra veggen. Det er en reell bail, og den behersker du allerede.\n\nBailen skal alltid ligge ett steg foran oppsparket. Du skal ha øvd utgang på en avstand før oppsparket flytter dit — ellers sparker du opp et sted du ikke vet hvordan du kommer ut av, og da trekker du deg, med god grunn.",
 
-"Free kick-up to handstand":
-"STARTPOSISJON (fra 2026-10-01): hendene i gulvet, og gå med føttene inn til skuldrene står rett over håndleddene. Armene loddrette, hoftene høyt. Skyv gulvet bort — skuldrene opp mot ørene, strake armer.\n\nStarten står stille. Ingen bevegelse bakover før sparket. Beveger du deg bakover, reiser du deg og starter på nytt. Et forsøk med sving teller ikke.\n\nHvorfor: tidligere startet du i hund med skuldrene bak hendene og lente deg bakover for å ta fart. Da må kroppen svinge langt fram over håndleddene — en rotasjon som avhenger av fart. For lite fart, og du kommer ikke opp. For mye, og skuldrene går forbi. Står skuldrene over hendene fra start, er armene allerede i sluttposisjon. Da er det bare hofter og bein som skal opp.\n\nBeina gjør jobben: bakre bein svinger strakt opp, fremre bein sparker fra gulvet. Hoftene løftes OVER skuldrene, ikke fram.\n\nFokuspunkt i gulvet mellom hendene — se dit hele tiden, ikke opp eller bakover.\n\nSPARK TIL VERTIKAL. HVER GANG.\n\nDet er forbudt å stoppe bevisst ved 45 grader. Den drillen sto i det gamle programmet ditt, på to økter i uka i månedsvis. Den var fornuftig i starten, men over tid øvde den inn nøyaktig den tilbaketrekningen som stopper deg nå. Den er fjernet, og den skal ikke tilbake.\n\nTESTUKA (2026-10-19 → 2026-10-25): åpent gulv, samme teknikk som 2026-10-15 — ikke endre noe nå, ellers vet vi ikke hva testuka viser. Mandag 1 × 5 helt først, torsdag 2 × 10. Bare hele forsøk: til vertikal eller bail. Tykk matte der du lander i bailen.\n\nFILM MANDAG fra siden, i hoftehøyde, med hele kroppen og hendene i bildet. Det vi ser etter: står du stille ved balansepunktet, jobber fingrene (håndflata letter litt, neglene bleikner), og starter bailen før kroppen faktisk har passert vertikal.\n\nGjør oppsparket vondt i skulderen: stopp oppsparket for i dag.",
 
 "Handstand hops":
 "Hendene i gulvet, skulderbredde. Gå med føttene inn til skuldrene står rett over håndleddene, armene loddrette.\n\nHopp opp med samlede, bøyde bein (tuck) og løft hoftene opp over skuldrene. Land mykt på føttene. Små hopp — målet er ikke å komme til håndstand.\n\nSkuldrene står stille over hendene hele veien. Det er hoftene som beveger seg, ikke skuldrene.\n\nFormål: lære å løfte hoftene over skuldrene uten å rotere rundt håndleddene. Det er samme mønster som den nye starten på oppsparket, på lav risiko.",
@@ -431,11 +373,47 @@ const INFO = {
 
 "Frog stand":
 "Huk deg ned, hendene i gulvet, knærne hvilende på albuene. Len vekten fremover til føttene letter fra gulvet, og hold.\n\nBlikket litt fremover, ikke rett ned mellom hendene — da tipper du lett over.\n\nLav intensitet i dag. Skuldrene skal være friske til vektløfting i kveld.\n\nFormål: håndbalanse og kompresjon i en lav, trygg posisjon."
+,
+"Wrist circles":
+"FORMÅL: varme opp håndleddene og øve inn trykkfordelingen du skal bruke i håndstand.\n\nSTARTSTILLING: på alle fire, eller i planke hvis det kjennes lett. Hendene rett under skuldrene, fingrene spredt og langfingeren pekende rett fram.\n\nArmene strake. Skyv gulvet bort så skulderbladene glir fra hverandre og ryggen mellom dem ikke synker ned. Ribbeina inn, magen stram. Det er dette som er «hele kroppen aktiv»: kroppen er stiv, og det er bare skuldrene som flytter vekten.\n\nTREPUNKTSKONTAKTEN: tre punkter i gulvet hele tiden — håndroten, puten der fingrene starter og fingertuppene.\n\nMEST LAST PÅ PUTEN DER FINGRENE STARTER. Fingertuppene griper lett i gulvet, som om du prøver å klemme gulvet sammen under hånda, uten at knokene løfter seg.\n\nBEVEGELSEN: flytt hele kroppen i en langsom sirkel over hendene: fram, til siden, bakover og til den andre siden. Det er skuldrene som sirkler. Hendene står helt stille.\n\nNår du flytter vekten fram, øker trykket på puten og fingertuppene. Når du flytter den bakover, øker trykket i håndroten. Ingen av de tre punktene skal løfte seg på noe tidspunkt.\n\n8 sirkler hver vei. Avslutt med 10 sek der du står med vekten litt fram og kjenner at fingrene jobber.\n\nDET DU SKAL KJENNE: at trykket vandrer rundt i hånda mens kontakten med gulvet holder seg. Det er den samme korreksjonen du skal bruke i heel pulls.\n\nFEIL Å SE ETTER: fingrene løfter seg når vekten går bakover, eller skuldrene synker mellom skulderbladene.",
+
+"Thoracic extension over foam roller":
+"FORMÅL: bevegelighet i brystryggen, den stive delen fysioen fant. Får brystryggen gi etter, trenger ikke korsryggen å svaie for å få armene over hodet i håndstand.\n\nSTARTSTILLING: ligg på ryggen med skumrulla på tvers under ryggen, omtrent nederst på skulderbladene. Knærne bøyd, føttene i gulvet, SETET I GULVET. Hendene bak hodet, albuene pekende fram, så hendene bærer hodet og nakken ikke henger. Ribbeina ned, magen stram.\n\nBEVEGELSEN: pust ut og len overkroppen bakover over rulla så langt det er komfortabelt. Rulla er et dreiepunkt, og brystryggen bøyer seg bakover rundt den. Hold 2–3 sek, og kom tilbake opp.\n\n3 repetisjoner, så flytter du rulla noen centimeter opp. Start nederst på skulderbladene, avslutt øverst på dem. Gå to runder opp.\n\nHVA STÅR STILLE: setet ligger i gulvet, og ribbeina holdes nede. Det er de to tingene som låser korsryggen, slik at bøyningen må skje i brystryggen.\n\nDET DU SKAL KJENNE: trykk og strekk i øvre del av ryggen, rundt skulderbladene.\n\nFEIL Å SE ETTER: setet løfter seg, eller ribbeina spretter opp. Da svaier korsryggen og tar bevegelsen, og det er akkurat det vi vil unngå. Rulla ligger under korsryggen eller nakken. Den skal ligge mellom nederst og øverst på skulderbladene.",
+
+"Inchworm":
+"MED KRUM RYGG — varianten fra håndstandkurset.\n\nFORMÅL: øve inn formen fra pressen: øvre rygg krum, skulderbladene skjøvet fram og hoftene løftet bak deg. Det er motsatt av svaien du har i korsryggen.\n\nSTARTSTILLING: stå med føttene i hoftebredde. Bøy deg fram og sett hendene i gulvet foran føttene. Bøy knærne så mye som trengs.\n\nFØRSTE DEL, UT TIL PLANKE: gå med hendene fram til du står i planke: skuldrene over hendene, armene strake, kroppen rett fra skuldre til hæler. Skyv gulvet bort, ribbeina inn og setet stramt. Hold 2 sek.\n\nANDRE DEL, SAMMEN IGJEN — her ligger fokuset:\n\n1. Krum ryggen før beina beveger seg. Skyv gulvet hardere bort så skulderbladene glir fra hverandre og øvre rygg runder seg opp mot taket. Tipp bekkenet bakover, som i Posterior pelvic tilt, wall, så korsryggen også runder seg. Hoftene løfter seg litt.\n\n2. Gå med føttene inn mot hendene i korte skritt, og hold ryggen krum hele veien. Hoftene stiger mens føttene nærmer seg, og kroppen folder seg sammen som en pike. Hendene står stille.\n\n3. Gå så langt inn som du kommer med krum rygg og strake armer. Reis deg opp, og start neste repetisjon.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene står stille hele tiden. Føttene vandrer, og hoftene stiger. Skuldrene holder seg over hendene eller litt foran dem.\n\nDET DU SKAL KJENNE: at magemusklene og musklene mellom skulderbladene og brystet jobber for å holde krummingen, og at bakside lår strekkes når føttene kommer nær.\n\nFEIL Å SE ETTER: ryggen flater ut eller svaier når føttene går inn. Da er krummingen sluppet — ta kortere skritt. Skuldrene glir langt fram foran hendene. Det belaster fremsiden av skulderen. DENNE UKA: hold skuldrene omtrent over hendene.",
+
+"Bunny hops":
+"FORMÅL: vektoverføringen fra Float forward from downward dog: hoftene over skuldrene og vekten over i hendene, bare med fart. Hoppene er første trinn. Etter hvert blir hoppet mindre og tiden på hendene lengre, til du flyter fram uten hopp.\n\nSTARTSTILLING: nær Downward dog, men med føttene gått så langt inn at skuldrene står over håndleddene, som i startstillingen for oppsparket. Hoftene høyt, armene strake. Trepunktskontakt i hendene, mest last på puten der fingrene starter. Blikket i gulvet mellom hendene.\n\nBEVEGELSEN:\n\n1. Bøy knærne litt, og hopp med begge bein samtidig. Hoftene skal OPP, ikke fram. Målet er at hoftene kommer over skuldrene i luften.\n\n2. I luften trekker du knærne inn mot brystet, som i en tuck. Et øyeblikk bærer hendene hele vekten.\n\n3. Land mykt på føttene, MELLOM HENDENE.\n\n4. Gå med hendene fram til startstillingen, og gjenta. Slik kommer du deg bortover rommet.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene står stille mens du hopper. Armene er strake hele tiden. Det er hoftene som flytter seg opp og over hendene.\n\nDET DU SKAL KJENNE: at vekten går over i hendene og at fingrene tar imot. Landingen skal være stille.\n\nFEIL Å SE ETTER: du hopper fram og ikke opp — da lander føttene foran der de var, men hoftene har aldri vært over hendene. Albuene bøyer seg i hoppet. Hard landing betyr at du falt ned fra hoppet i stedet for å kontrollere det.",
+
+"Free kick-up to handstand":
+"MOBILITETSUKA: 1 × 5, bare for å holde ved like det du har bygget i blokk 1. Det er ikke trening for å bli bedre denne uka. Fem forsøk, så er det gjort.\n\nOPPSETT: åpent gulv, ingen vegg. Matte der du lander i bailen er valgfritt. Uthvilt, rett etter oppvarmingen.\n\nSTARTSTILLING (fra 2026-10-01): gå med føttene inn til skuldrene står over håndleddene, armene loddrette og hoftene høyt. Trepunktskontakt, mest last på puten der fingrene starter. Starten står stille. Ingen bevegelse bakover og ingen sving. Et forsøk med sving teller ikke.\n\nBEVEGELSEN: pust ut når du sparker opp. Utpusten trekker ribbeina ned og strammer magen, så kroppen er stiv når du kommer opp.\n\nHøyre bein svinger strakt opp. Venstre bein sparker fra gulvet. Hoftene løftes OVER skuldrene, ikke fram. Spark til vertikal. Ikke stopp med vilje på halvveien.\n\nKommer du opp: korriger med fingrene. Går du over: Cartwheel bail, til venstre der det går. Kommer du ikke opp: gå rolig ned igjen.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene og skuldrene står stille. Det er beina som flytter tyngdepunktet opp over hendene.\n\nTELL HVERT FORSØK: kom ikke helt opp / stabilt punkt / for sterk (bail). Skriv for eksempel «2/2/1».\n\nSTOPP-REGLER: to dårlige forsøk på rad (overspark, bail før overbalanse, eller fingrene jobber ikke): stopp der. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+
+"Handstand heel pulls":
+"FORMÅL: lære å bli stående ved å korrigere med fingrene. Veggen tar imot det du ikke redder, så du trenger ingen bail og har ingenting å frykte. Det er også første trinn mot Slow kick-up, der hælen så vidt skal berøre veggen.\n\nOPPSETT: hendene ca. 15–20 cm fra veggen, målt fra håndroten. Jo nærmere veggen, jo mindre må du lene deg, og jo lettere er det å komme fra den. MÅL AVSTANDEN FØRSTE GANG, OG HOLD DEN FAST til øvelsen sitter. Noter den.\n\nOPPSPARK: ryggen mot veggen. Spark opp, pust ut, og la hælene legge seg lett mot veggen. Still deg opp i linje: ribbeina ned, bekkenet tippet bakover, setet stramt og beina samlet. Hele kroppen stiv. Trepunktskontakt, mest last på puten der fingrene starter.\n\nÉN HEEL PULL:\n\n1. Press fingrene ned i gulvet. Trykket flyttes fram i hånda, og hele den stive kroppen vipper litt bort fra veggen. Hælene slipper.\n\n2. Hold balansen så lenge du klarer, og korriger med fingrene. Trykk mer med fingertuppene hvis du er på vei tilbake mot veggen. Slipp litt på fingrene, så trykket går mot håndroten, hvis du er på vei bort fra veggen.\n\n3. Når balansen ryker mot veggen, tar veggen imot. Det er hele poenget. Ryker den bort fra veggen, går du rolig ned.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: kroppen er stiv fra hender til tær og vipper som én enhet rundt håndleddene. Det er trykket i hendene som flytter seg. Hoftene skal IKKE bøye seg.\n\nDOSE: ett sett = spark opp, så 3 heel pulls med hælene tilbake til veggen mellom hver, så ned. Maks 30 sek på hendene per sett. Hvile 60 sek. Klokka gir 8 sett.\n\nNOTER PER SETT: hvor mange av de 3 som fikk hælene fra veggen, og beste hold i sekunder. For eksempel «2/3, 3 sek».\n\nNÅR SITTER DEN? Kriteriet settes etter mandag og onsdag, når vi har tall.\n\nFEIL Å SE ETTER: du bøyer i hofta for å få føttene fra veggen. Da slipper beina, men hoftene lener seg bakover mot veggen, og det er ingen balanse. Det er den vanligste juksefeilen. Hele kroppen skal bort fra veggen, ikke bare føttene. Korsryggen svaier og magen henger. Albuene bøyer seg for å redde balansen.\n\nSTOPP-REGLER: to dårlige sett på rad, der ingen av heel pullene får hælene fra veggen eller formen ryker: stopp øvelsen. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+
+"Hip hinge with dowel":
+"VIDEO: https://youtu.be/45DQiwq4oKk\nVIDEO: https://youtu.be/t4ouk4TmrS8\n\nFORMÅL: lære å bøye i hofta mens ryggen står helt stille. Det er grunnferdigheten under alle hofteøvelsene som kommer etter. Korsryggen din tar over så lett at du trenger et redskap som sier fra når den gjør det.\n\nSTARTSTILLING: stå med føttene i hoftebredde og knærne myke, litt bøyd. Knevinkelen holdes lik hele veien. Kosteskaftet langs ryggen. Den ene hånda holder det bak nakken, den andre bak korsryggen.\n\nTRE KONTAKTPUNKTER: bakhodet, mellom skulderbladene og korsbeinet. Det skal være en liten åpning ved korsryggen, omtrent en håndflate. Det er den naturlige svaien.\n\nBEVEGELSEN:\n\n1. Skyv hoftene bakover, som om du skal lukke en bildør med rumpa. Overkroppen tipper fram som en planke rundt hofteleddet.\n\n2. Gå ned langsomt, ca. 3 sek, til du kjenner strekk i bakside lår på ca. 7 / 10, eller til et av kontaktpunktene slipper skaftet. Det som kommer først, avgjør.\n\n3. Kom opp ved å skyve hoftene fram.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bare hofteleddet beveger seg. Ryggen, nakken og knærne står stille. Skaftet viser det: alle tre punktene ligger inntil hele veien, og åpningen ved korsryggen er like stor.\n\nDET DU SKAL KJENNE: strekk i bakside lår, ikke i ryggen.\n\nFEIL Å SE ETTER: korsbeinet slipper skaftet — korsryggen runder seg, og det er nettopp det vi trener bort. Du har gått for langt, snu før det skjer. Åpningen ved korsryggen blir større — du svaier for å komme lenger ned. Bakhodet slipper — nakken bøyer seg. Hold blikket i gulvet ca. 1 m foran deg. Knærne bøyes mer for å komme lenger ned — da blir det en knebøy og ikke en hip hinge.",
+
+"Elevated hamstring stretch":
+"BØYD KNE → STRAKT, BRYSTET MOT LÅRET.\n\nFORMÅL: strekke bakside lår med ryggen ute av bevegelsen. Dette er fysioens øvelse slått sammen med varianten som ga deg gjennombruddet i foroverbøyen. Én side om gangen. Det er også fremre bein i frontsplitt.\n\nSTARTSTILLING: den ene foten på en boks, ca. knehøyde eller litt lavere. Foten avslappet, ikke trukket mot deg. Ståbeinet med tærne rett fram og kneet rett, men ikke låst. Hoftene i vater og rett fram. Hofta på boks-siden vil gjerne løfte seg og vri seg utover. Hold den nede.\n\nBEVEGELSEN:\n\n1. Bøy kneet på boksbeinet godt, og fold deg fram fra hofta til brystet ligger mot låret. Hendene på boksen eller på leggen.\n\n2. Pust inn. Hold brystet mot låret, pust ut og strekk kneet langsomt mot rett til du kjenner strekk på ca. 7 / 10.\n\n3. Hold 2–3 sek, og bøy kneet igjen.\n\n4. Gjenta, og gå litt lenger for hver gang: inn og ut av strekket.\n\n5. Den femte repetisjonen holdes i 30 sek. Pust rolig, og gå litt dypere på hver utpust.\n\nDOSE: 2 sett per side, annenhver side. Klokka gir 4 × 60 sek.\n\nPUSTEN: inn når kneet er bøyd, ut når du går inn i strekket. Utpusten får musklene til å slippe. Holder du pusten, strammer kroppen seg og holder igjen.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: brystet og låret er låst sammen, så ryggen kan ikke runde seg mer. Det eneste som beveger seg, er kneet. Når det strekkes, må bakside lår gi etter.\n\nDET DU SKAL KJENNE: strekk i bakside lår, fra setet og ned mot knehasen.\n\nFEIL Å SE ETTER: brystet slipper låret når du strekker kneet — da tar ryggen over. Stopp kneet der brystet fortsatt ligger inntil. Det er grensen din. Hofta på boks-siden løfter seg eller vrir seg utover. Du holder pusten i holdet. Prikking eller nervedrag bak kneet eller ned i leggen: stopp øvelsen. Det er nerven, ikke muskelen.",
+
+"Half split":
+"FRA BØYD KNE, BRYSTET MOT FREMRE LÅR.\n\nFORMÅL: samme strekk som Elevated hamstring stretch, men i stillingen fra frontsplitten. Det er denne stillingen ståbeinet ditt er i når du sparker opp: hofta bøyd og kneet strakt. Trenes på begge sider, siden du også vil lære oppspark med venstre bein.\n\nSTARTSTILLING: knestående på bakre kne, med en pute eller matte under. Fremre fot foran deg med hælen i gulvet. To yogablokker, én på hver side av fremre fot, for hendene. Hoftene rett fram, som frontlykter som peker framover. Bakre hofte vil gjerne vri seg utover.\n\nBEVEGELSEN:\n\n1. Fremre kne godt bøyd. Fold deg fram fra hofta til brystet ligger mot fremre lår, med hendene på blokkene.\n\n2. Pust inn. Hold brystet mot låret, pust ut, og skyv hoftene bakover mot bakre kne, så fremre kne strekker seg mot rett. Stopp på ca. 7 / 10.\n\n3. Hold 2–3 sek, og kom tilbake.\n\n4. 5 dynamiske repetisjoner. Den femte holdes i 30 sek, med rolig pust og litt dypere på hver utpust.\n\nDOSE: 2 sett per side, annenhver side. Klokka gir 4 × 60 sek.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: brystet og låret er låst sammen. Hoftene glir bakover, og fremre kne strekker seg. Ryggen står stille.\n\nDET DU SKAL KJENNE: strekk i bakside av fremre lår.\n\nFEIL Å SE ETTER: brystet slipper låret — ryggen tar over. Bakre hofte vrir seg utover, så bekkenet peker skrått. Du holder pusten. Prikking eller nervedrag bak kneet: stopp.",
+
+"Couch stretch":
+"BEKKENET TIPPET BAKOVER.\n\nFORMÅL: strekke hoftebøyerne foran på bakre bein i frontsplitten. Det er sparkbeinets side når du sparker opp. Mangler denne, gir korsryggen etter, og du får den kjente svaien. Øvelsen trener også det samme grepet som i håndstand: å tippe bekkenet bakover mens hofta strekkes.\n\nSTARTSTILLING: bakre kne i gulvet inntil en vegg eller en boks, med leggen opp langs veggen og tærne pekende opp. Pute under kneet. Fremre fot i gulvet foran deg, som i et utfall, med kneet over ankelen. Start med overkroppen lent fram og hendene på fremre kne eller på en blokk. Kjennes det for hardt: flytt bakre kne litt bort fra veggen.\n\nBEVEGELSEN:\n\n1. Tipp bekkenet bakover, som i Posterior pelvic tilt, wall: halebeinet under deg og setet på bakre bein strammet. Bare dette gir ofte mye strekk foran på bakre hofte.\n\n2. Hold tippen, og løft overkroppen langsomt mot loddrett, bare så langt som tippen holder.\n\n3. Hold i 60 sek. Pust rolig, og stram setet litt mer på hver utpust.\n\nDOSE: 2 × 60 sek per side, annenhver side.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bekkenet tipper bakover og holdes der. Korsryggen står stille. Overkroppen reiser seg bare så langt bekkenet tillater.\n\nDET DU SKAL KJENNE: strekk foran på bakre hofte og nedover forsiden av låret.\n\nFEIL Å SE ETTER: korsryggen svaier når du reiser deg. Det er det vanligste for deg. Strekket forsvinner fra hofta og havner i ryggen. Gå tilbake fram og tipp bekkenet på nytt. Ribbeina spretter fram. Setet på bakre bein er slapt — da holder ikke tippen.\n\nHVORFOR IKKE FULL FRONTSPLITT? Det svakeste leddet bestemmer hvor langt du kommer, og korsryggen tar over. Hver del for seg nå, hele splitten som måling.",
+
+"Elevated pancake":
+"BØYDE KNÆR → STRAKERE, CONTRACT–RELAX.\n\nFORMÅL: bøye i hofta med nøytral rygg i straddle. Det er her målingen 2026-10-17 stoppet på 90°, altså at hofta ikke bøyde seg forbi sittende loddrett. Det er også stillingen pressen går gjennom.\n\nSTARTSTILLING: sitt på en forhøyning på 5–15 cm, for eksempel en yogablokk eller en sammenbrettet matte. Når setet er høyere enn føttene, er det lettere å tippe bekkenet fram. Beina bredt, men ikke helt ut. Knærne bøyd og hælene i gulvet. Kneskålene peker opp. Sitt på forkant av sittebeina, og tipp bekkenet fram så korsryggen får sin naturlige svai. Ryggen rett. Valgfritt: kosteskaftet langs ryggen, som i Hip hinge with dowel. Det sier fra når ryggen runder seg.\n\nBEVEGELSEN:\n\n1. Med bøyde knær: fold deg fram fra hofta med rett rygg, og gå med hendene fram i gulvet til du kjenner strekk på ca. 7 / 10.\n\n2. CONTRACT–RELAX: press hælene ned i gulvet i 5 sek, som om du prøver å dra dem mot deg. Slipp, pust ut, og gå litt lenger. Enten går hendene litt lenger fram, eller så skyver du hælene litt ut så knærne blir strakere. Ryggen holdes rett.\n\n3. 3 runder contract–relax, og så hold i 30 sek med rolig pust.\n\nDOSE: 2 sett, ca. 1,5 min per sett.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bekkenet tipper fram rundt hofteleddene, og knærne strekkes gradvis. Ryggen er låst. Når du presser hælene ned, jobber de musklene som strekkes. Når du slipper, gir de etter litt mer. Det er derfor contract–relax virker.\n\nDET DU SKAL KJENNE: strekk i bakside og innside av lårene, ikke i ryggen.\n\nMERK: i Elevated hamstring stretch og Half split låser låret ryggen. Her finnes ingen slik lås, så du må holde ryggen rett selv. Det er derfor skaftet kan være nyttig.\n\nFEIL Å SE ETTER: ryggen runder seg for å komme lenger ned — da er det ryggen som bøyer seg og ikke hofta. Gå tilbake. Kneskålene ruller fram eller bakover. De skal peke opp. Du holder pusten når du presser. Prikking eller nervedrag bak kneet: stopp.",
+
+"Seated straddle leg lifts":
+"FORMÅL: styrke i ytterstillingen. Bevegelighet du ikke kan holde med egen kraft, kan du ikke bruke i en press. Når beina skal samles over hodet i pressen, er det hoftebøyerne som må jobbe i nettopp denne stillingen. De andre øvelsene gir mer rom, og denne lærer deg å bruke det.\n\nSTARTSTILLING: sitt på gulvet, uten forhøyning, med beina i straddle så bredt det går med strake knær. Kneskålene og tærne peker opp. Sitt rett opp, med bekkenet tippet fram og ryggen rett. Hendene i gulvet foran deg, mellom beina. Jo lenger fram hendene står, jo mer må hoftene gjøre jobben.\n\nBEVEGELSEN:\n\n1. Løft begge beina fra gulvet, noen få centimeter er nok. Knærne strake.\n\n2. Hold 1–2 sek, og senk dem kontrollert. Ikke slipp dem ned.\n\n3. Klarer du ikke begge: løft ett bein om gangen, vekselvis.\n\nDOSE: 3 × 8. Med ett bein: 3 × 8 per side. NOTER HVILKEN VARIANT DU KLARTE, OG HVOR HØYT BEINA KOM. Det er utgangspunktet.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bare beina løfter seg. Overkroppen står stille og rett. Hendene er støtte, ikke drivkraft.\n\nDET DU SKAL KJENNE: at det brenner eller krever foran i hofta og øverst på lårene. Krampe foran i hofta er vanlig i starten. Rist den ut og fortsett.\n\nFEIL Å SE ETTER: du lener deg bakover for å få beina opp. Da blir det lettere, men da trener du ikke ytterstillingen. Det er den vanligste juksefeilen. Knærne bøyer seg. Beina ruller så kneskålene peker fram. Ryggen runder seg."
 
 };
 
-const DAYNAME = { man: "Mandag", ons: "Onsdag", tor: "Torsdag", lor: "Lørdag" };
-const DAYMAP = ["man", "ons", "ons", "tor", "tor", "man", "man"]; // man..søn
+const DAYNAME = { egen: "Egenøkt", helg: "Helg", lor: "Lørdag" };
+const DAYMAP = ["egen", "egen", "egen", "egen", "helg", "helg", "helg"]; // man..søn
 const MEASURE_DAYS = ["2026-10-17", "2026-11-14", "2026-12-12"];  // målelørdager — appen åpner på «Måling» disse dagene
 let day = MEASURE_DAYS.includes(iso(new Date())) ? "lor" : DAYMAP[(new Date().getDay() + 6) % 7];
 
@@ -444,12 +422,14 @@ const load = () => { try { return JSON.parse(localStorage.getItem(key())) || {};
 const save = s => { try { localStorage.setItem(key(), JSON.stringify(s)); } catch (e) {} };
 const mmss = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
 const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+/* videolenker i INFO blir klikkbare — åpnes bare ved trykk, appen henter ingenting selv */
+const linkify = t => esc(t).replace(/https:\/\/[^\s<]+/g, u => '<a href="' + u + '" target="_blank" rel="noopener" style="color:#ffb454">' + u + "</a>");
 
 /* teknikkpanel — brukes både fra lista og fra runneren */
 function visInfo(nm) {
   if (!INFO[nm]) return;
   document.getElementById("iTitle").textContent = nm;
-  document.getElementById("iBody").textContent = INFO[nm];
+  document.getElementById("iBody").innerHTML = linkify(INFO[nm]);
   document.getElementById("iBody").scrollTop = 0;
   document.getElementById("info").classList.add("on");
 }
@@ -508,7 +488,7 @@ function render() {
         + '<span class="tg">' + tag + "</span>"
         + (inf ? '<button class="inf" data-inf="' + id + '">ⓘ</button>' : "")
         + "</div>"
-        + (inf ? '<div class="infbox" id="inf-' + id + '">' + esc(inf) + "</div>" : "");
+        + (inf ? '<div class="infbox" id="inf-' + id + '">' + linkify(inf) + "</div>" : "");
     }
     h += "</section>";
   }
@@ -749,7 +729,8 @@ document.getElementById("copy").onclick = async () => {
     for (const [nm] of list) { const id = "e" + (i++); tot++; if (st[id]) { done++; hit.push(nm); } }
     if (hit.length) lines.push("- " + bt + ": " + hit.join(" · "));
   }
-  let txt = "/okt\n\n## " + iso(new Date()) + " — " + DAYNAME[day] + ", " + s.title + " (" + (s.logTag || "testuke høyre skulder") + ")\n"
+  const wd = new Date().toLocaleDateString("no-NO", { weekday: "long" });
+  let txt = "/okt\n\n## " + iso(new Date()) + " — " + wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + s.title + " (" + (s.logTag || "testuke høyre skulder") + ")\n"
     + lines.join("\n") + "\n- Gjennomført: " + done + " av " + tot + " øvelser\n";
   if (s.meas) {
     const m = s.meas
