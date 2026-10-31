@@ -3,88 +3,116 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d0f13">
+<meta name="theme-color" content="#fff8e6">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Mobilitetsuke</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Blokk 2</title>
 <style>
+/* Fargetema fra v17: gult, grønt og oransje i samspill. Varm, myk bunn, ingen svarte rammer.
+   Alle farger samlet her. Endres ett sted. */
+:root{
+  --bg:#fff8e6;          /* kremgul bunn */
+  --card:#fffdf5;
+  --ink:#3a2a12;         /* varm mørkebrun tekst */
+  --soft:#7d6a4b;
+  --line:#f1e2bf;
+  --yellow:#ffcc33;  --yellow-soft:#fff0b3;
+  --orange:#ff8c1a;  --orange-soft:#ffdcb8;
+  --green:#6cc04a;   --green-soft:#dcf2cf;  --green-deep:#3f8f2c;
+  --sun:linear-gradient(100deg,var(--yellow) 0%,var(--orange) 55%,var(--green) 100%);
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;overscroll-behavior:none}
 body{
-  background:#0d0f13;color:#e8eaed;
+  background:var(--bg);color:var(--ink);
   font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   -webkit-text-size-adjust:100%;
 }
 button{font-family:inherit}
+.hl{color:var(--ink);background:var(--yellow);padding:1px 5px;border-radius:5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.lnk{color:var(--green-deep);font-weight:700}
 
 /* ---------- liste ---------- */
 #list{padding-bottom:130px}
-header{position:sticky;top:0;z-index:20;background:#0d0f13;border-bottom:1px solid #232833;padding:env(safe-area-inset-top) 0 0}
+header{position:sticky;top:0;z-index:20;background:var(--bg);box-shadow:0 2px 10px #c9a24a22;padding:env(safe-area-inset-top) 0 0}
+header::before{content:"";display:block;height:6px;background:var(--sun)}
 .wk{padding:10px 16px 8px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.wk b{font-size:15px;color:#ffb454;letter-spacing:.02em}
-.wk span{font-size:12px;color:#8b929e}
-nav{display:flex;gap:6px;padding:0 12px 10px}
-nav button{flex:1;padding:12px 4px;border:1px solid #232833;border-radius:10px;background:#141821;color:#8b929e;font:600 15px/1 inherit}
-nav button.on{background:#ffb454;border-color:#ffb454;color:#0d0f13}
-.banner{margin:12px;padding:12px 14px;border-radius:12px;background:#1b1508;border:1px solid #3d2f10;font-size:14px;line-height:1.45}
-.banner b{color:#ffb454;display:block;margin-bottom:3px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.wk b{font-size:15px;color:var(--orange);letter-spacing:.02em;font-weight:800}
+.wk span{font-size:12px;color:var(--soft)}
+nav{display:flex;gap:6px;padding:0 12px 12px}
+nav button{flex:1;padding:12px 4px;border:none;border-radius:14px;background:var(--yellow-soft);color:var(--ink);font:700 15px/1 inherit}
+nav button.on{background:var(--orange);color:#fff;box-shadow:0 3px 0 #d96f05}
+.banner{margin:12px;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,var(--yellow-soft),var(--orange-soft));color:var(--ink);font-size:14px;line-height:1.45}
+.banner b{color:var(--orange);display:block;margin-bottom:4px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:800}
 main{padding:0 12px}
-section{margin-bottom:14px;background:#141821;border:1px solid #232833;border-radius:14px;overflow:hidden}
-h2{margin:0;padding:13px 15px;font-size:15px;font-weight:700;background:#1a1f29;border-bottom:1px solid #232833;display:flex;justify-content:space-between;align-items:center;gap:8px}
-h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space:nowrap}
-.ex{display:flex;align-items:flex-start;gap:12px;padding:14px 15px;border-bottom:1px solid #1c212b;cursor:pointer}
+section{margin-bottom:16px;background:var(--card);border-radius:18px;overflow:hidden;box-shadow:0 2px 12px #c9a24a26}
+h2{margin:0;padding:13px 16px;font-size:15px;font-weight:800;background:var(--yellow);color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:8px}
+/* blokkene veksler mellom gult, oransje og grønt */
+section:nth-of-type(3n+2) h2{background:var(--orange);color:#fff}
+section:nth-of-type(3n+3) h2{background:var(--green);color:#fff}
+h2 em{font-style:normal;font-size:12px;font-weight:700;opacity:.85;white-space:nowrap}
+.ex{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer}
 .ex:last-child{border-bottom:none}
-.bx{flex:none;width:26px;height:26px;margin-top:1px;border-radius:7px;border:2px solid #39414f;display:grid;place-items:center;font-size:15px;color:transparent;transition:.12s}
-.ex.done .bx{background:#3ddc84;border-color:#3ddc84;color:#0d0f13}
-.ex.done .nm{color:#5d646f;text-decoration:line-through}
+.bx{flex:none;width:28px;height:28px;margin-top:1px;border-radius:50%;border:2.5px solid var(--yellow);display:grid;place-items:center;font-size:15px;font-weight:900;color:transparent;transition:.15s}
+.ex.done .bx{background:var(--green);border-color:var(--green);color:#fff}
+.ex.done .nm{color:#b3a17f;text-decoration:line-through}
 .tx{flex:1;min-width:0}
-.nm{font-size:15.5px;font-weight:600;line-height:1.35}
-.ds{font-size:13.5px;color:#98a0ad;margin-top:3px;line-height:1.45}
-.tg{flex:none;align-self:center;padding:6px 10px;border-radius:8px;background:#232a36;color:#9aa3b0;font:600 12px/1 inherit;white-space:nowrap}
-.inf{flex:none;align-self:center;width:34px;height:34px;border-radius:50%;border:1px solid #333c4b;background:#1a1f29;color:#9aa3b0;font:700 15px/1 inherit}
-.infbox{display:none;padding:0 15px 16px;font-size:14.5px;line-height:1.62;color:#b3bbc8;white-space:pre-line;border-bottom:1px solid #1c212b;background:#11151d}
+.nm{font-size:15.5px;font-weight:700;line-height:1.35}
+.ds{font-size:13.5px;color:var(--soft);margin-top:3px;line-height:1.45}
+.tg{flex:none;align-self:center;padding:6px 10px;border-radius:10px;background:var(--orange-soft);color:var(--ink);font:700 12px/1 inherit;white-space:nowrap}
+.inf{flex:none;align-self:center;width:34px;height:34px;border-radius:50%;border:none;background:var(--green-soft);color:var(--green-deep);font:800 15px/1 inherit}
+.infbox{display:none;padding:12px 16px 16px;font-size:14.5px;line-height:1.62;color:var(--ink);white-space:pre-line;border-bottom:1px solid var(--line);background:#fff6d6}
 .infbox.on{display:block}
-.infbtn{margin-top:10px;padding:9px 14px;border-radius:9px;border:1px solid #333c4b;background:#1a1f29;color:#9aa3b0;font:700 13px/1 inherit}
-#info{display:none;position:fixed;inset:0;z-index:55;background:#0d0f13;padding:env(safe-area-inset-top) 0 0;flex-direction:column}
+.infbtn{margin-top:10px;padding:9px 14px;border-radius:12px;border:none;background:#ffffff55;color:inherit;font:800 13px/1 inherit}
+#info{display:none;position:fixed;inset:0;z-index:55;background:var(--bg);padding:env(safe-area-inset-top) 0 0;flex-direction:column}
 #info.on{display:flex}
-#info h3{margin:0;padding:18px 18px 4px;font-size:21px;font-weight:800;line-height:1.2}
-#info .sub{padding:0 18px 12px;font-size:13px;color:#ffb454;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-#info .body{flex:1;overflow-y:auto;padding:0 18px 20px;font-size:15.5px;line-height:1.68;color:#c3cad6;white-space:pre-line;-webkit-overflow-scrolling:touch}
-#info .cls{margin:0 18px calc(16px + env(safe-area-inset-bottom));padding:16px;border-radius:12px;border:none;background:#232a36;color:#e8eaed;font:700 15px/1 inherit;flex:none}
-.meas{padding:14px 15px;display:flex;flex-direction:column;gap:12px}
-.meas label{font-size:14px;color:#c3cad6;display:flex;flex-direction:column;gap:6px}
-.meas input{padding:13px 14px;border-radius:10px;border:1px solid #333c4b;background:#0d0f13;color:#e8eaed;font:600 17px/1 inherit}
-.meas input::placeholder{color:#4b5563;font-weight:500}
-.measnote{font-size:13px;line-height:1.5;color:#ffb454;background:#1b1508;border:1px solid #3d2f10;border-radius:10px;padding:10px 12px;margin-bottom:2px}
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#11151dee;backdrop-filter:blur(10px);border-top:1px solid #232833;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px}
-.bar button{flex:1;padding:15px 8px;border-radius:11px;border:none;font:700 15px/1 inherit;background:#3ddc84;color:#0d0f13}
-.bar button.sec{background:#232a36;color:#c3cad6;flex:0 0 76px;font-weight:600}
-.bar button.amber{background:#ffb454}
+#info::before{content:"";display:block;height:6px;flex:none;background:var(--sun)}
+#info h3{margin:0;padding:18px 18px 4px;font-size:22px;font-weight:800;line-height:1.2}
+#info .sub{padding:0 18px 12px;font-size:13px;color:var(--orange);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+#info .body{flex:1;overflow-y:auto;padding:0 18px 20px;font-size:15.5px;line-height:1.68;color:var(--ink);white-space:pre-line;-webkit-overflow-scrolling:touch}
+#info .cls{margin:0 18px calc(16px + env(safe-area-inset-bottom));padding:16px;border-radius:14px;border:none;background:var(--green);color:#fff;font:800 15px/1 inherit;flex:none}
+.meas{padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+.meas label{font-size:14px;color:var(--ink);font-weight:600;display:flex;flex-direction:column;gap:6px}
+.meas input{padding:13px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;color:var(--ink);font:700 17px/1 inherit}
+.meas input:focus{outline:none;border-color:var(--orange)}
+.meas input::placeholder{color:#c4b28e;font-weight:500}
+.measnote{font-size:13px;line-height:1.5;color:var(--ink);background:var(--green-soft);border-radius:12px;padding:10px 12px;margin-bottom:2px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff8e6ee;backdrop-filter:blur(10px);box-shadow:0 -2px 10px #c9a24a22;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px}
+.bar button{flex:1;padding:15px 8px;border-radius:14px;border:none;font:800 15px/1 inherit;background:var(--green);color:#fff;box-shadow:0 3px 0 var(--green-deep)}
+.bar button.sec{background:var(--yellow-soft);color:var(--ink);box-shadow:none;flex:0 0 84px;font-weight:700}
+.bar button.amber{background:var(--yellow);color:var(--ink)}
 
 /* ---------- runner ---------- */
-#run{display:none;position:fixed;inset:0;z-index:40;background:#0d0f13;flex-direction:column;padding:env(safe-area-inset-top) 16px calc(12px + env(safe-area-inset-bottom))}
+/* hele skjermen skifter farge med fasen, så den kan leses fra matta:
+   oransje = arbeid · grønn = hvile · gul = klar / starter om */
+#run{display:none;position:fixed;inset:0;z-index:40;background:var(--orange);color:var(--ink);flex-direction:column;padding:env(safe-area-inset-top) 16px calc(12px + env(safe-area-inset-bottom));transition:background .25s}
 #run.on{display:flex}
-.rtop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0 4px;font-size:12px;color:#8b929e;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
-.rtop button{background:none;border:none;color:#8b929e;font:700 13px/1 inherit;padding:8px 2px}
-.rblock{font-size:12.5px;color:#ffb454;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-top:6px}
-.rname{font-size:29px;font-weight:800;line-height:1.15;margin:6px 0 8px}
-.rdesc{font-size:15px;color:#98a0ad;line-height:1.5}
+#run[data-ph="rest"]{background:var(--green)}
+#run[data-ph="ready"]{background:var(--yellow)}
+.rtop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0 4px;font-size:12px;opacity:.75;letter-spacing:.06em;text-transform:uppercase;font-weight:800}
+.rtop button{background:none;border:none;color:inherit;font:800 13px/1 inherit;padding:8px 2px}
+.rblock{font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;opacity:.75}
+.rname{font-size:30px;font-weight:800;line-height:1.15;margin:6px 0 8px}
+.rdesc{font-size:15px;line-height:1.5;opacity:.9}
 .rmid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:0}
-.rphase{font-size:14px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#3ddc84}
-.rphase.rest{color:#60a5fa}
-.rphase.ready{color:#ffb454}
-.rnum.idle{color:#4b5563}
-.rnum{font-size:clamp(76px,26vw,132px);font-weight:800;line-height:.95;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
-.rnum.warn{color:#ffb454}
-.rset{font-size:15px;color:#8b929e;font-weight:600}
-.rnext{font-size:13.5px;color:#6b7280;text-align:center;padding:8px 0 4px;min-height:22px}
-.rprog{height:5px;border-radius:3px;background:#1c212b;overflow:hidden;margin:8px 0 12px}
-.rprog i{display:block;height:100%;background:#3ddc84;width:0;transition:width .3s}
+.rphase{font-size:15px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:6px 16px;border-radius:12px;background:#fff8e6;color:var(--orange)}
+.rphase.rest{color:var(--green-deep)}
+.rphase.ready{color:var(--ink)}
+.rnum{font-size:clamp(80px,28vw,140px);font-weight:800;line-height:.95;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.rnum.idle{opacity:.35}
+.rnum.warn{color:#fff}
+#run[data-ph="ready"] .rnum.warn{color:var(--orange)}
+.rset{font-size:15px;font-weight:800;opacity:.85}
+.rnext{font-size:13.5px;text-align:center;padding:8px 0 4px;min-height:22px;opacity:.8}
+.rprog{height:8px;border-radius:999px;background:#3a2a1222;overflow:hidden;margin:8px 0 12px}
+.rprog i{display:block;height:100%;background:#fff8e6;width:0;transition:width .3s}
+#run[data-ph="ready"] .rprog i{background:var(--orange)}
 .rctl{display:flex;gap:8px}
-.rctl button{flex:1;padding:17px 6px;border-radius:12px;border:1px solid #2a323f;background:#1a1f29;color:#e8eaed;font:700 15px/1 inherit}
-.rctl button.main{background:#3ddc84;border-color:#3ddc84;color:#0d0f13;flex:1.5}
-.rctl button.main.paused{background:#ffb454;border-color:#ffb454}
-#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(14px);background:#3ddc84;color:#0d0f13;padding:12px 20px;border-radius:11px;font:700 14px/1 inherit;opacity:0;transition:.22s;pointer-events:none;z-index:60;max-width:90vw;text-align:center}
+.rctl button{flex:1;padding:17px 6px;border-radius:14px;border:none;background:#ffffff40;color:inherit;font:800 15px/1 inherit}
+.rctl button.main{background:#fff8e6;color:var(--ink);flex:1.5}
+.rctl button.main.paused{background:var(--yellow);color:var(--ink)}
+#run[data-ph="ready"] .rctl button.main{background:var(--green);color:#fff}
+#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(14px);background:var(--green);color:#fff;padding:12px 22px;border-radius:14px;font:800 14px/1 inherit;opacity:0;transition:.22s;pointer-events:none;z-index:60;max-width:90vw;text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
@@ -94,7 +122,9 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
   <header>
     <div class="wk"><b id="wkLabel">—</b><span id="dateLabel">—</span></div>
     <nav>
-      <button data-d="egen">Egenøkt</button>
+      <button data-d="man">Man</button>
+      <button data-d="ons">Ons</button>
+      <button data-d="tor">Tor</button>
       <button data-d="helg">Helg</button>
       <button data-d="lor">Måling</button>
     </nav>
@@ -145,9 +175,9 @@ h2 em{font-style:normal;font-size:12px;font-weight:600;color:#8b929e;white-space
 <script>
 "use strict";
 
-/* ======= mobilitetsuke: 2026-10-26 → 2026-11-01 (før blokk 2) ======= */
-const VERSION = "v13";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
-const BLOCK_START = new Date(2026, 8, 7);
+/* ======= blokk 2: 2026-11-02 → 2026-12-13 ======= */
+const VERSION = "v17";          // vises i toppen — så du ser om telefonen kjører gammel bufret versjon
+const BLOCK_START = new Date(2026, 10, 2);   // 2026-11-02 (måned teller fra 0)
 const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 
 function weekNo() {
@@ -161,57 +191,131 @@ function ladder(w) {
   return { bail: "Åpent gulv, fra fritt oppspark", kick: "Åpent gulv" };
 }
 
-/* øvelse: [navn, beskrivelse, tid]
+/* øvelse: [navn, beskrivelse, tid, fraUke?, tilUke?]
    tid = sekunder  ELLER  [serier, arbeid, hvile] */
+const REGLER = "<strong class='hl'>Stopp-regel: kjenning foran og øverst på høyre skulder — stopp den øvelsen i dag.</strong><br><br>"
+  + "To dårlige forsøk eller sett på rad: avslutt øvelsen. Dosene er tak, ikke «opptil».";
+const KICK = ["Free kick-up to handstand", "1 × 5, åpent gulv. Pust ut i sparket. Noter treff og hvilken side bailen gikk til", 180];
 const HOFTE_HELG = [
   ["Elevated hamstring stretch", "Bøyd kne → strakt, brystet mot låret. 5 dynamiske + 30 sek hold. Annenhver side: H, V, H, V", [4, 60, 10]],
   ["Half split", "Fra bøyd kne, brystet mot fremre lår. 5 dynamiske + 30 sek hold. Annenhver side", [4, 60, 10]],
   ["Couch stretch", "Bekkenet tippet bakover, setet stramt. Reis deg bare så langt tippen holder. Annenhver side", [4, 60, 10]]
 ];
 const S = {
-  egen: {
-    title: "Mobilitet",
-    tag: "MOBILITETSUKE",
-    logTag: "mobilitetsuke",
-    banner: "<b>Mobilitetsuke 26. oktober – 1. november</b>"
-      + "Egenøkt mandag, onsdag og torsdag: 20 min håndstand, resten hofte. Fullt blokk 2-program fra 2026-11-02.<br><br>"
-      + "<strong style='color:#ffb454'>Stopp-regel: kjenning foran og øverst på høyre skulder — stopp den øvelsen i dag.</strong><br><br>"
-      + "Strekk på ca. 7 av 10, i muskelen, aldri i ledd. Prikking eller nervedrag bak kneet: stopp øvelsen.",
+  man: {
+    title: "Håndstand og styrke",
+    banner: "<b>Mandag — heel pulls og styrke</b>"
+      + "20 min håndstand, så trekk før press. Noter reps per sett og reps igjen på siste sett.<br><br>" + REGLER,
     blocks: [
       ["Oppvarming", [
-        ["Wrist circles", "Trepunktskontakt: håndrot, puten der fingrene starter, fingertupper. Mest last på puten. 8 sirkler hver vei", 120],
+        ["Wrist circles", "Trepunktskontakt, mest last på puten der fingrene starter. 8 sirkler hver vei", 120],
+        ["Scapula push-ups", "10 reps. Strake albuer, bare skulderbladene beveger seg", [2, 30, 15]],
+        ["Band pull-aparts", "15 reps. Skuldrene ned, kontrollert tilbake", [2, 30, 15]],
+        ["Inchworm", "Krum ryggen FØR føttene går inn. 4 reps per sett", [2, 45, 15]]
+      ]],
+      ["1 · Håndstand — 20 min", [
+        KICK,
+        ["Handstand heel pulls", "Ryggen mot veggen, håndrot 15–20 cm fra den (mål!). 3 heel pulls per sett, maks 30 sek på hendene. Stopp ved to dårlige sett på rad", [8, 30, 60]]
+      ]],
+      ["2 · Styrke", [
+        ["Strict pull-up", "6 × 2. Aldri til failure. Noter reps igjen på siste sett", [6, 20, 90]],
+        ["Ring support hold", "UKE 3: oppvarming før ring dip-testen. Strake armer, ringene vridd ut", [2, 20, 40], 3, 3],
+        ["Ring dip", "UKE 3: ETT sett, maks strenge reps. Full lockout, ingen kipping. Stopp når en rep ikke er ren", 60, 3, 3],
+        ["Dips", "3 × 3. 3 sek ned, full lockout. Fast stativ", [3, 30, 120]],
+        ["Pike push-up", "UKE 1: 2 × 8. Siste sett minst 2 reps igjen", [2, 40, 60], 1, 1],
+        ["Strict HSPU", "4 × 3 på 10 cm (10 kg skive + abmat). 1 rep igjen per sett. Hodet MÅ berøre abmatten — ellers er settet over", [4, 30, 90], 2]
+      ]]
+    ],
+    measNote: "Skriv rått. Heel pulls: per sett, hvor mange av 3 som fikk hælene fra veggen, og beste hold. Styrke: reps per sett, og hvor mange du hadde igjen på siste sett.",
+    meas: [
+      ["skulder", "Høyre skulder i morges — noe foran og øverst? I ro?", "ingenting"],
+      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabilt / over · bailside", "1 / 2 / 2 · V, V"],
+      ["avstand", "Heel pulls — avstand håndrot–vegg (cm)", "18"],
+      ["heel", "Heel pulls — per sett: fikk hælene fra veggen / beste hold", "2/3 3s · 1/3 2s · …"],
+      ["pull", "Strict pull-up — reps per sett · igjen på siste", "2,2,2,2,2,2 · 2 igjen"],
+      ["dips", "Dips (og ring dip i uke 3) — reps per sett · igjen på siste", "3,3,3 · 2 igjen"],
+      ["press", "Pike push-up / HSPU — reps per sett · igjen · cm", "3,3,3,3 · 1 igjen · 10 cm"],
+      ["rpe", "RPE for økta (1–10)", "7"],
+      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"]
+    ]
+  },
+  ons: {
+    title: "Håndstand, linje og kompresjon",
+    banner: "<b>Onsdag — block-squeeze, linje og kompresjon</b>"
+      + "20 min håndstand, så linjen liggende og kompresjon. Kvalitet foran mengde.<br><br>" + REGLER,
+    blocks: [
+      ["Oppvarming", [
+        ["Wrist circles", "Trepunktskontakt, mest last på puten der fingrene starter. 8 sirkler hver vei", 120],
         ["Thoracic extension over foam roller", "Setet i gulvet, ribbeina ned. 3 reps per plassering, to runder opp ryggen", 120],
-        ["Inchworm", "Krum ryggen FØR føttene går inn. 4 reps per sett. Skuldrene over hendene", [2, 45, 15]],
+        ["Inchworm", "Krum ryggen FØR føttene går inn. 4 reps per sett", [2, 45, 15]],
         ["Bunny hops", "Hoftene OPP over skuldrene, land mellom hendene. Bortover rommet", [2, 40, 30]]
       ]],
       ["1 · Håndstand — 20 min", [
-        ["Free kick-up to handstand", "1 × 5, åpent gulv. Pust ut i sparket. Bare vedlikehold. Stopp ved to dårlige på rad", 180],
-        ["Handstand heel pulls", "Ryggen mot veggen, hendene 15–20 cm fra den (mål!). 3 heel pulls per sett, maks 30 sek på hendene. Stopp ved to dårlige sett på rad", [8, 30, 60]]
+        KICK,
+        ["Block-squeeze kick-up to handstand", "3 forsøk per sett, annenhver side: blokk V, H, V, H … Ryggen mot veggen, mål avstanden. Teller: blokka på plass til du står i linje", [6, 75, 45]]
       ]],
-      ["2 · Hofte", [
-        ["Hip hinge with dowel", "8 reps, 3 sek ned. Bakhode, skulderblad, korsbein mot skaftet hele veien", [2, 40, 20]]
-      ].concat(HOFTE_HELG).concat([
-        ["Elevated pancake", "På 5–15 cm forhøyning, bøyde knær. 3 runder contract–relax (press hælene ned 5 sek, slipp, pust ut, gå lenger) + 30 sek hold", [2, 90, 20]],
-        ["Seated straddle leg lifts", "8 reps, begge bein, strake knær. Klarer du ikke begge: ett om gangen. Ikke len deg bakover", [3, 40, 40]]
-      ])]
+      ["2 · Linje", [
+        ["Prone body line hold on blocks", "Magen ned, blokk over knærne og under albuene, armene strake over hodet. Ribbeina inn", [3, 15, 45]],
+        ["Hollow rock", "10 reps. Ryker formen: gå til hollow hold", [2, 30, 30]],
+        ["Hollow hold", "Korsryggen i gulvet. Senk beina bare så langt den blir liggende", [3, 25, 35]],
+        ["Star side plank", "20 sek, annenhver side: H, V, H, V, H, V. Går ikke stjerna: vanlig side plank på strak arm", [6, 20, 20]]
+      ]],
+      ["3 · Kompresjon og aktiv hofte", [
+        ["Advanced tuck", "Paralletter. Strake armer, rett rygg, lårene vannrett. 10 sek", [3, 10, 50]],
+        ["Seated pike leg lifts", "8 reps. Strake knær, ikke len deg bakover", [3, 40, 40]],
+        ["Seated straddle leg lifts", "8 reps. Ett bein om gangen hvis begge ikke går", [3, 40, 40]]
+      ]]
     ],
-    measNote: "Skriv rått. Heel pulls: per sett, hvor mange av 3 som fikk hælene fra veggen, og beste hold. Kriteriet for når heel pulls sitter, settes etter mandag og onsdag.",
+    measNote: "Skriv rått. Block-squeeze: per sett, side og hvor mange av 3 der blokka ble sittende til du sto i linje.",
     meas: [
       ["skulder", "Høyre skulder i morges — noe foran og øverst? I ro?", "ingenting"],
-      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabilt / for sterk", "2 / 2 / 1"],
-      ["avstand", "Heel pulls — avstand håndrot–vegg (cm)", "18"],
-      ["heel", "Heel pulls — per sett: fikk hælene fra veggen / beste hold", "2/3 3s · 1/3 2s · …"],
-      ["lifts", "Leg lifts — begge bein eller ett? Hvor høyt?", "ett om gangen, 3–5 cm"],
+      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabilt / over · bailside", "1 / 2 / 2 · V, V"],
+      ["avstand", "Block-squeeze — avstand håndrot–vegg (cm)", "30"],
+      ["block", "Block-squeeze — per sett: side, blokka på plass av 3", "V 2/3 · H 1/3 · …"],
+      ["prone", "Prone hold — klarte du 15 sek? Kjentes korsryggen?", "ja / nei"],
+      ["lifts", "Leg lifts — pike og straddle: variant og høyde", "pike begge 3 cm · straddle ett om gangen"],
+      ["rpe", "RPE for økta (1–10)", "6"],
+      ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"]
+    ]
+  },
+  tor: {
+    title: "Slow kick-up og hofte",
+    banner: "<b>Torsdag — slow kick-up, float forward og hofte</b>"
+      + "Den mest uthvilte økta. Slow kick-up neste trinn: 5 / 5 myke ankomster. Float forward neste trinn: 5 / 5.<br><br>" + REGLER
+      + "<br><br>Strekk på ca. 7 av 10, i muskelen, aldri i ledd. Prikking eller nervedrag bak kneet: stopp øvelsen.",
+    blocks: [
+      ["Oppvarming", [
+        ["Wrist circles", "Trepunktskontakt, mest last på puten der fingrene starter. 8 sirkler hver vei", 120],
+        ["Inchworm", "Krum ryggen FØR føttene går inn. 4 reps per sett", [2, 45, 15]],
+        ["Hip hinge with dowel", "8 reps, 3 sek ned. Bakhode, skulderblad, korsbein mot skaftet. Varmer baksiden før slow kick-up", [2, 40, 20]]
+      ]],
+      ["1 · Håndstand — 20 min", [
+        KICK,
+        ["Slow kick-up to handstand", "3 forsøk per sett. Trinn 1: føttene på boks 40–50 cm, ryggen mot veggen i toppen. Teller: myk ankomst, hælen berører veggen uten dunk", [6, 60, 60]],
+        ["Float forward from downward dog", "Ett forsøk per runde. Hoftene opp og skuldrene fram FØR føttene letter. Noter hvor føttene landet", [5, 30, 30]]
+      ]],
+      ["2 · Hofte — 25 min", [].concat(HOFTE_HELG).concat([
+        ["Elevated pancake", "På 5–15 cm forhøyning, bøyde knær. 3 runder contract–relax (press hælene ned 5 sek, slipp, pust ut, gå lenger) + 30 sek hold", [2, 90, 20]],
+        ["Straddle wall sit", "Rumpe og rygg mot veggen, strake knær, kneskål opp. 3 runder contract–relax + hold", [2, 90, 20]]
+      ])]
+    ],
+    measNote: "Skriv rått. Ikke RPE i dag. Slow kick-up: trinn, boksens høyde og myke ankomster per sett. Float forward: hvor føttene landet (utenfor / mellom hendene), og om det dunket.",
+    meas: [
+      ["skulder", "Høyre skulder i morges — noe foran og øverst? I ro?", "ingenting"],
+      ["kick", "Oppspark 1 × 5 — kom ikke opp / stabilt / over · bailside", "1 / 2 / 2 · V, V"],
+      ["slow", "Slow kick-up — trinn · boks (cm) · myke ankomster per sett", "trinn 1 · 45 cm · 2/3, 3/3, …"],
+      ["float", "Float forward — per forsøk: utenfor / mellom · dunk?", "utenfor dunk ×3, mellom dunk ×2"],
+      ["kvalitet", "Falt kvaliteten mot slutten av håndstanddelen?", "nei / fra sett 5"],
       ["hofte", "Hofte — hva var strammest? Kjentes ryggen?", "venstre bakside lår"],
       ["smerte", "Smerte under økta — hvilken øvelse?", "ingen"]
     ]
   },
   helg: {
-    title: "Hofte før WOD",
-    tag: "MOBILITETSUKE",
-    logTag: "mobilitetsuke, hofte før WOD",
-    banner: "<b>Lørdag og søndag — 15 min hofte før WOD</b>"
-      + "Samme hofteøvelser som i egenøkta, kortversjon. Pancake bare ett sett.<br><br>"
+    title: "Hofte",
+    tag: "HELG",
+    logTag: "blokk 2, hofte i helga",
+    banner: "<b>Helg — 15 min hofte når det er tid</b>"
+      + "Samme hofteøvelser som torsdag, kortversjon. Pancake bare ett sett.<br><br>"
       + "Strekk på ca. 7 av 10, i muskelen, aldri i ledd. Prikking eller nervedrag bak kneet: stopp øvelsen.",
     blocks: [
       ["Hofte — 15 min", HOFTE_HELG.concat([
@@ -317,22 +421,22 @@ const INFO = {
 "Ligg på magen med hendene under skuldrene, press overkroppen opp mens hoftene blir i gulvet.\n\nDu har mye ekstensjonsrom i korsryggen — gå derfor ikke ut i ytterstilling her. Press heller brystet fremover og oppover enn å presse hoftene ned. Kjenner du klem i korsryggen, har du gått for langt.\n\nFormål: nedkjøling og motbevegelse etter mye hollow-arbeid. Ikke et bevegelighetsmål i seg selv.",
 
 "Dips":
-"Fast stativ. Start med strake armer og skuldrene presset ned, bort fra ørene.\n\nSenk kontrollert på tre sekunder til overarmene er omtrent vannrette. Press opp til full lockout.\n\nLener du overkroppen litt fremover, treffer du brystet mer. Helt oppreist treffer du triceps.\n\nUKE 1 ER EN TEST: hvor mange strenge repetisjoner klarer du med full lockout? Det tallet avgjør resten av blokka. Tre eller flere: kjør sett. Under tre: kjør negatives — hopp opp i toppposisjon og senk på fem sekunder.\n\nFormål: inngangen til ring dip. Du klarer én på ringer, og det som mangler er stabilitet like mye som styrke. Fast stativ først, ringer siden.",
+"Fast stativ. Start med strake armer og skuldrene presset ned, bort fra ørene.\n\nSenk kontrollert på tre sekunder til overarmene er omtrent vannrette. Press opp til full lockout.\n\nDOSE UKE 1: 3 × 3, hvile 2 min. Siste kjente nivå: testuka 3 × 3, blokk 1 5 × 3.\n\nPROGRESJON: 3 × 3 → 4 × 3 → 4 × 4. Du går videre når siste sett har 2 reps igjen.\n\nUKE 3: Ring dip-retest før dipsene.\n\nNOTER: reps per sett og reps igjen på siste sett.\n\nFormål: inngangen til ring dip, som er målet (5 strenge). Fast stativ bygger pressestyrken, ringene stabiliteten.",
 
 "Strict pull-up":
-"Full heng i bunn med strake armer. Trekk skulderbladene ned først, deretter albuene. Haka over stanga.\n\nIngen kipping, ingen sprett i bunnen.\n\nSubmaksimalt — aldri til failure. Seks sett à to gir tolv rene repetisjoner, og det bygger mer enn to sett kjørt til utmattelse. Du er på 3–5 strenge; veien til 8–10 går gjennom volum, ikke gjennom å kjøre deg tom.\n\nProgresjon gjennom blokka: 6×2 → 6×3 → 5×4.",
+"Full heng i bunn med strake armer. Trekk skulderbladene ned først, deretter albuene. Haka over stanga.\n\nIngen kipping, ingen sprett i bunnen.\n\nDOSE UKE 1: 6 × 2, hvile 90 sek. Aldri til failure.\n\nPROGRESJON: 6 × 2 → 6 × 3 → 5 × 4. Du går videre når siste sett har 2 reps igjen. Det avgjøres ved ukesjekken, ikke midt i økta.\n\nNOTER: reps per sett, og hvor mange du hadde igjen på siste sett. «Gikk greit» er ikke et tall. 6 × 3 ble kjørt med 0 i reserve to ganger i blokk 1.\n\nHVORFOR FØRST: etter 20 min på hendene er skuldrene slitt til pressing, men ikke til trekk. Pull-up er grunnlaget for CrossFit-gymnastikken og etter hvert muscle-up.",
 
 "Strict HSPU":
-"Rygg mot vegg, hendene litt bredere enn skulderbredde. Senk kontrollert til hodet berører underlaget, press opp til full lockout.\n\nIngen kipping med hoftene — det er en annen øvelse.\n\nPROGRESJONEN ER ÉN TING: CENTIMETER. Du står på 10 cm (10 kg skive + abmat, målt 2026-09-23 — tidligere anslått til 7). Når 4 × 5 går rent, fjerner du én centimeter.\n\nDet forutsetter at du fordeler: 3 rene reps i alle fire sett, ikke 4-4-3-2. Med fall gjennom settene når du aldri 4 × 5, og da står centimeteren stille.\n\nNoter alltid cm i loggen. Det er ett av de tre tallene vi følger gjennom blokka, og det er en renere måling enn reps — den forteller hvor nær full bevegelsesbane du er.",
+"FRA UKE 2.\n\nRygg mot vegg, hendene litt bredere enn skulderbredde. 10 kg skive + abmat under hodet: 10 cm deficit (målt 2026-09-23).\n\nSenk kontrollert til hodet berører abmatten, press opp til full lockout. Ingen kipping med hoftene.\n\nFULL DYBDE = HODET BERØRER ABMATTEN. En rep som stopper over, telles ikke, og settet avsluttes. Ingen halve reps.\n\nDOSE: 4 × 3, 1 rep igjen per sett, også på gode dager. Hvile 90 sek.\n\nPROGRESJON: når 4 × 5 går rent med full dybde, fjerner du 1 cm. Den står sist i en økt etter 20 min på hendene, så 4 × 5 er neppe realistisk i denne blokka. Stabilitet på 10 cm er målet.\n\nNOTER: reps per sett, reps igjen, og cm.",
 
 "Box pike push-up":
 "Føttene på en boks, hoftene høyt, kroppen i en omvendt V. Blikket mot gulvet mellom hendene.\n\nSenk til issen nærmer seg gulvet, press opp. Albuene fremover, ikke ut til siden.\n\nHev boksen når det blir lett — jo mer loddrett kroppen står, jo tyngre blir den.\n\nFormålet er volum, ikke progresjon. Denne ligger under deg på stigen: den belaster rundt halve kroppsvekten, mot HSPUs nær-hele. Men 4 × 3 HSPU gir bare tolv repetisjoner i uka i pressmønsteret, og det er for lite til å bygge fra 3 til 5 reps. Denne fyller hullet på lavere belastning.\n\nInn fra uke 3 — ikke uke 1 og 2, der du fortsatt henter deg inn etter ferien.",
 
 "Pike push-up":
-"Føttene i gulvet, hoftene høyt, kroppen i en omvendt V. Gå med hendene så nær føttene at hoftene står over skuldrene så godt det lar seg gjøre. Blikket mot gulvet mellom hendene.\n\nSenk til issen nærmer seg gulvet foran hendene, press opp. Albuene fremover, ikke ut til siden.\n\nTESTUKA: 2 × 8, og siste sett skal ha minst 2 reps igjen. Ingenting til failure. Gjør den vondt i skulderen: stopp øvelsen for i dag.\n\nFormål: holder pressmønsteret i gang mens Strict HSPU er tatt ut av testuka. Lavere belastning enn HSPU, fordi bare deler av kroppsvekten ligger på armene.",
+"BARE UKE 1. Erstattes av Strict HSPU fra uke 2.\n\nFøttene i gulvet, hoftene høyt, kroppen i en omvendt V. Gå med hendene så nær føttene at hoftene står over skuldrene så godt det lar seg gjøre. Blikket mot gulvet mellom hendene.\n\nSenk til issen nærmer seg gulvet foran hendene, press opp. Albuene fremover, ikke ut til siden.\n\nDOSE: 2 × 8. Siste sett skal ha minst 2 reps igjen.\n\nFormål: første uke med pressing over hodet siden 2026-10-21. Lavere belastning enn HSPU, så vi ser hvordan skulderen svarer før HSPU kommer tilbake.",
 
 "Ring support hold":
-"Hold deg oppe på ringene med helt strake armer. Vri ringene utover så håndflatene peker fremover. Skuldrene ned og bort fra ørene, kroppen stram.\n\nRister du — det er normalt i starten, og det er nettopp stabiliseringsarbeidet som er poenget.\n\nIkke hopp over denne. Du klarer én ring dip, og det er ikke ren pressestyrke som mangler: du klarer tross alt HSPU med 10 cm deficit. Det som mangler er evnen til å stabilisere et underlag som beveger seg. Dette er forutsetningen for ring dip.",
+"UKE 3: oppvarming før Ring dip-testen. 2 × 20 sek.\n\nHold deg oppe på ringene med helt strake armer. Vri ringene utover så håndflatene peker fremover. Skuldrene ned og bort fra ørene, kroppen stram.\n\nRister du — det er normalt, og det er nettopp stabiliseringsarbeidet som er poenget.\n\nBeste så langt: 5 × 30 sek (2026-10-14).",
 
 "Tuck compression hold":
 "Sitt på blokker eller paralletter med hendene ved hoftene. Press ned og løft setet fra underlaget, trekk knærne inn mot brystet.\n\nAktivt — du skal dra knærne inn mot deg, ikke bare henge med beina i luften.\n\nFormål: kompresjonsstyrken som straddle pressen bygger på. Den har du allerede mer av enn du tror — du presser crow til headstand, og det krever reell kompresjon. Derfor står den som vedlikehold her.",
@@ -387,10 +491,10 @@ const INFO = {
 "FORMÅL: vektoverføringen fra Float forward from downward dog: hoftene over skuldrene og vekten over i hendene, bare med fart. Hoppene er første trinn. Etter hvert blir hoppet mindre og tiden på hendene lengre, til du flyter fram uten hopp.\n\nSTARTSTILLING: nær Downward dog, men med føttene gått så langt inn at skuldrene står over håndleddene, som i startstillingen for oppsparket. Hoftene høyt, armene strake. Trepunktskontakt i hendene, mest last på puten der fingrene starter. Blikket i gulvet mellom hendene.\n\nBEVEGELSEN:\n\n1. Bøy knærne litt, og hopp med begge bein samtidig. Hoftene skal OPP, ikke fram. Målet er at hoftene kommer over skuldrene i luften.\n\n2. I luften trekker du knærne inn mot brystet, som i en tuck. Et øyeblikk bærer hendene hele vekten.\n\n3. Land mykt på føttene, MELLOM HENDENE.\n\n4. Gå med hendene fram til startstillingen, og gjenta. Slik kommer du deg bortover rommet.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene står stille mens du hopper. Armene er strake hele tiden. Det er hoftene som flytter seg opp og over hendene.\n\nDET DU SKAL KJENNE: at vekten går over i hendene og at fingrene tar imot. Landingen skal være stille.\n\nFEIL Å SE ETTER: du hopper fram og ikke opp — da lander føttene foran der de var, men hoftene har aldri vært over hendene. Albuene bøyer seg i hoppet. Hard landing betyr at du falt ned fra hoppet i stedet for å kontrollere det.",
 
 "Free kick-up to handstand":
-"MOBILITETSUKA: 1 × 5, bare for å holde ved like det du har bygget i blokk 1. Det er ikke trening for å bli bedre denne uka. Fem forsøk, så er det gjort.\n\nOPPSETT: åpent gulv, ingen vegg. Matte der du lander i bailen er valgfritt. Uthvilt, rett etter oppvarmingen.\n\nSTARTSTILLING (fra 2026-10-01): gå med føttene inn til skuldrene står over håndleddene, armene loddrette og hoftene høyt. Trepunktskontakt, mest last på puten der fingrene starter. Starten står stille. Ingen bevegelse bakover og ingen sving. Et forsøk med sving teller ikke.\n\nBEVEGELSEN: pust ut når du sparker opp. Utpusten trekker ribbeina ned og strammer magen, så kroppen er stiv når du kommer opp.\n\nHøyre bein svinger strakt opp. Venstre bein sparker fra gulvet. Hoftene løftes OVER skuldrene, ikke fram. Spark til vertikal. Ikke stopp med vilje på halvveien.\n\nKommer du opp: korriger med fingrene. Går du over: Cartwheel bail, til venstre der det går. Kommer du ikke opp: gå rolig ned igjen.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene og skuldrene står stille. Det er beina som flytter tyngdepunktet opp over hendene.\n\nTELL HVERT FORSØK: kom ikke helt opp / stabilt punkt / for sterk (bail). Skriv for eksempel «2/2/1».\n\nSTOPP-REGLER: to dårlige forsøk på rad (overspark, bail før overbalanse, eller fingrene jobber ikke): stopp der. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+"BLOKK 2: 1 × 5 helt først i alle tre egenøktene. Vedlikehold av porten fra blokk 1, ikke trening for å bli bedre. Fem forsøk, så er det gjort.\n\nOPPSETT: åpent gulv, ingen vegg. Matte der du lander i bailen er valgfritt. Uthvilt, rett etter oppvarmingen.\n\nSTARTSTILLING (fra 2026-10-01): gå med føttene inn til skuldrene står over håndleddene, armene loddrette og hoftene høyt. Trepunktskontakt, mest last på puten der fingrene starter. Starten står stille. Ingen bevegelse bakover og ingen sving. Et forsøk med sving teller ikke.\n\nBEVEGELSEN: pust ut når du sparker opp. Utpusten trekker ribbeina ned og strammer magen, så kroppen er stiv når du kommer opp.\n\nHøyre bein svinger strakt opp. Venstre bein sparker fra gulvet. Hoftene løftes OVER skuldrene, ikke fram. Spark til vertikal. Ikke stopp med vilje på halvveien.\n\nKommer du opp: korriger med fingrene. Går du over: Cartwheel bail, til den siden som kommer naturlig. Kommer du ikke opp: gå rolig ned igjen.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene og skuldrene står stille. Det er beina som flytter tyngdepunktet opp over hendene.\n\nTELL HVERT FORSØK: kom ikke helt opp / stabilt punkt / over (bail). Skriv for eksempel «1 / 2 / 2», og hvilken side bailene gikk til. 2026-10-08 gikk nesten alle til høyre, 2026-10-29 gikk begge til venstre.\n\nSTOPP-REGLER: to dårlige forsøk på rad (overspark, bail før overbalanse, eller fingrene jobber ikke): stopp der. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
 
 "Handstand heel pulls":
-"FORMÅL: lære å bli stående ved å korrigere med fingrene. Veggen tar imot det du ikke redder, så du trenger ingen bail og har ingenting å frykte. Det er også første trinn mot Slow kick-up, der hælen så vidt skal berøre veggen.\n\nOPPSETT: hendene ca. 15–20 cm fra veggen, målt fra håndroten. Jo nærmere veggen, jo mindre må du lene deg, og jo lettere er det å komme fra den. MÅL AVSTANDEN FØRSTE GANG, OG HOLD DEN FAST til øvelsen sitter. Noter den.\n\nOPPSPARK: ryggen mot veggen. Spark opp, pust ut, og la hælene legge seg lett mot veggen. Still deg opp i linje: ribbeina ned, bekkenet tippet bakover, setet stramt og beina samlet. Hele kroppen stiv. Trepunktskontakt, mest last på puten der fingrene starter.\n\nÉN HEEL PULL:\n\n1. Press fingrene ned i gulvet. Trykket flyttes fram i hånda, og hele den stive kroppen vipper litt bort fra veggen. Hælene slipper.\n\n2. Hold balansen så lenge du klarer, og korriger med fingrene. Trykk mer med fingertuppene hvis du er på vei tilbake mot veggen. Slipp litt på fingrene, så trykket går mot håndroten, hvis du er på vei bort fra veggen.\n\n3. Når balansen ryker mot veggen, tar veggen imot. Det er hele poenget. Ryker den bort fra veggen, går du rolig ned.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: kroppen er stiv fra hender til tær og vipper som én enhet rundt håndleddene. Det er trykket i hendene som flytter seg. Hoftene skal IKKE bøye seg.\n\nDOSE: ett sett = spark opp, så 3 heel pulls med hælene tilbake til veggen mellom hver, så ned. Maks 30 sek på hendene per sett. Hvile 60 sek. Klokka gir 8 sett.\n\nNOTER PER SETT: hvor mange av de 3 som fikk hælene fra veggen, og beste hold i sekunder. For eksempel «2/3, 3 sek».\n\nNÅR SITTER DEN? Kriteriet settes etter mandag og onsdag, når vi har tall.\n\nFEIL Å SE ETTER: du bøyer i hofta for å få føttene fra veggen. Da slipper beina, men hoftene lener seg bakover mot veggen, og det er ingen balanse. Det er den vanligste juksefeilen. Hele kroppen skal bort fra veggen, ikke bare føttene. Korsryggen svaier og magen henger. Albuene bøyer seg for å redde balansen.\n\nSTOPP-REGLER: to dårlige sett på rad, der ingen av heel pullene får hælene fra veggen eller formen ryker: stopp øvelsen. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+"MANDAGENS HOVEDØVELSE I BLOKK 2.\n\nFORMÅL: lære å bli stående ved å korrigere med fingrene. Veggen tar imot det du ikke redder, så du trenger ingen bail og har ingenting å frykte. Det er også første trinn mot Slow kick-up, der hælen så vidt skal berøre veggen.\n\nOPPSETT: håndroten ca. 15–20 cm fra veggen. Med ryggen mot veggen peker fingrene bort fra den, så håndroten er det punktet på hånda som er nærmest. Jo nærmere veggen, jo mer loddrett står du, og jo mindre skal til før du faller ut i rommet. 2026-10-29 sto du for nært og falt ofte ut. MÅL AVSTANDEN HVER GANG, OG HOLD DEN FAST til øvelsen sitter. Noter den.\n\nOPPSPARK: ryggen mot veggen. Spark opp, pust ut, og la hælene legge seg lett mot veggen. Still deg opp i linje: ribbeina ned, bekkenet tippet bakover, setet stramt og beina samlet. Hele kroppen stiv. Trepunktskontakt, mest last på puten der fingrene starter.\n\nÉN HEEL PULL:\n\n1. Press fingrene ned i gulvet. Trykket flyttes fram i hånda, og hele den stive kroppen vipper litt bort fra veggen. Hælene slipper.\n\n2. Hold balansen så lenge du klarer, og korriger med fingrene. Trykk mer med fingertuppene hvis du er på vei tilbake mot veggen. Slipp litt på fingrene, så trykket går mot håndroten, hvis du er på vei bort fra veggen.\n\n3. Når balansen ryker mot veggen, tar veggen imot. Det er hele poenget. Ryker den bort fra veggen, går du rolig ned.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: kroppen er stiv fra hender til tær og vipper som én enhet rundt håndleddene. Det er trykket i hendene som flytter seg. Hoftene skal IKKE bøye seg.\n\nDOSE: ett sett = spark opp, så 3 heel pulls med hælene tilbake til veggen mellom hver, så ned. Maks 30 sek på hendene per sett. Hvile 60 sek. Klokka gir 8 sett.\n\nNOTER PER SETT: hvor mange av de 3 som fikk hælene fra veggen, og beste hold i sekunder. For eksempel «2/3, 3 sek». Beste hold så langt: 2 sek (2026-10-29).\n\nNÅR SITTER DEN? Kriteriet settes etter de to første mandagene i blokk 2 (2026-11-02 og 2026-11-09), når vi har tall med riktig avstand.\n\nFEIL Å SE ETTER: du bøyer i hofta for å få føttene fra veggen. Da slipper beina, men hoftene lener seg bakover mot veggen, og det er ingen balanse. Det er den vanligste juksefeilen. Hele kroppen skal bort fra veggen, ikke bare føttene. Korsryggen svaier og magen henger. Albuene bøyer seg for å redde balansen.\n\nSTOPP-REGLER: to dårlige sett på rad, der ingen av heel pullene får hælene fra veggen eller formen ryker: stopp øvelsen. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
 
 "Hip hinge with dowel":
 "VIDEO: https://youtu.be/45DQiwq4oKk\nVIDEO: https://youtu.be/t4ouk4TmrS8\n\nFORMÅL: lære å bøye i hofta mens ryggen står helt stille. Det er grunnferdigheten under alle hofteøvelsene som kommer etter. Korsryggen din tar over så lett at du trenger et redskap som sier fra når den gjør det.\n\nSTARTSTILLING: stå med føttene i hoftebredde og knærne myke, litt bøyd. Knevinkelen holdes lik hele veien. Kosteskaftet langs ryggen. Den ene hånda holder det bak nakken, den andre bak korsryggen.\n\nTRE KONTAKTPUNKTER: bakhodet, mellom skulderbladene og korsbeinet. Det skal være en liten åpning ved korsryggen, omtrent en håndflate. Det er den naturlige svaien.\n\nBEVEGELSEN:\n\n1. Skyv hoftene bakover, som om du skal lukke en bildør med rumpa. Overkroppen tipper fram som en planke rundt hofteleddet.\n\n2. Gå ned langsomt, ca. 3 sek, til du kjenner strekk i bakside lår på ca. 7 / 10, eller til et av kontaktpunktene slipper skaftet. Det som kommer først, avgjør.\n\n3. Kom opp ved å skyve hoftene fram.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bare hofteleddet beveger seg. Ryggen, nakken og knærne står stille. Skaftet viser det: alle tre punktene ligger inntil hele veien, og åpningen ved korsryggen er like stor.\n\nDET DU SKAL KJENNE: strekk i bakside lår, ikke i ryggen.\n\nFEIL Å SE ETTER: korsbeinet slipper skaftet — korsryggen runder seg, og det er nettopp det vi trener bort. Du har gått for langt, snu før det skjer. Åpningen ved korsryggen blir større — du svaier for å komme lenger ned. Bakhodet slipper — nakken bøyer seg. Hold blikket i gulvet ca. 1 m foran deg. Knærne bøyes mer for å komme lenger ned — da blir det en knebøy og ikke en hip hinge.",
@@ -408,12 +512,39 @@ const INFO = {
 "BØYDE KNÆR → STRAKERE, CONTRACT–RELAX.\n\nFORMÅL: bøye i hofta med nøytral rygg i straddle. Det er her målingen 2026-10-17 stoppet på 90°, altså at hofta ikke bøyde seg forbi sittende loddrett. Det er også stillingen pressen går gjennom.\n\nSTARTSTILLING: sitt på en forhøyning på 5–15 cm, for eksempel en yogablokk eller en sammenbrettet matte. Når setet er høyere enn føttene, er det lettere å tippe bekkenet fram. Beina bredt, men ikke helt ut. Knærne bøyd og hælene i gulvet. Kneskålene peker opp. Sitt på forkant av sittebeina, og tipp bekkenet fram så korsryggen får sin naturlige svai. Ryggen rett. Valgfritt: kosteskaftet langs ryggen, som i Hip hinge with dowel. Det sier fra når ryggen runder seg.\n\nBEVEGELSEN:\n\n1. Med bøyde knær: fold deg fram fra hofta med rett rygg, og gå med hendene fram i gulvet til du kjenner strekk på ca. 7 / 10.\n\n2. CONTRACT–RELAX: press hælene ned i gulvet i 5 sek, som om du prøver å dra dem mot deg. Slipp, pust ut, og gå litt lenger. Enten går hendene litt lenger fram, eller så skyver du hælene litt ut så knærne blir strakere. Ryggen holdes rett.\n\n3. 3 runder contract–relax, og så hold i 30 sek med rolig pust.\n\nDOSE: 2 sett, ca. 1,5 min per sett.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bekkenet tipper fram rundt hofteleddene, og knærne strekkes gradvis. Ryggen er låst. Når du presser hælene ned, jobber de musklene som strekkes. Når du slipper, gir de etter litt mer. Det er derfor contract–relax virker.\n\nDET DU SKAL KJENNE: strekk i bakside og innside av lårene, ikke i ryggen.\n\nMERK: i Elevated hamstring stretch og Half split låser låret ryggen. Her finnes ingen slik lås, så du må holde ryggen rett selv. Det er derfor skaftet kan være nyttig.\n\nFEIL Å SE ETTER: ryggen runder seg for å komme lenger ned — da er det ryggen som bøyer seg og ikke hofta. Gå tilbake. Kneskålene ruller fram eller bakover. De skal peke opp. Du holder pusten når du presser. Prikking eller nervedrag bak kneet: stopp.",
 
 "Seated straddle leg lifts":
-"FORMÅL: styrke i ytterstillingen. Bevegelighet du ikke kan holde med egen kraft, kan du ikke bruke i en press. Når beina skal samles over hodet i pressen, er det hoftebøyerne som må jobbe i nettopp denne stillingen. De andre øvelsene gir mer rom, og denne lærer deg å bruke det.\n\nSTARTSTILLING: sitt på gulvet, uten forhøyning, med beina i straddle så bredt det går med strake knær. Kneskålene og tærne peker opp. Sitt rett opp, med bekkenet tippet fram og ryggen rett. Hendene i gulvet foran deg, mellom beina. Jo lenger fram hendene står, jo mer må hoftene gjøre jobben.\n\nBEVEGELSEN:\n\n1. Løft begge beina fra gulvet, noen få centimeter er nok. Knærne strake.\n\n2. Hold 1–2 sek, og senk dem kontrollert. Ikke slipp dem ned.\n\n3. Klarer du ikke begge: løft ett bein om gangen, vekselvis.\n\nDOSE: 3 × 8. Med ett bein: 3 × 8 per side. NOTER HVILKEN VARIANT DU KLARTE, OG HVOR HØYT BEINA KOM. Det er utgangspunktet.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bare beina løfter seg. Overkroppen står stille og rett. Hendene er støtte, ikke drivkraft.\n\nDET DU SKAL KJENNE: at det brenner eller krever foran i hofta og øverst på lårene. Krampe foran i hofta er vanlig i starten. Rist den ut og fortsett.\n\nFEIL Å SE ETTER: du lener deg bakover for å få beina opp. Da blir det lettere, men da trener du ikke ytterstillingen. Det er den vanligste juksefeilen. Knærne bøyer seg. Beina ruller så kneskålene peker fram. Ryggen runder seg."
+"FORMÅL: styrke i ytterstillingen. Bevegelighet du ikke kan holde med egen kraft, kan du ikke bruke i en press. Når beina skal samles over hodet i pressen, er det hoftebøyerne som må jobbe i nettopp denne stillingen. De andre øvelsene gir mer rom, og denne lærer deg å bruke det.\n\nSTARTSTILLING: sitt på gulvet, uten forhøyning, med beina i straddle så bredt det går med strake knær. Kneskålene og tærne peker opp. Sitt rett opp, med bekkenet tippet fram og ryggen rett. Hendene i gulvet foran deg, mellom beina. Jo lenger fram hendene står, jo mer må hoftene gjøre jobben.\n\nBEVEGELSEN:\n\n1. Løft begge beina fra gulvet, noen få centimeter er nok. Knærne strake.\n\n2. Hold 1–2 sek, og senk dem kontrollert. Ikke slipp dem ned.\n\n3. Klarer du ikke begge: løft ett bein om gangen, vekselvis.\n\nDOSE: 3 × 8. Med ett bein: 3 × 8 per side. NOTER HVILKEN VARIANT DU KLARTE, OG HVOR HØYT BEINA KOM. Det er utgangspunktet.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bare beina løfter seg. Overkroppen står stille og rett. Hendene er støtte, ikke drivkraft.\n\nDET DU SKAL KJENNE: at det brenner eller krever foran i hofta og øverst på lårene. Krampe foran i hofta er vanlig i starten. Rist den ut og fortsett.\n\nFEIL Å SE ETTER: du lener deg bakover for å få beina opp. Da blir det lettere, men da trener du ikke ytterstillingen. Det er den vanligste juksefeilen. Knærne bøyer seg. Beina ruller så kneskålene peker fram. Ryggen runder seg.",
+
+"Block-squeeze kick-up to handstand":
+"ONSDAGENS HOVEDØVELSE I BLOKK 2. Fra håndstandkurset (instruktøren Niko, 2026-10-28).\n\nFORMÅL: linjen i oppsparket. Blokka gir deg svar på hvert eneste forsøk: den blir bare sittende så lenge hofta på det beinet er bøyd og bekkenet tippet bakover. Svaier korsryggen, åpner vinkelen mellom lår og mage seg, og blokka faller. Det er bananryggen du får beskjed om. Det korte beinet gir også mindre fart enn to strake bein, så du må løfte hoftene over hendene i stedet for å slenge deg opp.\n\nOPPSETT: ryggen mot veggen, slik at du står med ryggen mot den i toppen. Stå lenger fra veggen enn i heel pulls, slik at balansen ligger hos deg og veggen bare er sikkerhetsnett. MÅL AVSTANDEN FRA HÅNDROTEN TIL VEGGEN FØRSTE GANG, OG HOLD DEN FAST. Yogablokk.\n\nSTARTSTILLING: blokka klemt mellom det ene låret og magen/ribbeina, kneet bøyd. Det andre beinet strakt. Hendene i gulvet, skuldrene over håndleddene, som i startstillingen for det vanlige oppsparket.\n\nBEVEGELSEN:\n\n1. Pust ut. Foten på blokk-beinet skyver fra gulvet, mens hofta på det beinet holdes bøyd og blokka klemt.\n\n2. Det strake beinet svinger opp til vertikal. Hoftene løftes OVER skuldrene før noe annet skjer.\n\n3. Sluttstilling: håndstand med det strake beinet loddrett, blokk-kneet inn mot magen og blokka fortsatt på plass. Ryggen rett, ribbeina inne.\n\n4. Hold litt hvis du kan, og kom rolig ned samme vei. Veggen tar deg hvis du går over.\n\nBEGGE SIDER (instruktørens råd):\n- Blokk på VENSTRE: venstre skyver, høyre svinger. Samme roller som det vanlige oppsparket ditt.\n- Blokk på HØYRE: høyre skyver, venstre svinger. Speilvendt, og det du trenger for å lære oppspark med venstre.\n\nDOSE: ett sett = 3 forsøk på samme side. Annenhver side per sett: V, H, V, H, V, H. 6 sett = 9 per side. Instruktøren sa 15 per bein. Vi starter lavere fordi kvaliteten din har falt etter ca. 20 oppspark før, og øker når kvaliteten holder.\n\nTELLER SOM GODT: blokka er på plass når du står i linje.\n\nDET DU SKAL KJENNE: magen og hofta på blokk-siden jobber for å holde blokka, også når du er oppe.\n\nFEIL Å SE ETTER: blokka faller i det du kommer opp — korsryggen svaier. Du hopper opp med fart i stedet for å flytte hoftene over hendene. Det strake beinet bøyer seg. Albuene bøyer seg.\n\nSTOPP-REGLER: to forsøk på rad der blokka faller eller formen ryker: avslutt settet. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+
+"Slow kick-up to handstand":
+"TORSDAGENS HOVEDØVELSE OG HOVEDMÅL 1 I BLOKK 2.\n\nFORMÅL: komme opp med tyngdepunktet over hendene FØR beina er oppe. Da er det nesten ingen fart når du når balansepunktet, og ingenting å overspark eller bli redd for. Det er også første halvdel av straddle pressen. Neste steg etter denne er pressen mot veggen.\n\nSTIGE:\n1. Føttene på boks (ca. 40–50 cm), ryggen mot veggen i toppen\n2. Lavere boks\n3. Fra gulvet, mot vegg. Hælen skal bare så vidt berøre veggen\n4. Fra gulvet, vegg 60–80 cm bak. Fingrene korrigerer, ingen bail\n5. Åpent gulv, bail som nødutgang\n\nNESTE TRINN: 5 av 5 myke ankomster på samme trinn. Starttrinnet testes i første økt.\n\nOPPSETT, TRINN 1: veggen, så hendene, så boksen. Hendene i gulvet ca. 15–20 cm fra veggen (håndroten), fingrene bort fra veggen. Boksen bak deg, så langt fra hendene at du står i en pike med hoftene høyt og føttene på boksen. Mål og noter både avstand til veggen og boksens høyde.\n\nSTARTSTILLING: pike med føttene på boksen, armene strake, skuldrene over håndleddene, hoftene høyt. Trepunktskontakt.\n\nBEVEGELSEN:\n\n1. Skyv gulvet bort, og la skuldrene lene seg litt fram, forbi håndleddene, i retning boksen. Det er motsatt vei av der beina skal. Skuldrene er motvekten som gjør at hoftene kan stige opp over hendene uten fart.\n\n2. Løft det ene beinet strakt og sakte opp. Det andre beinet gir bare et lett skyv fra boksen, eller ikke noe skyv i det hele tatt.\n\n3. Når hoftene står over hendene, følger det andre beinet etter. Beina samles i toppen.\n\n4. Ankomsten: hælen berører veggen lett, uten dunk. Det er det som teller.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene står stille. Skuldrene lener seg litt fram mot boksen, og hoftene stiger opp over hendene. Beina kommer sist og går mot veggen.\n\nDET DU SKAL KJENNE: at vekten ligger i hendene og fingrene lenge før beina er oppe, og at fremsiden av skulderen jobber i lenet.\n\nKOBLINGEN TIL FRONTSPLITT: fra gulvet (trinn 3 og videre) er dette en frontsplitt. Ståbeinet ligger i hoftebøy med strakt kne, og sparkbeinet i hoftestrekk. Mangler splitten, gir noe annet etter: kneet bøyes, du hopper, eller korsryggen svaier. Derfor starter vi på boks, og derfor er hofteblokka samme dag.\n\nFEIL Å SE ETTER: du sparker med fart i stedet for å flytte hoftene — da er det et vanlig oppspark. Hælen dunker i veggen. Skuldrene lener seg ikke fram, så hoftene aldri kommer over hendene. Albuene bøyer seg.\n\nSTOPP-REGLER: to forsøk på rad med dunk eller hopp: avslutt settet. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen. Lenet belaster nettopp fremsiden av skulderen.",
+
+"Float forward from downward dog":
+"HOVEDMÅL 2 I BLOKK 2. Torsdag, etter slow kick-up.\n\nFORMÅL: vektforskyvningen pressen starter med: hoftene over skuldrene og vekten over i hendene. Du lander på føttene, så det er ingen balanse å holde og ingenting å falle fra.\n\nSTIGE:\n0. Nå: dunk, føttene lander UTENFOR hendene\n1. Føttene mellom hendene, bøyde knær. Dunk er greit\n2. Mellom hendene, og lydløs landing\n3. Tuck-heng: hofta over hendene, kort pause før landing\n4. Med strake bein\n\nNESTE TRINN: 5 av 5. Kommer du ikke fra trinn 0: start med føttene på en lav boks, og senk boksen gradvis.\n\nSTARTSTILLING: Downward dog. Hendene i skulderbredde med trepunktskontakt, armene strake. Hoftene høyt.\n\nBEVEGELSEN:\n\n1. Bøy knærne og kom opp på tærne.\n\n2. Skyv gulvet bort, og la skuldrene lene seg fram over hendene. Samtidig løfter du hoftene OPP, ikke fram.\n\n3. Trekk knærne tett inn mot brystet, som i en tuck. Føttene skal passere gjennom armene.\n\n4. Land mellom hendene, så mykt du kan.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hendene står stille. Skuldrene lener seg fram, hoftene stiger, og knærne trekkes inn. Det er det samme som i Bunny hops, bare at du lander lenger fram.\n\nDIAGNOSEN DIN: dunket betyr at hofta ikke henger over hendene. Føttene utenfor hendene betyr at knærne ikke kommer tett nok inn. Begge deler er kompresjon pluss skuldre lent fram.\n\nDOSE: 5 forsøk, ett per runde, med 30 sek mellom. Noter for hvert forsøk: utenfor eller mellom hendene, og om det dunket.\n\nFEIL Å SE ETTER: du hopper fram i stedet for opp — da lander du, men hoftene har aldri vært over hendene. Armene bøyer seg. Skuldrene står bak hendene.\n\nSTOPP-REGEL: kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+
+"Prone body line hold on blocks":
+"Fra håndstandkurset (instruktøren Niko, 2026-10-28). Utførelsen er avklart med Kjartan 2026-10-28.\n\nFORMÅL: håndstandslinjen liggende. Overkroppen og hofta henger fritt mellom to støttepunkter, og tyngdekraften drar magen ned. Gir du etter, svaier korsryggen, altså bananryggen. Holdet krever magemuskler, bekkenet tippet bakover og ribbeina inne, akkurat som opp ned.\n\nOPPSETT: to yogablokker. Én like over knærne. Én under albuene eller overarmene.\n\nSTARTSTILLING: ligg på magen over blokkene. Armene strake over hodet, som en pil. Blokkene er den eneste kontakten med gulvet.\n\nUTFØRELSE: stram magen, tipp bekkenet bakover, stram setet og trekk ribbeina inn. Hold kroppen rett som en pil. Pust rolig.\n\nDOSE: 3 × 15 sek, hvile 45 sek. Instruktøren: 3 × 10–15 sek.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: ingenting beveger seg. Det er et statisk hold.\n\nDET DU SKAL KJENNE: magen og setet jobber for å holde midten oppe. Skuldrene jobber også, fordi de bærer overkroppen med armene over hodet.\n\nFEIL Å SE ETTER: magen synker mot gulvet — korsryggen svaier. Hodet henger. Armene bøyer seg.\n\nSTOPP-REGEL: skulderen bærer overkroppen i full bøy over hodet. Kjenning foran og øverst på høyre skulder: stopp øvelsen for dagen.",
+
+"Star side plank":
+"FORMÅL: sidestabilitet i midtpartiet og skulderen. Det er den som hindrer at du vipper sidelengs når du står frittstående. Stjerna gjør det tyngre enn vanlig side plank, fordi støtteflaten blir mindre.\n\nSTARTSTILLING: på siden, støttet på strak arm med hånda rett under skulderen. Beina strake og stablet. Løft hoftene til kroppen er rett sett forfra.\n\nUTFØRELSE: løft det øverste beinet og den øverste armen, så kroppen danner en stjerne. Hold.\n\nDOSE: 3 × 20 sek per side, annenhver side. Klokka gir 6 × 20 sek.\n\nENKLERE VARIANT: går ikke stjerna, gjør vanlig side plank på strak arm, med beina samlet.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: hoftene står stille i linje. Bare det øverste beinet og armen løftes.\n\nFEIL Å SE ETTER: hofta synker eller roterer fram. Skulderen på støttearmen synker inn mot øret. Skyv gulvet bort.\n\nSTOPP-REGEL: høyre side bærer på høyre skulder. I testuka var den bare på venstre. Kjenning foran og øverst på høyre skulder: bare venstre side resten av dagen.",
+
+"Advanced tuck":
+"Erstatter Tuck compression hold, som var for lett (2026-09-23). Med knærne mot brystet ble den et skulderhold og ikke kompresjon.\n\nFORMÅL: kompresjon og støttestyrke i en lengre vektarm. Det er kvaliteten float forward og pressen trenger.\n\nOPPSETT: paralletter.\n\nUTFØRELSE: støtt deg opp på strake armer, skuldrene presset ned og bort fra ørene. Løft beina med bøyde knær, men skyv knærne ut foran deg så lårene ligger vannrett. Ryggen rett, ikke rundet. Leggene henger.\n\nDOSE: 3 × 10 sek, hvile 50 sek.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: ingenting. Statisk hold.\n\nDET DU SKAL KJENNE: foran i hofta og i magen. Jo lenger fram knærne er, jo tyngre.\n\nFEIL Å SE ETTER: knærne glir inn mot brystet — da er det den gamle, lette varianten. Ryggen runder seg. Skuldrene synker opp mot ørene.\n\nFOR TUNG: senk lårene litt, eller kortere hold. FOR LETT: strekk det ene beinet.",
+
+"Seated pike leg lifts":
+"FORMÅL: aktiv kompresjon med samlede bein. Det er hoftebøyerne og magen som skal trekke beina mot deg i float forward og i pressen.\n\nSTARTSTILLING: sitt på gulvet med beina samlet og strake. Kneskålene peker opp. Sitt rett opp, med bekkenet tippet fram. Hendene i gulvet ved siden av knærne eller leggene. Jo lenger fram hendene står, jo mer må hoftene gjøre jobben.\n\nBEVEGELSEN:\n\n1. Løft begge beina fra gulvet, noen få centimeter er nok. Knærne strake.\n\n2. Hold 1–2 sek, og senk kontrollert.\n\nDOSE: 3 × 8. Noter hvor høyt beina kom.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: bare beina. Overkroppen står stille og rett.\n\nDET DU SKAL KJENNE: det brenner foran i hofta og øverst på lårene. Krampe er vanlig i starten.\n\nFEIL Å SE ETTER: du lener deg bakover for å få beina opp. Knærne bøyer seg. Ryggen runder seg.",
+
+"Straddle wall sit":
+"NY I BLOKK 2. Torsdag, siste øvelse i hofteblokka.\n\nFORMÅL: innsiden av låret, altså straddlen. Den står på 105° (2026-10-17). Veggen låser bekkenet og ryggen, så det er innsiden av låret som strekkes, ikke korsryggen.\n\nSTARTSTILLING: sitt med rumpe og rygg inntil veggen, som i målingen. Beina i straddle, strake knær, kneskål og tær opp.\n\nBEVEGELSEN:\n\n1. La beina gli ut til ca. 7 / 10 i strekk. Hendene kan hjelpe ved å skyve lårene forsiktig ut.\n\n2. CONTRACT–RELAX: press hælene ned i gulvet og inn mot hverandre i 5 sek, uten at de flytter seg. Slipp, pust ut, og la beina gli litt lenger ut.\n\n3. 3 runder, så hold resten av tiden med rolig pust.\n\nDOSE: 2 × 90 sek.\n\nHVA BEVEGER SEG, HVA STÅR STILLE: rumpe og rygg står mot veggen. Bare beina glir ut.\n\nDET DU SKAL KJENNE: strekk på innsiden av lårene, ikke i knærne og ikke i lysken.\n\nFEIL Å SE ETTER: rumpa slipper veggen. Kneskålene ruller fram. Smerte på innsiden av kneet: gå tilbake.\n\nSØKETIPS: «straddle wall sit» brukes også om å ligge på ryggen med beina opp veggen i straddle. Det er ikke denne. Denne er sittende, som i målingen.",
+
+"Ring dip":
+"UKE 3 (2026-11-16): RETEST. Siste tall er ca. 1 (2026-09-07), satt uten hollow-cue.\n\nOPPVARMING: Ring support hold 2 × 20 sek rett før.\n\nSTARTSTILLING: oppe på ringene med strake armer, ringene inntil kroppen og vridd litt utover. Skuldrene ned og bort fra ørene. Kroppen stram, ribbeina inne.\n\nBEVEGELSEN: senk kontrollert til overarmene er omtrent vannrette. Press opp til full lockout med ringene vridd ut.\n\nTESTEN: ett sett, maks strenge reps. Ingen kipping, ingen sparking. Stopp når en rep ikke blir ren, ikke når du er tom.\n\nFEIL Å SE ETTER: ringene glir ut fra kroppen. Skuldrene ruller fram og opp. Halv dybde.\n\nSTOPP-REGEL: kjenning foran og øverst på høyre skulder: avbryt testen."
 
 };
 
-const DAYNAME = { egen: "Egenøkt", helg: "Helg", lor: "Lørdag" };
-const DAYMAP = ["egen", "egen", "egen", "egen", "helg", "helg", "helg"]; // man..søn
+const DAYNAME = { man: "Mandag", ons: "Onsdag", tor: "Torsdag", helg: "Helg", lor: "Lørdag" };
+const DAYMAP = ["man", "ons", "ons", "tor", "helg", "helg", "helg"]; // man..søn — tirsdag viser onsdagens økt
 const MEASURE_DAYS = ["2026-10-17", "2026-11-14", "2026-12-12"];  // målelørdager — appen åpner på «Måling» disse dagene
 let day = MEASURE_DAYS.includes(iso(new Date())) ? "lor" : DAYMAP[(new Date().getDay() + 6) % 7];
 
@@ -423,7 +554,7 @@ const save = s => { try { localStorage.setItem(key(), JSON.stringify(s)); } catc
 const mmss = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
 const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 /* videolenker i INFO blir klikkbare — åpnes bare ved trykk, appen henter ingenting selv */
-const linkify = t => esc(t).replace(/https:\/\/[^\s<]+/g, u => '<a href="' + u + '" target="_blank" rel="noopener" style="color:#ffb454">' + u + "</a>");
+const linkify = t => esc(t).replace(/https:\/\/[^\s<]+/g, u => '<a href="' + u + '" target="_blank" rel="noopener" class="lnk">' + u + "</a>");
 
 /* teknikkpanel — brukes både fra lista og fra runneren */
 function visInfo(nm) {
@@ -434,13 +565,17 @@ function visInfo(nm) {
   document.getElementById("info").classList.add("on");
 }
 
+/* øvelse vises fra uke ex[3] og til og med uke ex[4] (begge valgfrie) */
+const vis = (ex, w) => (!ex[3] || w >= ex[3]) && (!ex[4] || w <= ex[4]);
+
 /* ---------- bygg stegliste for runner ---------- */
 function buildSteps() {
   const w = weekNo(), L = ladder(w), out = [];
   let i = 0;
   for (const [bt, list] of S[day].blocks) {
-    for (const [nm, ds, t, minWeek] of list) {
-      if (minWeek && w < minWeek) continue;   // øvelse som først starter senere i blokka
+    for (const ex of list) {
+      if (!vis(ex, w)) continue;               // øvelse som bare gjelder enkelte uker
+      const [nm, ds, t] = ex;
       const id = "e" + (i++);
       const d = (ds || "").replace("__BAIL__", L.bail).replace("__KICK__", L.kick);
       if (Array.isArray(t)) {
@@ -461,19 +596,21 @@ function totalSec() { return buildSteps().reduce((a, s) => a + s.sec, 0); }
 /* ---------- liste ---------- */
 function render() {
   const w = weekNo(), L = ladder(w), s = S[day], st = load();
-  document.getElementById("wkLabel").textContent = (s.tag || "TESTUKE") + " · " + s.title.toUpperCase();
+  document.getElementById("wkLabel").textContent = (s.tag || "BLOKK 2 · UKE " + w + "/6") + " · " + s.title.toUpperCase();
   document.getElementById("dateLabel").textContent =
     new Date().toLocaleDateString("no-NO", { weekday: "long", day: "numeric", month: "short" })
     + " · " + mmss(totalSec()) + " · " + VERSION;
   document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.d === day));
+  const ri = resumeIdx(buildSteps(), st);
+  document.getElementById("start").textContent = ri > 0 ? "▶ Fortsett økta" : "▶ Start økt";
 
   document.getElementById("banner").innerHTML = s.banner || "<b>Testuke 19.–25. oktober — høyre skulder</b>"
-    + "<strong style='color:#ffb454'>Stopp-regel: gjør en øvelse vondt i skulderen, stopper du den øvelsen i dag.</strong><br><br>"
+    + "<strong class='hl'>Stopp-regel: gjør en øvelse vondt i skulderen, stopper du den øvelsen i dag.</strong><br><br>"
     + s.note;
 
   let h = "", i = 0;
   for (const [bt, list] of s.blocks) {
-    const shown = list.filter(([, , , minWeek]) => !minWeek || w >= minWeek);
+    const shown = list.filter(ex => vis(ex, w));
     let bs = 0;
     for (const [, , t] of shown) bs += Array.isArray(t) ? t[0] * t[1] + (t[0] - 1) * t[2] : t;
     h += "<section><h2>" + bt + "<em>" + mmss(bs) + "</em></h2>";
@@ -571,10 +708,28 @@ document.addEventListener("visibilitychange", () => {
 /* Enkelte nettlesere krever et brukertrykk før første forespørsel */
 document.addEventListener("click", () => keepAwake(true), { once: true });
 
+/* Hvor økta skal fortsette etter et avbrudd: første øvelse som ikke er krysset av.
+   Er det den samme øvelsen han sto i (lagret i pos), fortsettes det fra serien der,
+   så han slipper å ta settene han alt har gjort. Står pos på en hvile, går vi til
+   neste serie. Ingenting gjenstår: start fra begynnelsen. */
+function resumeIdx(list, st) {
+  const first = list.findIndex(s => !st[s.id]);
+  if (first < 0) return 0;
+  let p = st.pos;
+  if (Number.isInteger(p) && list[p] && list[p].id === st.posId && st.posId === list[first].id) {
+    if (!list[p].work && list[p + 1] && list[p + 1].id === st.posId) p++;
+    return p;
+  }
+  return first;
+}
+/* resume = økta fortsetter etter avbrudd. Første steg venter på Start, som ved øvelsesbytte */
+let resume = false;
+
 function startRun() {
   steps = buildSteps();
   if (!steps.length) return;
-  idx = 0; paused = false;
+  idx = resumeIdx(steps, load()); paused = false;
+  resume = idx > 0;
   unlockAudio();
   const pb = document.getElementById("rPause");
   pb.textContent = "Pause"; pb.classList.remove("paused");
@@ -592,6 +747,8 @@ function stopRun() {
 function enter() {
   const s = steps[idx], prev = steps[idx - 1];
   left = s.sec; lastCue = -1; lead = false;
+  { const st = load(); st.pos = idx; st.posId = s.id; save(st); }   // posisjonen overlever avbrudd og omstart av appen
+  if (resume) { resume = false; ready = true; paint(); return; }
 
   /* Ny øvelse? Da venter vi på at han trykker Start.
      Innenfor en øvelse går seriene automatisk — han skal ikke måtte ta på
@@ -628,7 +785,7 @@ function tick() {
 }
 function next(auto) {
   if (idx >= steps.length - 1) {
-    const st = load(); steps.forEach(s => st[s.id] = true); save(st);
+    const st = load(); steps.forEach(s => st[s.id] = true); delete st.pos; delete st.posId; save(st);
     endAll(); stopRun(); toast("Økt fullført — trykk Logg");
     return;
   }
@@ -646,6 +803,7 @@ function paint() {
   document.getElementById("rDesc").textContent = (ready || s.work) ? (s.ds || "") : "";
 
   const ph = document.getElementById("rPhase");
+  document.getElementById("run").dataset.ph = (ready || lead) ? "ready" : s.work ? "work" : "rest";   // bakgrunnsfargen følger fasen
   const n = document.getElementById("rNum");
   const btn = document.getElementById("rPause");
 
@@ -654,7 +812,9 @@ function paint() {
     ph.className = "rphase ready";
     n.textContent = w >= 60 ? mmss(w) : w;
     n.className = "rnum idle";
-    document.getElementById("rSet").textContent = exSummary(idx);
+    document.getElementById("rSet").textContent = s.sets && s.set > 1
+      ? "fortsetter på serie " + s.set + " av " + s.sets          // gjenopptatt midt i øvelsen
+      : exSummary(idx);
     btn.textContent = "▶ Start øvelsen";
     btn.classList.remove("paused");
   } else if (lead) {
@@ -726,11 +886,11 @@ document.getElementById("copy").onclick = async () => {
   let done = 0, tot = 0, lines = [], i = 0;
   for (const [bt, list] of s.blocks) {
     const hit = [];
-    for (const [nm] of list) { const id = "e" + (i++); tot++; if (st[id]) { done++; hit.push(nm); } }
+    for (const [nm] of list.filter(ex => vis(ex, w))) { const id = "e" + (i++); tot++; if (st[id]) { done++; hit.push(nm); } }
     if (hit.length) lines.push("- " + bt + ": " + hit.join(" · "));
   }
   const wd = new Date().toLocaleDateString("no-NO", { weekday: "long" });
-  let txt = "/okt\n\n## " + iso(new Date()) + " — " + wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + s.title + " (" + (s.logTag || "testuke høyre skulder") + ")\n"
+  let txt = "/okt\n\n## " + iso(new Date()) + " — " + wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + s.title + " (" + (s.logTag || "blokk 2, uke " + w + "/6") + ")\n"
     + lines.join("\n") + "\n- Gjennomført: " + done + " av " + tot + " øvelser\n";
   if (s.meas) {
     const m = s.meas
